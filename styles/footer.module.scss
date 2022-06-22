@@ -615,6 +615,34 @@ span.footer-block-title.social-network-title {
   }
 }
 
+// Tablet or Smaller
+@media only screen and (max-width: calc($BREAKPOINT_LARGE - 1px) ) {
+  
+}
+
+// Larger Desktop
+@media only screen and (min-width: calc($BREAKPOINT_XXLARGE) ) {
+  
+}
+
+// Desktop or Smaller
+@media only screen and (max-width: calc($BREAKPOINT_XXLARGE - 1px) ) {
+  
+}
+
+// Tablet
+@media only screen and (min-width: calc($BREAKPOINT_MEDIUM))  and (max-width: calc($BREAKPOINT_LARGE))  {
+  
+}
+
+// Laptop
+@media only screen and (min-width: calc($BREAKPOINT_LARGE)) and (max-width: calc($BREAKPOINT_XXLARGE - 1px))  {
+  
+}
+
+
+
+
 @media only screen and (max-width: 767px) {
   .js-footer.footer-main {
       div > div > div > a > span {
