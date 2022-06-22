@@ -33,6 +33,12 @@ $secondary-brand-color: #005569;
 $tertiary-brand-color: #83bdcb;
 $quaternary-brand-color: #bfdfe6;
 
+$BREAKPOINT_SMALL: 0px;
+$BREAKPOINT_MEDIUM: 768px;
+$BREAKPOINT_LARGE: 1024px;
+$BREAKPOINT_XLARGE: 1280px;
+$BREAKPOINT_XXLARGE: 1365px;
+
 // UI Kit colors
 $ui-brand-color: #FFFFFF; // dark blue
 
@@ -587,6 +593,28 @@ span.footer-block-title.social-network-title {
   }
 }
 
+.show-on-mobile {
+  display: none;
+}
+
+.show-tablet-or-higher {
+  display: none;
+}
+// Mobile
+
+@media only screen and (max-width: calc($BREAKPOINT_MEDIUM - 1px) ) {
+  .show-on-mobile {
+    display: block;
+  } 
+}
+
+// Tablet or Higher
+@media only screen and (min-width: calc($BREAKPOINT_MEDIUM) ) {
+  .show-tablet-or-higher {
+    display: block;
+  }
+}
+
 @media only screen and (max-width: 767px) {
   .js-footer.footer-main {
       div > div > div > a > span {
@@ -637,8 +665,9 @@ span.footer-block-title.social-network-title {
 
 .subscribe-botton {
   background: $subscibe-button;
-  border-radius: 30px;
-  width: 193px
+  border-radius: 30px !important;
+  width: 193px;
+  height: 56px;
 }
 .subscribe-container {
   margin-top: 24px;
