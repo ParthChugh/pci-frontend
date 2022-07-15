@@ -1,11 +1,11 @@
-import 'styles/globals.css'
+import 'styles/globals.scss'
 import 'styles/bootstrap.css'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import Header from 'components/layout/header'
 import Footer from 'components/layout/footer';
 
 const MyApp = (props) => {
-  const { Component, pageProps, props: { footer } } = props;
+  const { Component, pageProps, props: { footer, header } } = props;
   const theme = createTheme({
     components: {
       // Name of the component ⚛️
@@ -19,7 +19,7 @@ const MyApp = (props) => {
   });
   return (
     <ThemeProvider theme={theme}>
-      <Header />
+      <Header header={header} />
       <Component {...pageProps} />
       <Footer footer={footer} />
     </ThemeProvider>
@@ -28,11 +28,12 @@ const MyApp = (props) => {
 }
 
 MyApp.getInitialProps = async (appContext) => {
-  const response = await fetch(`${process.env.BASE_URL}/api/footer`)
+  const response = await fetch(`${process.env.BASE_URL}/api/page_details`)
   const data = await response.json()
   return {
     props: {
-      footer: data || []
+      footer: data.footer || [],
+      header: data.header
     }, // will be passed to the page component as props
 
   }

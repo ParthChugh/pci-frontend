@@ -2,17 +2,17 @@ import Link from 'next/link'
 import TextField from '@mui/material/TextField';
 import Image from 'next/image'
 import Button from '@mui/material/Button';
-import styles from 'styles/footer.module.scss'
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import styles from 'styles/footer.module.scss'
 
 export default function Footer({ footer }) {
   return (
     <div className={styles["footer-root"]}>
-      <div className={styles["footer-menu-row"]}>
+      <div className={"main-content"}>
         <div className={styles["show-on-mobile"]}>
           <ul className='d-flex flex-column' >
             <li className={`${styles["heading-footer"]} ${styles["margin-heading-main"]}`}>{"Get the latest updates"}</li>
