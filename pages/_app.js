@@ -3,6 +3,7 @@ import 'styles/bootstrap.css'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import Header from 'components/layout/header'
 import Footer from 'components/layout/footer';
+import styles from '../styles/Home.module.css'
 
 const MyApp = (props) => {
   const { Component, pageProps, props: { footer, header } } = props;
@@ -20,7 +21,11 @@ const MyApp = (props) => {
   return (
     <ThemeProvider theme={theme}>
       <Header header={header} />
-      <Component {...pageProps} />
+      <div className={styles.container}>
+        <main className={styles.main}>
+          <Component {...pageProps} />
+        </main>
+      </div>
       <Footer footer={footer} />
     </ThemeProvider>
   )
@@ -28,7 +33,8 @@ const MyApp = (props) => {
 }
 
 MyApp.getInitialProps = async (appContext) => {
-  const response = await fetch(`${process.env.BASE_URL}/api/page_details`)
+  console.log("`${process.env.NEXT_PUBLIC_BASE_URL}/api/page_details`", `${process.env.NEXT_PUBLIC_BASE_URL}/api/page_details`)
+  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/page_details`)
   const data = await response.json()
   return {
     props: {

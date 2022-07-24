@@ -3,24 +3,32 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import { styled, alpha } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import Image from 'next/image'
+import Search from 'components/header/search'
 import MenuIcon from '@mui/icons-material/Menu';
+import ReactDOM from 'react-dom'
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
+import Link from 'next/link'
 import Slide from '@mui/material/Slide';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
-import InputBase from '@mui/material/InputBase';
-import SearchIcon from '@mui/icons-material/Search';
 import styles from 'styles/header.module.scss'
 
-const pages = ['Products', 'Pricing', 'Blog'];
+const pages = [{
+  name: 'Products',
+  href: '/products/'
+}, {
+  name: 'Pricing',
+  href: '/pricing/'
+}, {
+  name: 'Blog',
+  href: '/blog/'
+}];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const ResponsiveAppBar = (props) => {
@@ -57,54 +65,22 @@ const ResponsiveAppBar = (props) => {
     );
   }
 
-  const Search = styled('div')(({ theme }) => ({
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
-    '&:hover': {
-      backgroundColor: alpha(theme.palette.common.white, 0.25),
-    },
-    marginLeft: 0,
-    borderRadius: 24,
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(1),
-      width: 'auto',
-    },
-  }));
-
-  const SearchIconWrapper = styled('div')(({ theme }) => ({
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  }));
-
-  const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: 'inherit',
-    height: '48px',
-    '& .MuiInputBase-input': {
-      padding: theme.spacing(1, 1, 1, 0),
-      // vertical padding + font size from searchIcon
-
-      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-      transition: theme.transitions.create('width'),
-      width: '100%',
-      [theme.breakpoints.up('sm')]: {
-        width: '390px',
-        '&:focus': {
-          width: '410px',
-        },
-      }
-    },
-  }));
+  const classToggle = (isMobile) => {
+    // const element = document.getElementsByClassName('header-search-container')[0]
+    if (isMobile) {
+        // ReactDOM.findDOMNode(element).classList.add('search-suggestion-full')
+        document.getElementById('header-wrapper').classList.add('stop-scroll')
+        document.getElementById('q').focus()
+    } else {
+        // ReactDOM.findDOMNode(element).classList.remove('search-suggestion-full')
+        document.getElementById('header-wrapper').classList.remove('stop-scroll')
+    }
+  }
   return (
     <HideOnScroll {...props}>
-      <AppBar className={styles['header-root']}>
-        <Container className={'main-content'}>
-          <Toolbar disableGutters className={'d-flex justify-content-between'}>
+      <AppBar className={styles['header-root']} id="header-wrapper">
+        <Container className={'main-content'} >
+          <Toolbar disableGutters className={'d-flex justify-content-between'} style={{ flex: 1 }}>
             <div className='d-flex'>
               <div className={`mr-2 ${styles["show-on-tablet-or-higher"]}`}>
                 <Image src="/icons/logo.svg" alt="Vercel Logo" width={48} height={48} />
@@ -121,28 +97,23 @@ const ResponsiveAppBar = (props) => {
                   >
                     {header.name}
                   </Typography>
-                  <Search>
-                    <SearchIconWrapper>
-                      <SearchIcon />
-                    </SearchIconWrapper>
-                    <StyledInputBase
-                      placeholder="I'm searching for…"
-                      inputProps={{ 'aria-label': 'search' }}
-                    />
-                  </Search>
+                  
                 </div>
               </div>
             </div>
+            <Search classToggle={classToggle} />
             <div className='d-flex align-items-center'>
               <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                 {pages.map((page) => (
-                  <Button
-                    key={page}
-                    onClick={handleCloseNavMenu}
-                    sx={{ my: 2, color: 'white', display: 'block' }}
-                  >
-                    {page}
-                  </Button>
+                  <Link href={page.href} passHref>
+                    <Button
+                      key={page}
+                      onClick={handleCloseNavMenu}
+                      sx={{ my: 2, color: 'white', display: 'block' }}
+                    >
+                      {page.name}
+                    </Button>
+                  </Link>
                 ))}
               </Box>
 
@@ -176,7 +147,6 @@ const ResponsiveAppBar = (props) => {
                 </Menu>
               </Box>
             </div>
-
           </Toolbar>
         </Container>
       </AppBar>

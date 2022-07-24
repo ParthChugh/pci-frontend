@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import TextField from '@mui/material/TextField';
 import Image from 'next/image'
+import clsx from 'clsx'
 import Button from '@mui/material/Button';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -69,19 +70,19 @@ export default function Footer({ footer }) {
           <ul className='d-flex flex-column'>
             <li className={`${styles["heading-footer"]} ${styles["margin-heading-main"]}`}>{"Join the community"}</li>
             <div className='d-flex'>
-              <div className='mr-3'>
+              <div className={clsx('mr-3', styles["soical-icons"])}>
                 <Image src="/social/facebook.svg" alt="Facebook" width={64} height={64} />
               </div>
-              <div className='mr-3'>
+              <div className={clsx('mr-3', styles["soical-icons"])}>
                 <Image src="/social/instagram.svg" alt="Instatram" width={64} height={64} />
               </div>
-              <div className='mr-3'>
+              <div className={clsx('mr-3', styles["soical-icons"])}>
                 <Image src="/social/discord.svg" alt="Discord" width={64} height={64} />
               </div>
-              <div className='mr-3'>
+              <div className={clsx('mr-3', styles["soical-icons"])}>
                 <Image src="/social/twitter.svg" alt="Twitter" width={64} height={64} />
               </div>
-              <div className='mr-3'>
+              <div className={clsx('mr-3', styles["soical-icons"])}>
                 <Image src="/social/youtube.svg" alt="Youtube" width={64} height={64} />
               </div>
 

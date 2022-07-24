@@ -1,43 +1,38 @@
 @import "variables.scss";
 
-.header-root {
-  background: linear-gradient(90deg, #16222A 0%, #3A6073 100%);
-  height: $HEADER_HEIGHT;
-  padding: 15px 0 15px !important;
-}
-.show-on-tablet-or-higher {
-  display: flex;
-}
-.logo-heading {
-  font-family: 'Poppins';
-  font-style: normal;
-  font-weight: 600;
-  font-size: 18px;
-  line-height: 27px;
-  color: #FFFFFF;
+.header-dropdown {
+  height: 300px;
+  width: 100%;
+  position: absolute;
+  background-color: white;
+  border: 1px #EEEEEE solid;
 }
 
-.show-on-mobile {
-  display: none;
+.search-button {
+  background: linear-gradient(90deg, #3A6073 0%, #16222A 100%);
+  margin-right: 10px;
+}
+
+.search-bar {
+  display: block;
+}
+
+.stop-scroll {
+  height: 100vh !important;
+  overflow-y: hidden;
 }
 
 // Mobile
 @media only screen and (max-width: calc($BREAKPOINT_MEDIUM - 1px) ) {
-  .header-root {
-    background: linear-gradient(90deg, #16222A 0%, #3A6073 100%);
-    height: $HEADER_HEIGHT_MOBILE;
-  }
-  .show-on-tablet-or-higher {
+  .search-bar {
     display: none;
   }
-  .show-on-mobile {
+  .search-wrapper {
+    flex: 1;
     display: flex;
-  }
-  .header-root {
-    padding: 0px !important;
+    justify-content: flex-start;
   }
 }
-
 
 // Tablet or Higher
 @media only screen and (min-width: calc($BREAKPOINT_MEDIUM) ) {
@@ -46,21 +41,21 @@
 
 // Tablet or Smaller
 @media only screen and (max-width: calc($BREAKPOINT_LARGE - 1px) ) {
-
+  .stop-scroll {
+    height: 100vh !important;
+    overflow-y: hidden;
+    margin: 0;
+  }
 }
 
 // Larger Desktop
 @media only screen and (min-width: calc($BREAKPOINT_XXLARGE) ) {
-  // .header-root {
-  //   padding: 0px 0 15px !important;
-  // }
+
 }
 
 // Larger Desktop and Desktop
 @media only screen and (min-width: calc($BREAKPOINT_XXLARGE) ) {
-  .header-root {
-    padding: 0px !important;
-  }
+ 
 }
 
 // Desktop or Smaller
@@ -70,9 +65,7 @@
 
 // Tablet
 @media only screen and (min-width: calc($BREAKPOINT_XXLARGE))  and (max-width: calc($BREAKPOINT_XXXLARGE))  {
-  .header-root {
-    padding: 15px 0 15px !important;
-  }
+
 }
 
 // Laptop

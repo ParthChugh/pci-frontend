@@ -6,6 +6,7 @@
   display: -webkit-box !important;
   display: -ms-flexbox !important;
   display: flex !important;
+  /* flex: 1 */
 }
 
 

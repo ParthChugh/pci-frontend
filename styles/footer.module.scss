@@ -107,7 +107,9 @@
 .show-tablet-or-higher {
   display: none;
 }
-
+.soical-icons {
+  cursor: pointer;
+}
 // Mobile
 @media only screen and (max-width: calc($BREAKPOINT_MEDIUM - 1px) ) {
   .show-on-mobile {
