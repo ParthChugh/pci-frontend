@@ -16,24 +16,20 @@ export default function Search(props) {
     props.classToggle(false)
   }
   const onClick = (event) => {
-    console.log('asdasd')
+    
   }
   useEffect(() => {
     const handleClickOutsideForHeaderDropdown = (event) => {
-      try {
-        if (event.offsetX <= event.target.clientWidth && !wrapperRef?.current?.contains(event.target)) {
-          setShowSearch('none')
-        }
-      } catch (error) {
-        console.log('asdasdasd')
+      if (event.offsetX <= event.target.clientWidth && !wrapperRef?.current?.contains(event.target)) {
+        setShowSearch('none')
       }
     }
     document.addEventListener('click', handleClickOutsideForHeaderDropdown)
-
     return () => {
       document.removeEventListener('click', handleClickOutsideForHeaderDropdown)
     }
   })
+
   const SearchIconWrapper = styled('div')(({ theme }) => ({
     padding: theme.spacing(0, 2),
     height: '100%',
@@ -50,7 +46,6 @@ export default function Search(props) {
     width: "100%",
     '& .MuiInputBase-input': {
       padding: theme.spacing(1, 1, 1, 0),
-      // vertical padding + font size from searchIcon
       width: '100%',
       paddingLeft: `calc(1em + ${theme.spacing(4)})`,
       transition: theme.transitions.create('width'),
@@ -74,12 +69,6 @@ export default function Search(props) {
 
   const onTextChange = (event) => {
     setSearchText(event.target.value)
-    // if (event.target.value.length > 3) {
-    //   setShowSearch('')
-
-    // } else {
-    //   setShowSearch('none')
-    // }
   }
 
   return (
@@ -89,6 +78,7 @@ export default function Search(props) {
       </SearchIconWrapper>
       <div className={styles["search-bar"]}>
         <StyledInputBase
+          autoFocus={!showSearch}
           placeholder="I'm searching for…"
           inputProps={{ 'aria-label': 'search' }}
           value={searchText}

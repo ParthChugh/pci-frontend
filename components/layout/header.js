@@ -20,14 +20,14 @@ import useScrollTrigger from '@mui/material/useScrollTrigger';
 import styles from 'styles/header.module.scss'
 
 const pages = [{
-  name: 'Products',
-  href: '/products/'
+  name: 'Login',
+  href: '/login/'
 }, {
-  name: 'Pricing',
-  href: '/pricing/'
+  name: 'Sign Up',
+  href: '/register/'
 }, {
-  name: 'Blog',
-  href: '/blog/'
+  name: 'Member Listing Page',
+  href: '/member-page/'
 }];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
@@ -105,9 +105,8 @@ const ResponsiveAppBar = (props) => {
             <div className='d-flex align-items-center'>
               <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                 {pages.map((page) => (
-                  <Link href={page.href} passHref>
+                  <Link href={page.href} key={page}>
                     <Button
-                      key={page}
                       onClick={handleCloseNavMenu}
                       sx={{ my: 2, color: 'white', display: 'block' }}
                     >
@@ -117,7 +116,7 @@ const ResponsiveAppBar = (props) => {
                 ))}
               </Box>
 
-              <Box sx={{ flexGrow: 0 }}>
+              {/* <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
@@ -145,7 +144,7 @@ const ResponsiveAppBar = (props) => {
                     </MenuItem>
                   ))}
                 </Menu>
-              </Box>
+              </Box> */}
             </div>
           </Toolbar>
         </Container>

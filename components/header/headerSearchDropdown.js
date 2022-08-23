@@ -6,6 +6,7 @@ const HeaderSearchDropdown = (props) => {
   const {
     display,
   } = props
+  console.log("display1312321", display)
   return (
     <div ref={props.headerRef}>
       <div
