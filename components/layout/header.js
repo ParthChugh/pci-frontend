@@ -107,14 +107,16 @@ const ResponsiveAppBar = (props) => {
                 </div>
               </div>
             </div>
-            {(header.icons || []).map((page, index) => (
-              <Link href={page.href} key={index}>
-                <a style={{ color: theme.palette.primary.main, fontWeight: 600, fontSize: 16, }} >
-                  {page.name}
-                </a>
+            <div className='d-flex flex-row '>
+              {(header.icons || []).map((page, index) => (
+                <Link href={page.href} key={index}>
+                  <a style={{ color: theme.palette.primary.main, fontWeight: 600, fontSize: 16, marginRight: 10 }} >
+                    {page.name}
+                  </a>
+                </Link>
+              ))}
+            </div>
 
-              </Link>
-            ))}
           </Toolbar>
         </Container>
       </AppBar>

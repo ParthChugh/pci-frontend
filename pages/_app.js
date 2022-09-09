@@ -37,7 +37,7 @@ function MyApp(props) {
       neutralLight: {
         // main_900: '#CED1D9',
         // main_800: "#FCFDFE",
-        // main_700: "#F9FBFD",
+        main_700: "#F9FBFD",
         // main_600: "#F6F8FC",
         main: "#F3F6FB",
         // main_400: "#ECF2F8",
@@ -49,7 +49,7 @@ function MyApp(props) {
         // main_900: '#1C295D',
         // main_800: "#1C295D",
         // main_700: "#0F1632",
-        // main_600: "#010206",
+        main_600: "#010206",
         main: "#010205",
         // main_400: "#010104",
         // main_300: "#000102",

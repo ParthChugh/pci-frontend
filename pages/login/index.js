@@ -1,21 +1,17 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import Tabform from 'components/common/tabform';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import styles from 'styles/header.module.scss'
 
-const theme = createTheme();
 
-export default function SignIn() {
+function SignIn(props) {
+  const { form } = props;
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -26,79 +22,57 @@ export default function SignIn() {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
+    <Container component="main" maxWidth="xs">
+      <Box
+        sx={{
+          marginTop: 8,
+          display: 'flex',
+          flexDirection: 'column',
 
-          }}
-        >
-          <Typography component="h1" variant="h5" className={styles['page-heading']}>
-            Masuk
-          </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }} style={{ marginTop: 10 }}>
-            <label className={styles["label-login"]}>Email</label>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Enter your email address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-              variant="filled"
-            />
-            <div style={{ marginTop: 10 }}>
-              <label className={styles["label-login"]}>Password</label>
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Enter your password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                variant="filled"
+        }}
+      >
+        <Typography component="h1" variant="h5" className={styles['page-heading']}>
+          Masuk
+        </Typography>
+        <Tabform
+          form={form.form}
+          buttonText={form.button}
+          handleSubmit={handleSubmit}
+          preButton={<Grid container alignItems="center">
+            <Grid item xs>
+              <FormControlLabel
+                control={<Checkbox value="remember" color={"secondary"} />}
+                label="Ingat saya"
               />
-            </div>
-            <Grid container alignItems="center">
-              <Grid item xs>
-                <FormControlLabel
-                  control={<Checkbox value="remember" color="primary" />}
-                  label="Remember me"
-                />
-              </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
             </Grid>
+            <Grid item>
+              <Link href="/reset-password/" variant="body2">
+                Lupa password?
+              </Link>
+            </Grid>
+          </Grid>}
+          postButton={<Grid container justifyContent="flex-end">
+            <Grid item>
+              <Link href="/register/" variant="body2">
+                {"Don't have an account? Sign Up"}
+              </Link>
+            </Grid>
+          </Grid>}
+        />
+      </Box>
+    </Container>
 
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign In
-            </Button>
-            <Grid container>
-              <Grid item>
-                <Link href="/register" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
-          </Box>
-        </Box>
-      </Container>
-    </ThemeProvider>
   );
 }
+export async function getServerSideProps(context) {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/login`)
+  const data = await response.json()
+  console.log("data12321", data)
+  return {
+    props: {
+      form: data || [],
+    }, // will be passed to the page component as props
+
+  }
+}
+export default SignIn

@@ -14,6 +14,7 @@ export default function handler(req, res) {
             autoComplete: "given-name",
             label: "Nama",
             fullWidth: true,
+            type: "input"
           },
           "1": {
             name: "Email",
@@ -21,7 +22,8 @@ export default function handler(req, res) {
             autoComplete: "email",
             fullWidth: true,
             id: "email",
-            label: "Email"
+            label: "Email",
+            type: "input"
           },
           "2": {
             name: "No. Telepon",
@@ -30,6 +32,7 @@ export default function handler(req, res) {
             autoComplete: "given-name",
             label: "No. Telepon",
             fullWidth: true,
+            type: "input"
           },
           "3": {
             name: "Password",
@@ -38,7 +41,7 @@ export default function handler(req, res) {
             id: "password",
             label: "Password",
             fullWidth: true,
-
+            type: "input"
           },
           "4": {
             name: "Kode Sales",
@@ -46,6 +49,7 @@ export default function handler(req, res) {
             id: "kode_sales",
             label: "Kode Sales",
             fullWidth: true,
+            type: "input"
           }
         }
       },
@@ -59,13 +63,15 @@ export default function handler(req, res) {
             id: "nama_perusahaan",
             label: "Nama Perusahaan",
             fullWidth: true,
+            type: "input"
           },
           "1": {
             name: "Nama PIC",
             required: true,
             id: "nama_pic",
             label: "Nama PIC",
-            fullWidth: true
+            fullWidth: true,
+            type: "input"
           },
           "2": {
             name: "Jenis Pengguna",
@@ -73,6 +79,7 @@ export default function handler(req, res) {
             id: "jenis_pengguna",
             label: "Jenis Pengguna",
             fullWidth: true,
+            type: "input"
           },
           "3": {
             name: "No. Telepon",
@@ -80,6 +87,7 @@ export default function handler(req, res) {
             id: "telepon",
             label: "No. Telepon",
             fullWidth: true,
+            type: "input"
           },
           "4": {
             name: "Password",
@@ -88,6 +96,7 @@ export default function handler(req, res) {
             id: "password",
             label: "Password",
             fullWidth: true,
+            type: "input"
           },
           "5": {
             name: "Kode Sales",
@@ -95,6 +104,7 @@ export default function handler(req, res) {
             id: "kode_sales",
             label: "Kode Sales",
             fullWidth: true,
+            type: "input"
           }
         }
       }

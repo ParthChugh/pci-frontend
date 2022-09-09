@@ -113,8 +113,12 @@ export default function handler(req, res) {
       "icons": [
         {
           "name": "Masuk",
-          "href": "/login"
-        }
+          "href": "/login",
+        },
+        // {
+        //   "name": "Daftar",
+        //   "href": "/register"
+        // }
       ]
     }
   })

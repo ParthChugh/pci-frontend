@@ -29,7 +29,34 @@
   font-style: normal;
   font-weight: 600;
   font-size: 14px;
-  margin-top: 10px;
+}
+.label-sub-heading-1 {
+  font-family: $DEFAULT_FONT_FAMILTY;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 30px;
+  // margin-bottom: 8px;
+  margin-top: 16px;
+}
+.label-sub-heading-2 {
+  font-family: $DEFAULT_FONT_FAMILTY;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 30px;
+  color: $NEUTRAL_DARK_COLOR_600;
+  margin-bottom: 16px;
+}
+.inputStyle {
+  min-width: 46px;
+  height: 46px;
+  margin-right: 10px;
+  font-size: 14px;
+  border: 1px solid white;
+  border-radius: 8px;
+  font-weight: 700;
+  background-color: $NEUTRAL_LIGHT_COLOR_700;
 }
 .page-sub-heading {
   font-family: $DEFAULT_FONT_FAMILTY;

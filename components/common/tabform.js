@@ -1,31 +1,34 @@
 
-import styles from 'styles/Home.module.css'
+import styles from 'styles/header.module.scss'
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
+import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 
-
-export default function TabForm({ form, buttonText, handleSubmit }) {
+export default function TabForm(props) {
+  const { form, buttonText, handleSubmit, preButton = <div />, postButton = <div /> } = props;
   const formFields = Object.values(form)
-  console.log("formFields123213", formFields)
+  const theme = useTheme();
   return (
     <div className={styles.container}>
-      <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+      <Box component="form" validate onSubmit={handleSubmit} sx={{ mt: 3 }}>
         <Grid container spacing={2}>
           {formFields.map((field, index) => {
-            console.log('field12312', field)
             return (
               <Grid item xs={12} key={index}>
+                <label className={styles["label-login"]}>{`${field.label}${field.required && "*"}`}</label>
                 <TextField
                   {...field}
-                  autoFocus={index===0}
+                  label={""}
+                  autoFocus={index === 0}
+                  style={{ marginTop: 10, backgroundColor: theme.palette.neutralLight.main_700 }}
                 />
               </Grid>
             )
           })}
         </Grid>
+        {preButton}
         <Button
           type="submit"
           fullWidth
@@ -34,13 +37,7 @@ export default function TabForm({ form, buttonText, handleSubmit }) {
         >
           {buttonText}
         </Button>
-        <Grid container justifyContent="flex-end">
-          <Grid item>
-            <Link href="/login" variant="body2">
-              Already have an account? Sign in
-            </Link>
-          </Grid>
-        </Grid>
+        {postButton}
       </Box>
     </div>
   )
