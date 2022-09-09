@@ -109,47 +109,13 @@ export default function handler(req, res) {
     ],
     header: {
       "logo": "https://cdn-icons-png.flaticon.com/512/1336/1336498.png",
-      "name": "Open Throne",
-      "header_types": {
-        "texts": [
-          {
-            "name": "Resources",
-            "isDropdown": true,
-            "types": [
-              {
-                "name": "Help Center",
-                "icon": "https://cdn-icons-png.flaticon.com/512/1336/1336498.png",
-                "href": "/help/center/",
-                "tooltip": "Help Center"
-              },
-              {
-                "name": "Platform Status",
-                "icon": "https://cdn-icons-png.flaticon.com/512/1336/1336498.png",
-                "href": "/help/platform-status/",
-                "tooltip": "Platform Status"
-              }
-            ]
-          },
-          {
-            "name": "Explore",
-            "href": "products/"
-          }
-        ],
-        "icons": [
-          {
-            "name": "Profile",
-            "href": "profile/",
-            "tooltip": "Profile check",
-            "icon": "https://cdn-icons-png.flaticon.com/512/1336/1336498.png"
-          },
-          {
-            "name": "Wallet",
-            "href": "walltet/",
-            "tooltip": "Wallet",
-            "icon": "https://cdn-icons-png.flaticon.com/512/1336/1336498.png"
-          }
-        ]
-      }
+      "name": "",
+      "icons": [
+        {
+          "name": "Masuk",
+          "href": "/login"
+        }
+      ]
     }
   })
 }

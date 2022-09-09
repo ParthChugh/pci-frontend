@@ -3,13 +3,66 @@ import 'styles/bootstrap.css'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import Header from 'components/layout/header'
 import Footer from 'components/layout/footer';
-import styles from '../styles/Home.module.css'
+import styles from 'styles/Home.module.css'
 
-const MyApp = (props) => {
-  const { Component, pageProps, props: { footer, header } } = props;
+
+function MyApp(props) {
+  const { Component, pageProps } = props;
+  console.log('props123213', props)
+
   const theme = createTheme({
+    palette: {
+      primary: {
+        // main_900: '#620F0F',
+        // main_800: "#8D1717",
+        // main_700: "#B91E1E",
+        // main_600: "#E52525",
+        main: "#EA5151",
+        // main_400: "#EF7C7C",
+        // main_300: "#F5A8A8",
+        // main_200: "#F7BEBE",
+        // main_100: "#FAD3D3",
+      },
+      secondary: {
+        // main_900: '#665300',
+        // main_800: "#997C00",
+        // main_700: "#CCA600",
+        main_600: "#FFCF00",
+        main: "#FFD933",
+        // main_400: "#FFE266",
+        // main_300: "#FFEC99",
+        // main_200: "#FFF1B2",
+        // main_100: "#EBFCD0",
+      },
+      neutralLight: {
+        // main_900: '#CED1D9',
+        // main_800: "#FCFDFE",
+        // main_700: "#F9FBFD",
+        // main_600: "#F6F8FC",
+        main: "#F3F6FB",
+        // main_400: "#ECF2F8",
+        // main_300: "#E6EDF6",
+        // main_200: "#BCCBDD",
+        // main_100: "#98ADC5",
+      },
+      neutralDark: {
+        // main_900: '#1C295D',
+        // main_800: "#1C295D",
+        // main_700: "#0F1632",
+        // main_600: "#010206",
+        main: "#010205",
+        // main_400: "#010104",
+        // main_300: "#000102",
+        // main_200: "#000001",
+        // main_100: "#000000",
+      }
+    },
     components: {
       // Name of the component ⚛️
+      typography: {
+        fontFamily: 'Montserrat',
+      },
+
       MuiButtonBase: {
         defaultProps: {
           // The props to apply
@@ -18,188 +71,30 @@ const MyApp = (props) => {
       },
     },
   });
+  console.log('props123213', props)
   return (
     <ThemeProvider theme={theme}>
-      <Header header={header} />
+      <Header header={props?.props?.header || {}} />
       <div className={styles.container}>
         <main className={styles.main}>
           <Component {...pageProps} />
         </main>
       </div>
-      <Footer footer={footer} />
+      <Footer footer={props?.props?.footer || []} />
     </ThemeProvider>
-  )
-
+  );
 }
 
-MyApp.getInitialProps = async (appContext) => {
-  console.log("`${process.env.NEXT_PUBLIC_BASE_URL}/api/page_details`", `${process.env.NEXT_PUBLIC_BASE_URL}/api/page_details`)
-  try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/page_details`)
-    const data = await response.json()
-    return {
-      props: {
-        footer: data.footer || [],
-        header: data.header
-      }, // will be passed to the page component as props
 
-    }
-  } catch (error) {
-    return {
-      props: {
-        footer: [
-          {
-            title: "Market Place",
-            items: [
-              {
-                title: "All NFts",
-                href: "/search?q=nfts"
-              },
-              {
-                title: "Art",
-                href: "/search?q=art"
-              },
-              {
-                title: "Collectibles",
-                href: "/search?q=collectibles"
-              },
-              {
-                title: "Domain Names",
-                href: "/search?q=domain+names"
-              },
-              {
-                title: "Music",
-                href: "/search?q=music",
-              },
-              {
-                title: "Photogrpahy",
-                href: "/search?q=photogrpahy",
-              },
-              {
-                title: "Virtual Cards",
-                href: "/search?q=virtual+cards",
-              },
-              {
-                title: "Trading Cards",
-                href: "/search?q=trading+cards",
-              },
-              {
-                title: "Utilities",
-                href: "/search?q=utilities",
-              }
-            ]
-          },
-          {
-            title: "My Account",
-            items: [
-              {
-                title: "Profile",
-                href: "/profile"
-              },
-              {
-                title: "My Favorurites",
-                href: "/my+favorurites"
-              },
-              {
-                title: "My Collection",
-                href: "/my+collection"
-              },
-              {
-                title: "Settings",
-                href: "/settings"
-              }
-            ]
-          },
-          {
-            title: "Resources",
-            items: [
-              {
-                title: "Help Center",
-                href: "/help"
-              },
-              {
-                title: "Platform Status",
-                href: "/help/platform-status"
-              },
-              {
-                title: "Gas-Free Marketplace",
-                href: "/help/gas-free-Marketplace"
-              },
-              {
-                title: "Blog",
-                href: "/help/blog"
-              },
-              {
-                title: "Docs",
-                href: "/help/docs"
-              },
-              {
-                title: "Newsletter",
-                href: "/help/newsletter"
-              },
-            ]
-          },
-          {
-            title: "Company",
-            items: [
-              {
-                title: "About",
-                href: "/help/about"
-              },
-              {
-                title: "Careers",
-                href: "/help/careers"
-              },
-            ]
-          }
-        ],
-        header: {
-          "logo": "https://cdn-icons-png.flaticon.com/512/1336/1336498.png",
-          "name": "Open Throne",
-          "header_types": {
-            "texts": [
-              {
-                "name": "Resources",
-                "isDropdown": true,
-                "types": [
-                  {
-                    "name": "Help Center",
-                    "icon": "https://cdn-icons-png.flaticon.com/512/1336/1336498.png",
-                    "href": "/help/center/",
-                    "tooltip": "Help Center"
-                  },
-                  {
-                    "name": "Platform Status",
-                    "icon": "https://cdn-icons-png.flaticon.com/512/1336/1336498.png",
-                    "href": "/help/platform-status/",
-                    "tooltip": "Platform Status"
-                  }
-                ]
-              },
-              {
-                "name": "Explore",
-                "href": "products/"
-              }
-            ],
-            "icons": [
-              {
-                "name": "Profile",
-                "href": "profile/",
-                "tooltip": "Profile check",
-                "icon": "https://cdn-icons-png.flaticon.com/512/1336/1336498.png"
-              },
-              {
-                "name": "Wallet",
-                "href": "walltet/",
-                "tooltip": "Wallet",
-                "icon": "https://cdn-icons-png.flaticon.com/512/1336/1336498.png"
-              }
-            ]
-          }
-        }
-      }, // will be passed to the page component as props
-    }
+MyApp.getInitialProps = async ({ locale }) => {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/page_details`)
+  const data = await response.json()
+  return {
+    props: {
+      footer: data.footer || [],
+      header: data.header
+    }, // will be passed to the page component as props
+
   }
-
 }
 export default MyApp

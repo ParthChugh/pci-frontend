@@ -37,7 +37,7 @@
   margin-bottom: 5px;
   font-size: 14px;
   list-style-type: none;
-  font-family: Poppins, tahoma, Arial, sans-serif;
+  font-family: $DEFAULT_FONT_FAMILTY;
   font-weight: 300;
   color: white;
   a  {
@@ -55,7 +55,7 @@
   line-height: 22px;
   font-size: 16px;
   list-style-type: none;
-  font-family: Poppins, tahoma, Arial, sans-serif;
+  font-family: $DEFAULT_FONT_FAMILTY;
   font-weight: 500;
   color: white;
   a  {
@@ -164,7 +164,7 @@
 }
 
 .heading-footer {
-  font-family: Poppins, tahoma, Arial, sans-serif;
+  font-family: $DEFAULT_FONT_FAMILTY;
   font-style: normal;
   font-weight: 600;
   font-size: 24px;
@@ -179,7 +179,7 @@
 
 .subscribe-container input {
   &::placeholder {
-    font-family: Poppins, tahoma, Arial, sans-serif;
+    font-family: $DEFAULT_FONT_FAMILTY;
     padding-left: 10px;
   }
 }
@@ -196,7 +196,7 @@
 }
 
 .sub-heading-footer {
-  font-family: 'Poppins';
+  font-family: $DEFAULT_FONT_FAMILTY;
   font-style: normal;
   font-weight: 400;
   font-size: 18px;

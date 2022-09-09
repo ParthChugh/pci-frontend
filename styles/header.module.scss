@@ -1,15 +1,15 @@
 @import "variables.scss";
 
 .header-root {
-  background: linear-gradient(90deg, #16222A 0%, #3A6073 100%);
+  background: white;
   height: $HEADER_HEIGHT;
-  padding: 15px 0 15px !important;
+  // padding: 15px 0 15px !important;
 }
 .show-on-tablet-or-higher {
   display: flex;
 }
 .logo-heading {
-  font-family: 'Poppins';
+  font-family: $DEFAULT_FONT_FAMILTY;
   font-style: normal;
   font-weight: 600;
   font-size: 18px;
@@ -20,11 +20,33 @@
 .show-on-mobile {
   display: none;
 }
+.icon-heading a {
+  color: $PIMARY_COLOR_600
+}
 
+.label-login {
+  font-family: $DEFAULT_FONT_FAMILTY;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  margin-top: 10px;
+}
+.page-heading {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  /* identical to box height, or 125% */
+
+
+  color: rgba(1, 2, 6, 0.4);
+
+}
 // Mobile
 @media only screen and (max-width: calc($BREAKPOINT_MEDIUM - 1px) ) {
   .header-root {
-    background: linear-gradient(90deg, #16222A 0%, #3A6073 100%);
+    background: white;
     height: $HEADER_HEIGHT_MOBILE;
   }
   .show-on-tablet-or-higher {
@@ -51,16 +73,12 @@
 
 // Larger Desktop
 @media only screen and (min-width: calc($BREAKPOINT_XXLARGE) ) {
-  // .header-root {
-  //   padding: 0px 0 15px !important;
-  // }
+  
 }
 
 // Larger Desktop and Desktop
 @media only screen and (min-width: calc($BREAKPOINT_XXLARGE) ) {
-  .header-root {
-    padding: 0px !important;
-  }
+  
 }
 
 // Desktop or Smaller
@@ -70,9 +88,7 @@
 
 // Tablet
 @media only screen and (min-width: calc($BREAKPOINT_XXLARGE))  and (max-width: calc($BREAKPOINT_XXXLARGE))  {
-  .header-root {
-    padding: 15px 0 15px !important;
-  }
+  
 }
 
 // Laptop

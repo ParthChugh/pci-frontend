@@ -18,6 +18,7 @@ import Link from 'next/link'
 import Slide from '@mui/material/Slide';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
 import styles from 'styles/header.module.scss'
+import { useTheme } from '@mui/material/styles';
 
 const pages = [{
   name: 'Login',
@@ -33,6 +34,7 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const ResponsiveAppBar = (props) => {
   const { header } = props;
+  const theme = useTheme();
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
 
@@ -68,23 +70,27 @@ const ResponsiveAppBar = (props) => {
   const classToggle = (isMobile) => {
     // const element = document.getElementsByClassName('header-search-container')[0]
     if (isMobile) {
-        // ReactDOM.findDOMNode(element).classList.add('search-suggestion-full')
-        document.getElementById('header-wrapper').classList.add('stop-scroll')
-        document.getElementById('q').focus()
+      // ReactDOM.findDOMNode(element).classList.add('search-suggestion-full')
+      document.getElementById('header-wrapper').classList.add('stop-scroll')
+      document.getElementById('q').focus()
     } else {
-        // ReactDOM.findDOMNode(element).classList.remove('search-suggestion-full')
-        document.getElementById('header-wrapper').classList.remove('stop-scroll')
+      // ReactDOM.findDOMNode(element).classList.remove('search-suggestion-full')
+      document.getElementById('header-wrapper').classList.remove('stop-scroll')
     }
   }
+
   return (
     <HideOnScroll {...props}>
       <AppBar className={styles['header-root']} id="header-wrapper">
         <Container className={'main-content'} >
           <Toolbar disableGutters className={'d-flex justify-content-between'} style={{ flex: 1 }}>
             <div className='d-flex'>
-              <div className={`mr-2 ${styles["show-on-tablet-or-higher"]}`}>
-                <Image src="/icons/logo.svg" alt="Vercel Logo" width={48} height={48} />
+              <div className={`mr-2`}>
+                <Link href={'/'}>
+                  <Image src="/icons/logo.svg" alt="Vercel Logo" width={48} height={48} style={{ cursor: 'pointer' }} />
+                </Link>
               </div>
+
               <div className={`${styles['show-on-tablet-or-higher']} `}>
                 <div className='d-flex align-items-center'>
                   <Typography
@@ -97,55 +103,18 @@ const ResponsiveAppBar = (props) => {
                   >
                     {header.name}
                   </Typography>
-                  
+
                 </div>
               </div>
             </div>
-            <Search classToggle={classToggle} />
-            <div className='d-flex align-items-center'>
-              <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                {pages.map((page) => (
-                  <Link href={page.href} key={page}>
-                    <Button
-                      onClick={handleCloseNavMenu}
-                      sx={{ my: 2, color: 'white', display: 'block' }}
-                    >
-                      {page.name}
-                    </Button>
-                  </Link>
-                ))}
-              </Box>
+            {(header.icons || []).map((page, index) => (
+              <Link href={page.href} key={index}>
+                <a style={{ color: theme.palette.primary.main, fontWeight: 600, fontSize: 16, }} >
+                  {page.name}
+                </a>
 
-              {/* <Box sx={{ flexGrow: 0 }}>
-                <Tooltip title="Open settings">
-                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                  </IconButton>
-                </Tooltip>
-                <Menu
-                  sx={{ mt: '45px' }}
-                  id="menu-appbar"
-                  anchorEl={anchorElUser}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  open={Boolean(anchorElUser)}
-                  onClose={handleCloseUserMenu}
-                >
-                  {settings.map((setting) => (
-                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                      <Typography textAlign="center">{setting}</Typography>
-                    </MenuItem>
-                  ))}
-                </Menu>
-              </Box> */}
-            </div>
+              </Link>
+            ))}
           </Toolbar>
         </Container>
       </AppBar>
