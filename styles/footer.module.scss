@@ -39,9 +39,9 @@
   list-style-type: none;
   font-family: $DEFAULT_FONT_FAMILTY;
   font-weight: 300;
-  color: white;
+  color: $NEUTRAL_DARK_COLOR;
   a  {
-    color: white;
+    color: $NEUTRAL_DARK_COLOR;
   }
 }
 
@@ -57,15 +57,15 @@
   list-style-type: none;
   font-family: $DEFAULT_FONT_FAMILTY;
   font-weight: 500;
-  color: white;
+  color: $NEUTRAL_DARK_COLOR;
   a  {
-    color: white;
+    color: $NEUTRAL_DARK_COLOR;
   }
 }
 
 .footer-menu-item > a,
 .footer-menu-item > link {
-  color: #fff;
+  color: $NEUTRAL_DARK_COLOR;
   text-decoration: none;
 }
 
@@ -151,7 +151,7 @@
 
 
 .footer-root {
-  background: linear-gradient(90deg, #16222A 0%, #3A6073 100%);
+  // background: linear-gradient(90deg, #16222A 0%, #3A6073 100%);
 }
 .footer-menu-link {
   color: white;
@@ -169,7 +169,7 @@
   font-weight: 600;
   font-size: 24px;
   line-height: 36px;  
-  color: #FFFFFF;
+  color: $NEUTRAL_DARK_COLOR;
   list-style-type: none;
 }
 .margin-heading-main {
@@ -201,7 +201,7 @@
   font-weight: 400;
   font-size: 18px;
   line-height: 27px;
-  color: #FFFFFF;
+  color: $NEUTRAL_DARK_COLOR;
   list-style-type: none;
   
 }
