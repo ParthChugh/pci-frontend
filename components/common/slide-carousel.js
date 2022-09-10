@@ -3,7 +3,6 @@ import { Paper, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles';
 import Image from "next/image";
 import Slider from "react-slick";
-import { useTheme } from '@mui/material/styles';
 
 const useStyles = makeStyles(() => ({
   carouselItem: {
@@ -35,7 +34,7 @@ const useStyles = makeStyles(() => ({
       content: "''",
       width: 8,
       height: 8,
-      backgroundColor: "black",
+      backgroundColor: "#FFCF00",
       borderRadius: "50%"
     },
     "& .slick-dots li": {
@@ -48,7 +47,7 @@ const useStyles = makeStyles(() => ({
       width: 35,
       height: 8,
       transition: "width 0.3s ease-in-out",
-      backgroundColor: "black",
+      backgroundColor: "#FFCF00",
       borderRadius: "5px"
     },
 
@@ -63,7 +62,6 @@ const useStyles = makeStyles(() => ({
 
 export default function SlideCarousel(props) {
   const classes = useStyles();
-  const theme = useTheme();
   const onboardingCarosuelConfig = props.CAROUSEL;
 
   const settings = {
