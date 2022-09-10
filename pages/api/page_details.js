@@ -48,11 +48,21 @@ export default function handler(req, res) {
         {
           "name": "Masuk",
           "href": "/login",
+          "isLoggedIn": false
         },
-        // {
-        //   "name": "Daftar",
-        //   "href": "/register"
-        // }
+        {
+          "name": "Wishlist",
+          "href": "/wishlist",
+          "icon": "/icons/love.svg",
+          "isLoggedIn": true,
+        },
+        {
+          "name": "Cart",
+          "href": "/cart",
+          "icon": "/icons/cart.svg",
+          "isLoggedIn": true,
+          "showBadge": true
+        },
       ]
     }
   })
