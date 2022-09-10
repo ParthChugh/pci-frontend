@@ -16,7 +16,8 @@ export default function handler(req, res) {
     },
     otp: {
       numInputs: 6,
-      "button": "Verifikasi kode"
+      "button": "Verifikasi kode",
+      otpResendTime: 10
     }
   })
 }

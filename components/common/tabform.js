@@ -32,6 +32,7 @@ export default function TabForm(props) {
         <Button
           type="submit"
           fullWidth
+          className={'button-button'}
           variant="contained"
           sx={{ mt: 3, mb: 2 }}
         >

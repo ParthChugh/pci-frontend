@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Tabform from 'components/common/tabform';
+import CountDown from 'components/common/countdown';
 import Box from '@mui/material/Box';
+import Image from 'next/image'
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
@@ -19,6 +21,13 @@ function ResetPassword(props) {
     setShowSetup(true)
   };
 
+  const sendOtp = (resetTimer) => {
+    resetTimer(true)
+  }
+
+  const onClickRequest = () => {
+    router.push('/change-password/')
+  }
   return (
     <Container component="main" maxWidth="xs">
       <Box
@@ -47,10 +56,25 @@ function ResetPassword(props) {
               inputStyle={styles.inputStyle}
               separator={<span></span>}
             />
+            <div className="d-flex flex-row flex-start mt-3">
+              <Image src="/icons/info.svg" alt="Info" width={24} height={24} />
+              <Typography component="h1" variant="h5" color={"primary"} className={`${styles["info-error"]} ml-1`}>
+                Kode verifikasi yang Anda masukkan salah.<br />Silakan coba lagi.
+              </Typography>
+            </div>
+            <CountDown
+              buttonClass={styles["buttonClass"]}
+              seconds={parseInt(form.otp.otpResendTime || 0)}
+              buttonCB={cb => sendOtp(cb)}
+              buttonLabel={"Kirim kode lagi"}
+              startText={"Saya tidak menerima kode "}
+              endText={""}
+            />
             <Button
-              type="submit"
               fullWidth
+              className={'button-button'}
               variant="contained"
+              onClick={onClickRequest}
               sx={{ mt: 3, mb: 2 }}
             >
               {form.otp.button}
