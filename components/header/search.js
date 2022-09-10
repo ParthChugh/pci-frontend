@@ -16,7 +16,7 @@ export default function Search(props) {
     props.classToggle(false)
   }
   const onClick = (event) => {
-    
+
   }
   useEffect(() => {
     const handleClickOutsideForHeaderDropdown = (event) => {
@@ -72,27 +72,31 @@ export default function Search(props) {
   }
 
   return (
-    <Search className={styles['search-wrapper']}>
-      <SearchIconWrapper>
-        <SearchIcon />
-      </SearchIconWrapper>
-      <div className={styles["search-bar"]}>
-        <StyledInputBase
-          autoFocus={!showSearch}
-          placeholder="I'm searching for…"
-          inputProps={{ 'aria-label': 'search' }}
-          value={searchText}
-          onChange={onTextChange}
-          onFocus={onSearchFocus}
-          endAdornment={
-            searchText && <IconButton aria-label="delete" className={styles["search-button"]} onClick={onClick} disabled={!searchText}>
-              <Image src="/icons/search.svg" alt="Instatram" width={24} height={24} />
-            </IconButton>
-          }
-        />
-        <HeaderSearchDropdown display={showSearch} headerRef={wrapperRef} />
-      </div>
+    <div className='d-flex' style={{ width: '90%' }}>
+      <Search className={styles['search-wrapper']}>
+        <div className={styles["search-bar"]}>
+          <StyledInputBase
+            autoFocus={!showSearch}
+            placeholder="Saya sedang mencari"
+            inputProps={{ 'aria-label': 'search' }}
+            value={searchText}
+            onChange={onTextChange}
+            onFocus={onSearchFocus}
+            startAdornment={
+              <IconButton aria-label="delete" className={styles["search-button"]} onClick={onClick} disabled={!searchText}>
+                <Image src="/icons/search.svg" alt="search" width={24} height={24} />
+              </IconButton>
+            }
+          />
 
-    </Search>
+          {/* <HeaderSearchDropdown display={showSearch} headerRef={wrapperRef} /> */}
+        </div>
+
+      </Search>
+      <IconButton aria-label="delete" className={`${styles["filter-button"]} ml-2`} style={{width: '15%'}}>
+        <Image src="/icons/filter.svg" alt="filter" width={24} height={24} />
+      </IconButton>
+    </div>
+
   )
 }

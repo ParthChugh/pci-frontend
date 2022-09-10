@@ -63,7 +63,7 @@ const ResponsiveAppBar = (props) => {
                     <a style={{ color: theme.palette.primary.main, fontWeight: 600, fontSize: 16, marginRight: 10 }} >
                       {
                         page.icon ?
-                          <Badge color="primary" variant="dot"  badgeContent={page.showBadge || 0} >
+                          <Badge color="primary" variant="dot" badgeContent={page.showBadge || 0} >
                             <Image src={page.icon} alt={page.name} width={20} height={20} style={{ cursor: 'pointer' }} />
                           </Badge>
                           :

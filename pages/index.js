@@ -4,12 +4,14 @@ import { Button, Box, Link } from '@mui/material';
 import { Typography } from '@mui/material'
 import styles from 'styles/header.module.scss'
 // import { useTheme } from '@mui/material/styles';
+import { useRouter } from "next/router";
 import BottomBar from 'components/common/bottomNavigation'
+import Search from 'components/header/search'
 
 const SlideCarousel = dynamic(() => import("components/common/slide-carousel"), { ssr: false });
 
 export default function Example(props) {
-  // const theme = useTheme()
+  const router = useRouter();
   const ONOBOARDING_CAROUSEL_CONFIG = {
     "onboardingType": "done_auto",
     "autoScrollSpeed": 1500,
@@ -38,8 +40,21 @@ export default function Example(props) {
     ]
   }
 
+  const classToggle = (isMobile) => {
+    // const element = document.getElementsByClassName('header-search-container')[0]
+    if (isMobile) {
+      // ReactDOM.findDOMNode(element).classList.add('search-suggestion-full')
+      document.getElementById('header-wrapper').classList.add('stop-scroll')
+      document.getElementById('q').focus()
+    } else {
+      // ReactDOM.findDOMNode(element).classList.remove('search-suggestion-full')
+      document.getElementById('header-wrapper').classList.remove('stop-scroll')
+    }
+  }
+
   return (
     <>
+      <Search classToggle={classToggle} />
       <SlideCarousel
         CAROUSEL={ONOBOARDING_CAROUSEL_CONFIG}
       />
@@ -56,7 +71,7 @@ export default function Example(props) {
         flexDirection: 'column',
       }}>
         <Button
-          onClick={() => { router.replace('/login') }}
+          onClick={() => { router.replace('/products') }}
           fullWidth
           className={'button-button'}
           variant="contained"

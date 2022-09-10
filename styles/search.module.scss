@@ -9,12 +9,14 @@
 }
 
 .search-button {
-  background: linear-gradient(90deg, #3A6073 0%, #16222A 100%);
-  margin-right: 10px;
+  background: white;
 }
 
 .search-bar {
   display: block;
+  background-color: $NEUTRAL_LIGHT_COLOR_700;
+  border-radius: 10px;
+  height: 54px;
 }
 
 .stop-scroll {
@@ -22,16 +24,21 @@
   overflow-y: hidden;
 }
 
+.filter-button {
+  background-color: $PIMARY_COLOR;
+  border-radius: 10px;
+  height: 54px;
+}
+
+.search-wrapper {
+  width: 90%;
+  border-radius: 10px;
+  height: 54px;
+}
+
 // Mobile
 @media only screen and (max-width: calc($BREAKPOINT_MEDIUM - 1px) ) {
-  .search-bar {
-    display: none;
-  }
-  .search-wrapper {
-    flex: 1;
-    display: flex;
-    justify-content: flex-start;
-  }
+  
 }
 
 // Tablet or Higher
