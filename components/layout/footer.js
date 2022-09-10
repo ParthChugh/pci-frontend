@@ -12,7 +12,7 @@ import { Grid } from '@mui/material';
 export default function Footer({ footer }) {
   return (
     <div className={`${styles["footer-root"]}`} style={{ marginBottom: 30 }}>
-      <div className={"main-content"} style={{justifyContent: 'center'}}>
+      <div className={"main-content"} style={{ justifyContent: 'center' }}>
         <div>
           <div style={{ marginLeft: 20, marginRight: 20 }} className="d-flex justify-content-between align-items-start">
             <div className='align-items-start'>
@@ -38,7 +38,7 @@ export default function Footer({ footer }) {
             </div>
             {footer?.map((type, index) => {
               return (
-                <div style={{marginRight: 5}}>
+                <div style={{ marginRight: 5 }}>
                   <Typography className={styles["footer-block-title"]}>{type.title}</Typography>
                   {type.items.map((element, elindex) => {
                     return (
@@ -60,7 +60,10 @@ export default function Footer({ footer }) {
 
           </div>
         </div>
-
+        <div className={styles['border-line']} />
+        <div className={styles['copyright-footer']}>
+          @2022 BRIK Construction, All Rights Reserved
+        </div>
       </div>
     </div >
 
