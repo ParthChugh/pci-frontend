@@ -30,16 +30,6 @@ export default function Search(props) {
     }
   })
 
-  const SearchIconWrapper = styled('div')(({ theme }) => ({
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  }));
-
   const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: 'inherit',
     height: '48px',
@@ -47,9 +37,7 @@ export default function Search(props) {
     '& .MuiInputBase-input': {
       padding: theme.spacing(1, 1, 1, 0),
       width: '100%',
-      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
       transition: theme.transitions.create('width'),
-
     },
   }));
   const Search = styled('div')(({ theme }) => ({
@@ -78,6 +66,7 @@ export default function Search(props) {
           <StyledInputBase
             autoFocus={!showSearch}
             placeholder="Saya sedang mencari"
+            
             inputProps={{ 'aria-label': 'search' }}
             value={searchText}
             onChange={onTextChange}

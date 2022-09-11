@@ -48,6 +48,14 @@
   color: $NEUTRAL_DARK_COLOR_600;
   margin-bottom: 16px;
 }
+.read-more {
+  font-family: $DEFAULT_FONT_FAMILTY;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 24px;
+  color: $PIMARY_COLOR;
+}
 .inputStyle {
   min-width: 46px;
   height: 46px;
@@ -156,4 +164,20 @@
 // Laptop
 @media only screen and (min-width: calc($BREAKPOINT_LARGE)) and (max-width: calc($BREAKPOINT_XXLARGE - 1px))  {
 
+}
+
+// Category
+.menu-avatar {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+}
+.product-image {
+  width: 137px;
+  height: 140px;
+  border-radius: 8px;
+}
+
+.wishlist-icon {
+  position: absolute;  
 }
