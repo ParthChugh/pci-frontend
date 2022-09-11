@@ -3,18 +3,20 @@ import dynamic from "next/dynamic";
 import { Button, Box, Link } from '@mui/material';
 import { Typography } from '@mui/material'
 import styles from 'styles/header.module.scss'
-// import { useTheme } from '@mui/material/styles';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from "next/router";
 import BottomBar from 'components/common/bottomNavigation'
 import Search from 'components/header/search'
 import WhatsappFloat from 'components/common/whatsapp'
 import Categories from 'views/categories'
 import Products from 'views/products'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 const SlideCarousel = dynamic(() => import("components/common/slide-carousel"), { ssr: false });
 
 function Homepage(props) {
   const router = useRouter();
+  const { t } = useTranslation('common', { keyPrefix: "categories" });
   const isLoggedIn = true
   const { contentAssets } = props
   const classToggle = (isMobile) => {
@@ -34,30 +36,32 @@ function Homepage(props) {
       {isLoggedIn ?
         <>
           <Search classToggle={classToggle} />
-          {contentAssets?.content_assets.map(asset => {
-            console.log('asset.type12321', asset.type, asset.data)
+          {contentAssets?.content_assets.map((asset, index) => {
             switch (asset.type) {
               case "carousel":
                 return (
                   <SlideCarousel
+                    key={index}
                     CAROUSEL={asset.data}
                   />
                 )
               case "category":
                 return (
                   <Categories
+                    key={index}
                     productCategories={asset.data}
                     heading={asset.data.heading}
-                    readMoreText={"Lihat semua"}
+                    readMoreText={t("see-more")}
                     readMoreHref={asset.data.readMoreHref}
                   />
                 )
               case "product":
                 return (
                   <Products
+                    key={index}
                     products={asset.data}
                     heading={asset.data.heading}
-                    readMoreText={"Lihat semua"}
+                    readMoreText={t("see-more")}
                     readMoreHref={asset.data.readMoreHref}
                   />
                 )
@@ -82,12 +86,10 @@ function Homepage(props) {
           })}
 
           <Typography component="h1" variant="h5" className={`${styles["compelete-heading"]} mt-3`}>
-            Bangun properti impian Anda <br />
-            dengan pengalaman baru
+            {t("main-heading")}
           </Typography>
           <Typography component="h1" variant="h5" className={`${styles['compelete-sub-heading']} mt-3`}>
-            Tidak perlu lagi menghubungi berbagai<br />
-            macam pemasok dan kirim berbagai barang
+            {t("sub-heading")}
           </Typography>
           <Box sx={{
             display: 'flex',
@@ -100,11 +102,11 @@ function Homepage(props) {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Belanja Sekarang
+              {t('shop-now')}
             </Button>
           </Box>
           <Typography component="h1" variant="h5" className={`${styles['compelete-sub-heading']} mt-3`}>
-            Sudah punya akun?
+            {t('already-have-account')}
             <Link color="primary" href="/login/" style={{ textDecoration: 'none' }}>{" Masuk"}</Link>
           </Typography>
           <BottomBar />
@@ -114,11 +116,12 @@ function Homepage(props) {
   )
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps({ locale }) {
   const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/home`)
   const data = await response.json()
   return {
     props: {
+      ...(await serverSideTranslations(locale, ["common"])),
       contentAssets: data || [],
     }, // will be passed to the page component as props
 

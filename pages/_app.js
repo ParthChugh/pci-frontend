@@ -4,12 +4,9 @@ import { createTheme, ThemeProvider } from '@mui/material/styles'
 import Header from 'components/layout/header'
 import Footer from 'components/layout/footer';
 import styles from 'styles/Home.module.css'
-
-
+import { appWithTranslation } from 'next-i18next';
 function MyApp(props) {
   const { Component, pageProps } = props;
-  console.log('props123213', props)
-
   const theme = createTheme({
     palette: {
       primary: {
@@ -71,11 +68,11 @@ function MyApp(props) {
       },
     },
   });
-  console.log('props123213', props)
+  
   return (
     <ThemeProvider theme={theme}>
       <Header header={props?.props?.header || {}} />
-      <div className={styles.container}>
+      <div className={styles.container} id="root">
         <main className={styles.main}>
           <Component {...pageProps} />
         </main>
@@ -97,4 +94,4 @@ MyApp.getInitialProps = async ({ locale }) => {
 
   }
 }
-export default MyApp
+export default appWithTranslation(MyApp)

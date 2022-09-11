@@ -22,7 +22,6 @@ const CountDown = ({ seconds, startText, endText, buttonLabel, buttonCB = () => 
     // when we update it
   }, [timeLeft]);
 
-  console.log('timeLeft12312', timeLeft)
   const se = timeLeft % 60;
   const mi = parseInt(timeLeft / 60);
 

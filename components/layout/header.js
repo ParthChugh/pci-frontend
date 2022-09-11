@@ -13,7 +13,7 @@ import { useTheme } from '@mui/material/styles';
 const ResponsiveAppBar = (props) => {
   const { header } = props;
   const theme = useTheme();
-  const isLoggedIn = true
+  const isLoggedIn = false
   const icons = (header?.icons || []).filter(el => el.isLoggedIn === isLoggedIn)
   function HideOnScroll(props) {
     const { children, window } = props;

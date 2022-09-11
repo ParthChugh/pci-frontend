@@ -12,7 +12,9 @@ import InputAdornment from '@mui/material/InputAdornment';
 import styles from 'styles/header.module.scss'
 import { useTheme } from '@mui/material/styles';
 import { useRouter } from "next/router";
+import { useTranslation } from 'next-i18next';
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 10,
@@ -28,6 +30,7 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
 }));
 function ResetPassword(props) {
   const router = useRouter();
+  const { t } = useTranslation('common', { keyPrefix: 'registerParent' });
   const theme = useTheme();
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
@@ -41,7 +44,7 @@ function ResetPassword(props) {
       setError('')
       setIsPasswordChanged(true)
     } else {
-      setError("Password should be greater than 8 and should be equal")
+      setError(t("password-equal"))
     }
   }
   return (
@@ -58,26 +61,25 @@ function ResetPassword(props) {
           <>
             <Image src="/icons/check.svg" alt="Checkbox" width={125} height={125} />
             <Typography component="h1" variant="h5" className={`${styles["compelete-heading"]} mt-3`}>
-              Password anda <br />
-              berhasil diubah!
+              {t("password-changed")}
             </Typography>
             <Typography component="h1" variant="h5" className={`${styles['compelete-sub-heading']} mt-3`}>
-              Password anda telah berhasil <br /> diperbarui, Silahkan masuk kembali.
+              {t("password-changed-successfully")}
             </Typography>
             <Button
-              onClick={() => {router.replace('/login')}}
+              onClick={() => { router.replace('/login') }}
               fullWidth
               className={'button-button'}
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Masuk
+              {t("login")}
             </Button>
           </>
           :
           <>
             <Typography component="h1" variant="h5" className={styles['page-heading']}>
-              {"Ubah Password"}
+              {t('change-password')}
             </Typography>
             <Typography component="h1" variant="h5" className={styles["label-sub-heading-1"]}>
               Masukkan Password
@@ -85,9 +87,9 @@ function ResetPassword(props) {
             <div className={styles.container}>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
-                  <label className={styles["label-login"]}>{`Password Baru*`}</label>
+                  <label className={styles["label-login"]}>{`${t('new-password')}*`}</label>
                   <TextField
-                    name="Password Baru"
+                    name={t('new-password')}
                     type={showPassword ? "text" : "password"}
                     required
                     onChange={(e) => setPassword(e.target.value)}
@@ -118,9 +120,9 @@ function ResetPassword(props) {
               </Grid>
               <Grid container spacing={2} className="mt-2">
                 <Grid item xs={12}>
-                  <label className={styles["label-login"]}>{`Ulangi Password Baru*`}</label>
+                  <label className={styles["label-login"]}>{`${t('repeat-new-password')}}*`}</label>
                   <TextField
-                    name="Ulangi Password Baru"
+                    name={t('repeat-new-password')}
                     type={showPassword ? "text" : "password"}
                     required
                     value={confirmPassword}
@@ -163,23 +165,22 @@ function ResetPassword(props) {
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                Konfirmasi password
+                {t('confirm-password')}
               </Button>
 
             </div>
           </>}
-
       </Box>
     </Container>
 
   );
 }
-export async function getServerSideProps(context) {
+export async function getServerSideProps({ locale }) {
   const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/reset-password`)
   const data = await response.json()
-  console.log("data12321", data)
   return {
     props: {
+      ...(await serverSideTranslations(locale, ["common"])),
       form: data || [],
     }, // will be passed to the page component as props
 

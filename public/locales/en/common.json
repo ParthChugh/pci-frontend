@@ -1,5 +1,16 @@
 {
   "registerParent": {
-    "title": "Create ZeniusLand account"
+    "login": "Masuk",
+    "forget-password": "Lupa password?",
+    "register-account": "Don't have an account? Sign Up",
+    "Email": "Email",
+    "Password": "Password",
+    "Nama": "Nama",
+    "No. Telepon": "No. Telepon",
+    "Kode Sales": "Kode Sales",
+    "Daftar": "Daftar",
+    "Nama Perusahaan": "Nama Perusahaan",
+    "Nama PIC": "Nama PIC",
+    "Jenis Pengguna": "Jenis Pengguna"
   }
 }
