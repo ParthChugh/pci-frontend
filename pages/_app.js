@@ -1,9 +1,11 @@
+import { createRef } from 'react';
 import 'styles/globals.scss'
 import 'styles/bootstrap.css'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import Header from 'components/layout/header'
 import Footer from 'components/layout/footer';
 import styles from 'styles/Home.module.css'
+import { SnackbarProvider } from 'notistack';
 import { appWithTranslation } from 'next-i18next';
 function MyApp(props) {
   const { Component, pageProps } = props;
@@ -68,17 +70,21 @@ function MyApp(props) {
       },
     },
   });
-  
+
   return (
-    <ThemeProvider theme={theme}>
-      <Header header={props?.props?.header || {}} />
-      <div className={styles.container} id="root">
-        <main className={styles.main}>
-          <Component {...pageProps} />
-        </main>
-      </div>
-      <Footer footer={props?.props?.footer || []} />
-    </ThemeProvider>
+    <SnackbarProvider
+      maxSnack={3}
+    >
+      <ThemeProvider theme={theme}>
+        <Header header={props?.props?.header || {}} />
+        <div className={styles.container} id="root">
+          <main className={styles.main}>
+            <Component {...pageProps} />
+          </main>
+        </div>
+        <Footer footer={props?.props?.footer || []} />
+      </ThemeProvider>
+    </SnackbarProvider>
   );
 }
 

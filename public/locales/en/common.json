@@ -1,6 +1,7 @@
 {
   "registerParent": {
     "login": "Masuk",
+    "register": "Daftar",
     "forget-password": "Lupa password?",
     "register-account": "Don't have an account? Sign Up",
     "Email": "Email",
@@ -11,6 +12,31 @@
     "Daftar": "Daftar",
     "Nama Perusahaan": "Nama Perusahaan",
     "Nama PIC": "Nama PIC",
-    "Jenis Pengguna": "Jenis Pengguna"
+    "Jenis Pengguna": "Jenis Pengguna",
+    "terms-and-condition": "Ingat saya",
+    "Kirim kode": "Kirim kode",
+    "change-password": "Ubah Password",
+    "send-otp-again": "Kirim kode lagi",
+    "didnt-recieve-otp": "Saya tidak menerima kode ",
+    "incorrect-code": "Kode verifikasi yang Anda masukkan salah.\nSilakan coba lagi.",
+    "password-equal": "Kata sandi harus lebih besar dari 8 dan harus sama",
+    "password-changed": "Password anda \n berhasil diubah!",
+    "password-changed-successfully": "Password anda telah berhasil \n diperbarui, Silahkan masuk kembali.",
+    "code-verfication": "Verifikasi Kode",
+    "enter-code": "Silakan masukkan kode 6 digit anda",
+    "confirm-password": "Konfirmasi password",
+    "repeat-new-password": "Ulangi Password Baru",
+    "new-password": "Password Baru",
+    "your-account-type": "Jenis Akun Anda",
+    "Masuk": "Masuk"
+  },
+  "categories": {
+    "Kategori Produk": "Kategori Produk",
+    "Rekomendasi Produk": "Rekomendasi Produk",
+    "see-more": "Lihat semua",
+    "main-heading": " Bangun properti impian Anda\ndengan pengalaman baru",
+    "sub-heading": "Tidak perlu lagi menghubungi berbagai\nmacam pemasok dan kirim berbagai barang",
+    "shop-now": "Belanja Sekarang",
+    "already-have-account": "Sudah punya akun?"
   }
 }

@@ -9,6 +9,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import styles from 'styles/header.module.scss'
+import { withSnackbar } from 'notistack';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 
@@ -22,6 +23,7 @@ function SignIn(props) {
       email: data.get('email'),
       password: data.get('password'),
     });
+    props.enqueueSnackbar('Successfully fetched the data.')
   };
 
   return (
@@ -79,4 +81,4 @@ export async function getServerSideProps({ locale }) {
 
   }
 }
-export default SignIn
+export default withSnackbar(SignIn)
