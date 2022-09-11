@@ -7,6 +7,7 @@ import styles from 'styles/header.module.scss'
 import { useRouter } from "next/router";
 import BottomBar from 'components/common/bottomNavigation'
 import Search from 'components/header/search'
+import WhatsappFloat from 'components/common/whatsapp'
 import Categories from 'views/categories'
 import Products from 'views/products'
 
@@ -67,6 +68,7 @@ function Homepage(props) {
 
             }
           })}
+          <WhatsappFloat />
           <BottomBar />
         </>
         :

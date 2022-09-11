@@ -2,7 +2,6 @@ import { Grid, Typography, Box } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import Link from "next/link";
 import styles from 'styles/header.module.scss'
-import Image from 'next/image'
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
   margin: "0px 8px",

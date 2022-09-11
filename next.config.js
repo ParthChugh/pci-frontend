@@ -6,7 +6,8 @@ const nextConfig = {
     minimumCacheTTL: 3600,
     domains: [
       "localhost",
-      's3-ap-southeast-1.amazonaws.com'
+      's3-ap-southeast-1.amazonaws.com',
+      "www.zenius.net"
     ],
   }
 }
