@@ -22,7 +22,7 @@ function SimpleBottomNavigation(props) {
     }
   }, [value])
   return (
-    <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 999 }} elevation={3} >
+    <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 999 }} elevation={3} id="__next">
 
       <BottomNavigation
         showLabels

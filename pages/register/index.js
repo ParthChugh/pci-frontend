@@ -1,4 +1,5 @@
 import * as React from 'react';
+import axios from 'axios';
 import dynamic from 'next/dynamic'
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
@@ -15,9 +16,11 @@ function SignUp(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+    const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND}/v1/website/auth/register?uType=customer`, {
+      data: {
+        email: data.get('email'),
+        password: data.get('password'),
+      },
     });
   };
 
@@ -27,7 +30,7 @@ function SignUp(props) {
         {t('register')}
       </Typography>
       <Typography component="h1" variant="h5" className={styles['page-sub-heading']}>
-      {t('your-account-type')}
+        {t('your-account-type')}
       </Typography>
       <BasicTabs
         tabs={(props?.tabs || []).map(tab => ({
@@ -47,7 +50,7 @@ function SignUp(props) {
   );
 }
 
-export async function getServerSideProps({locale}) {
+export async function getServerSideProps({ locale }) {
   const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/register`)
   const data = await response.json()
   return {

@@ -12,7 +12,7 @@ import { Grid } from '@mui/material';
 export default function Footer({ footer }) {
   return (
     <div className={`${styles["footer-root"]}`} style={{ marginBottom: 30 }}>
-      <div className={"main-content"} style={{ justifyContent: 'center' }}>
+      <div className={"main-content"} style={{ justifyContent: 'center', display: 'flex', flexDirection: 'column' }}>
         <div>
           <div style={{ marginLeft: 20, marginRight: 20 }} className="d-flex justify-content-between align-items-start">
             <div className='align-items-start'>

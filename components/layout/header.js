@@ -30,8 +30,8 @@ const ResponsiveAppBar = (props) => {
 
   return (
     <HideOnScroll {...props}>
-      <AppBar className={styles['header-root']} id="header-wrapper">
-        <Container className={'main-content'} >
+      <AppBar className={styles['header-root']} id="header-wrapper ">
+        <Container className={'main-content'} id="__next" >
           <Toolbar disableGutters className={'d-flex justify-content-between'} style={{ flex: 1 }}>
             <div className='d-flex'>
               <div className={`mr-2 ml-2`}>

@@ -50,7 +50,7 @@ export default function handler(req, res) {
             label: "Kode Sales",
             fullWidth: true,
             type: "input"
-          }
+          },
         }
       },
       {
