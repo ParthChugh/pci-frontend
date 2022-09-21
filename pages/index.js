@@ -7,7 +7,6 @@ import { useTranslation } from 'next-i18next';
 import { useRouter } from "next/router";
 import BottomBar from 'components/common/bottomNavigation'
 import Search from 'components/header/search'
-import WhatsappFloat from 'components/common/whatsapp'
 import Categories from 'views/categories'
 import Products from 'views/products'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -72,7 +71,7 @@ function Homepage(props) {
 
             }
           })}
-          <WhatsappFloat />
+   
           <BottomBar />
         </>
         :

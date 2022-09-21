@@ -11,7 +11,7 @@ export default function handler(req, res) {
         fullWidth: true,
         id: "email",
         label: "Email",
-        type: "input"
+        fieldType: "input"
       }
     },
     otp: {

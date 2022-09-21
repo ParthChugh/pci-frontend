@@ -36,7 +36,7 @@ export default function handler(req, res) {
         {
           title: "Kebijakan Privasi",
           href: "/my+collection"
-        },i
+        }, i
       ]
     }
   ])

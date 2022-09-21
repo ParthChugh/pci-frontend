@@ -6,15 +6,18 @@ export default function handler(req, res) {
       {
         "button": "Daftar",
         heading: "Umum",
+        extraFields: {
+          "apiQuery": "uType=customer"
+        },
         form: {
           "0": {
             name: "Nama",
             required: true,
-            id: "nama",
+            id: "fullName",
             autoComplete: "given-name",
             label: "Nama",
             fullWidth: true,
-            type: "input"
+            fieldType: "input"
           },
           "1": {
             name: "Email",
@@ -23,88 +26,101 @@ export default function handler(req, res) {
             fullWidth: true,
             id: "email",
             label: "Email",
-            type: "input"
+            fieldType: "input",
+            inputProps: { pattern: "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$" }
           },
           "2": {
             name: "No. Telepon",
             required: true,
-            id: "telepon",
+            id: "phone",
             autoComplete: "given-name",
             label: "No. Telepon",
             fullWidth: true,
-            type: "input"
+            fieldType: "input",
+            type: "number"
           },
           "3": {
             name: "Password",
-            type: "password",
+            fieldType: "password",
             required: true,
             id: "password",
             label: "Password",
             fullWidth: true,
-            type: "input"
+            fieldType: "input",
+            type: "password",
+            inputProps: { pattern: "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=]).{8,}$" }
           },
           "4": {
             name: "Kode Sales",
-            required: true,
-            id: "kode_sales",
+            required: false,
+            id: "referralCode",
             label: "Kode Sales",
             fullWidth: true,
-            type: "input"
+            fieldType: "input"
           },
         }
       },
       {
         "button": "Daftar",
         heading: "Bisnis",
+        extraFields: {
+          "apiQuery": "uType=company"
+        },
         form: {
           "0": {
             name: "Nama Perusahaan",
             required: true,
             id: "nama_perusahaan",
-            label: "Nama Perusahaan",
+            label: "nameCompany",
             fullWidth: true,
-            type: "input"
+            fieldType: "input"
           },
           "1": {
             name: "Nama PIC",
             required: true,
-            id: "nama_pic",
+            id: "fullName",
             label: "Nama PIC",
             fullWidth: true,
-            type: "input"
+            fieldType: "input"
           },
           "2": {
             name: "Jenis Pengguna",
             required: true,
-            id: "jenis_pengguna",
+            id: "uType",
             label: "Jenis Pengguna",
             fullWidth: true,
-            type: "input"
+            fieldType: "dropdown",
+            options: [
+              { label: "Pemilik Proyek", value: "Pemilik Proyek" },
+              { label: "Kontraktor", value: "Kontraktor" },
+              { label: "Lainnya", value: "Lainnya" },
+            ]
           },
           "3": {
             name: "No. Telepon",
             required: true,
             id: "telepon",
-            label: "No. Telepon",
+            label: "phone",
             fullWidth: true,
-            type: "input"
+            fieldType: "input"
           },
           "4": {
             name: "Password",
-            type: "password",
+            fieldType: "password",
             required: true,
             id: "password",
             label: "Password",
             fullWidth: true,
-            type: "input"
+            fieldType: "input",
+            inputProps: { pattern: "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=]).{8,}$" }
           },
           "5": {
             name: "Kode Sales",
-            required: true,
-            id: "kode_sales",
+            required: false,
+            id: "referralCode",
             label: "Kode Sales",
             fullWidth: true,
-            type: "input"
+            fieldType: "input"
           }
         }
       }

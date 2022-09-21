@@ -38,7 +38,7 @@ export default function Footer({ footer }) {
             </div>
             {footer?.map((type, index) => {
               return (
-                <div style={{ marginRight: 5 }}>
+                <div style={{ marginRight: 5 }} key={`footer-container-${index}`}>
                   <Typography className={styles["footer-block-title"]}>{type.title}</Typography>
                   {type.items.map((element, elindex) => {
                     return (

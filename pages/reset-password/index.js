@@ -89,7 +89,7 @@ function ResetPassword(props) {
               keyPrefix={"registerParent"}
               form={form.form}
               buttonText={form.button}
-              handleSubmit={handleSubmit}
+              handleSubmitForm={handleSubmit}
             />
           </>
         }

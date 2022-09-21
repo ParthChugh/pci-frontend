@@ -1,4 +1,6 @@
 import * as React from 'react';
+import axios from 'axios';
+import { useRouter } from "next/router";
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Tabform from 'components/common/tabform';
 import Checkbox from '@mui/material/Checkbox';
@@ -12,18 +14,23 @@ import styles from 'styles/header.module.scss'
 import { withSnackbar } from 'notistack';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
-
 function SignIn(props) {
   const { form } = props;
   const { t } = useTranslation('common', { keyPrefix: 'registerParent' });
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-    props.enqueueSnackbar('Successfully fetched the data.')
+  const router = useRouter();
+  const handleSubmitForm = async (values) => {
+    const params = new URLSearchParams();
+    params.append('email', values.email);
+    params.append('password', values.password);
+    axios.post(`${process.env.NEXT_PUBLIC_BACKEND}/v1/website/auth/login`, params)
+      .then((response) => {
+        props.enqueueSnackbar("Successfully loggedIn")
+        router.push('/')
+      })
+      .catch((error) => {
+        props.enqueueSnackbar(error?.response?.data?.message || "Wrong Password")
+      });;
+
   };
 
   return (
@@ -43,7 +50,7 @@ function SignIn(props) {
           keyPrefix={"registerParent"}
           form={form.form}
           buttonText={form.button}
-          handleSubmit={handleSubmit}
+          handleSubmitForm={handleSubmitForm}
           preButton={<Grid container alignItems="center">
             <Grid item xs>
               <FormControlLabel

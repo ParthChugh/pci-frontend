@@ -11,16 +11,19 @@ export default function handler(req, res) {
         fullWidth: true,
         id: "email",
         label: "Email",
-        type: "input"
+        fieldType: "input",
+        inputProps: { pattern: "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$" }
       },
       "1": {
         name: "Password",
-        type: "password",
-        required: true,
+        fieldType: "password",
+        required: true ,
         id: "password",
         label: "Password",
         fullWidth: true,
-        type: "input"
+        fieldType: "input",
+        type: "password",
+        inputProps: { pattern: "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=]).{8,}$" }
       },
     }
   })

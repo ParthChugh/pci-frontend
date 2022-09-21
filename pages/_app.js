@@ -6,6 +6,7 @@ import Header from 'components/layout/header'
 import Footer from 'components/layout/footer';
 import styles from 'styles/Home.module.css'
 import { SnackbarProvider } from 'notistack';
+import WhatsappFloat from 'components/common/whatsapp'
 import { appWithTranslation } from 'next-i18next';
 function MyApp(props) {
   const { Component, pageProps } = props;
@@ -80,6 +81,7 @@ function MyApp(props) {
         <div className={styles.container} id="root">
           <main className={styles.main}>
             <Component {...pageProps} />
+            <WhatsappFloat />
           </main>
         </div>
         <Footer footer={props?.props?.footer || []} />
