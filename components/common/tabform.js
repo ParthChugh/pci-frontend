@@ -25,12 +25,11 @@ export default function TabForm(props) {
   const renderInput = ({ field, index }) => {
     return (
       <Grid item xs={12} key={index}>
-        <label className={styles["label-login"]}>{`${t(field.label)}${field.required ? "*" : ""}`}</label>
+        <label className={styles["label-login"]}>{`${t(field.name)}${field.required ? "*" : ""}`}</label>
         <Controller
           render={({ field: { name, value, onChange } }) => (
             <TextField
               {...field}
-              label={""}
               name={name}
               value={value}
               onChange={onChange}
@@ -52,18 +51,16 @@ export default function TabForm(props) {
   const renderDropdown = ({ field, index }) => {
     return (
       <Grid item xs={12} key={index}>
-        <Typography className={styles["label-login"]}>{`${t(field.label)}${field.required ? "*" : ''}`}</Typography>
+        <Typography className={styles["label-login"]}>{`${t(field.name)}${field.required ? "*" : ''}`}</Typography>
         <Controller
           render={({ field: { name, value, onChange } }) => (
             <Dropdown
               {...field}
-              label={""}
               name={name}
               value={value}
               onChange={onChange}
               // error={Boolean(errors[])}
               {...(field.pattern ? { inputProps: { pattern: field.pattern ? new RegExp(field.pattern, 'g') : "" } } : {})}
-
               autoFocus={index === 0}
               style={{ marginTop: 10, backgroundColor: theme.palette.neutralLight.main_700 }}
 

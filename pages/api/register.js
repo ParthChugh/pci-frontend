@@ -15,7 +15,7 @@ export default function handler(req, res) {
             required: true,
             id: "fullName",
             autoComplete: "given-name",
-            label: "Nama",
+            label: "",
             fullWidth: true,
             fieldType: "input"
           },
@@ -25,7 +25,7 @@ export default function handler(req, res) {
             autoComplete: "email",
             fullWidth: true,
             id: "email",
-            label: "Email",
+            label: "",
             fieldType: "input",
             inputProps: { pattern: "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$" }
           },
@@ -34,7 +34,7 @@ export default function handler(req, res) {
             required: true,
             id: "phone",
             autoComplete: "given-name",
-            label: "No. Telepon",
+            label: "",
             fullWidth: true,
             fieldType: "input",
             type: "number"
@@ -44,7 +44,7 @@ export default function handler(req, res) {
             fieldType: "password",
             required: true,
             id: "password",
-            label: "Password",
+            label: "",
             fullWidth: true,
             fieldType: "input",
             type: "password",
@@ -54,7 +54,7 @@ export default function handler(req, res) {
             name: "Kode Sales",
             required: false,
             id: "referralCode",
-            label: "Kode Sales",
+            label: "",
             fullWidth: true,
             fieldType: "input"
           },
@@ -71,7 +71,7 @@ export default function handler(req, res) {
             name: "Nama Perusahaan",
             required: true,
             id: "nama_perusahaan",
-            label: "nameCompany",
+            label: "",
             fullWidth: true,
             fieldType: "input"
           },
@@ -79,7 +79,7 @@ export default function handler(req, res) {
             name: "Nama PIC",
             required: true,
             id: "fullName",
-            label: "Nama PIC",
+            label: "",
             fullWidth: true,
             fieldType: "input"
           },
@@ -87,7 +87,7 @@ export default function handler(req, res) {
             name: "Jenis Pengguna",
             required: true,
             id: "uType",
-            label: "Jenis Pengguna",
+            label: "",
             fullWidth: true,
             fieldType: "dropdown",
             options: [
@@ -100,7 +100,7 @@ export default function handler(req, res) {
             name: "No. Telepon",
             required: true,
             id: "telepon",
-            label: "phone",
+            label: "",
             fullWidth: true,
             fieldType: "input"
           },
@@ -109,7 +109,7 @@ export default function handler(req, res) {
             fieldType: "password",
             required: true,
             id: "password",
-            label: "Password",
+            label: "",
             fullWidth: true,
             fieldType: "input",
             inputProps: { pattern: "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=]).{8,}$" }
@@ -118,7 +118,7 @@ export default function handler(req, res) {
             name: "Kode Sales",
             required: false,
             id: "referralCode",
-            label: "Kode Sales",
+            label: "",
             fullWidth: true,
             fieldType: "input"
           }
