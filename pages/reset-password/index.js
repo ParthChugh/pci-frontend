@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import Tabform from 'components/common/tabform';
 import CountDown from 'components/common/countdown';
 import Box from '@mui/material/Box';
@@ -6,6 +7,7 @@ import Image from 'next/image'
 import Button from '@mui/material/Button';
 import { useTranslation } from 'next-i18next';
 import Typography from '@mui/material/Typography';
+import { withSnackbar } from 'notistack';
 import Container from '@mui/material/Container';
 import styles from 'styles/header.module.scss'
 import { useRouter } from "next/router";
@@ -15,13 +17,22 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 function ResetPassword(props) {
   const { form } = props;
   const { t } = useTranslation('common', { keyPrefix: 'registerParent' });
-  const [showOtp, setShowSetup] = useState(false)
+  const [showOtp, setShowSetup] = useState({})
   const [otp, setOtp] = useState('')
   const router = useRouter();
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    setShowSetup(true)
+  const handleSubmitForm = async (values) => {
+    const params = new URLSearchParams();
+    Object.keys(values).forEach((key) => {
+      params.append(key, values[key]);
+    })
+    axios.post(`${process.env.NEXT_PUBLIC_BACKEND}/v1/website/auth/forgot-password?${form?.extraFields?.apiQuery}`, params)
+      .then((response) => {
+        props.enqueueSnackbar(response.data.message)
+        setShowSetup(values)
+      })
+      .catch((error) => {
+        props.enqueueSnackbar(error?.response?.data?.message)
+      });;
   };
 
   const sendOtp = (resetTimer) => {
@@ -29,7 +40,19 @@ function ResetPassword(props) {
   }
 
   const onClickRequest = () => {
-    router.push('/change-password/')
+    const values = { ...showOtp, otp: otp }
+    const params = new URLSearchParams();
+    Object.keys(values).forEach((key) => {
+      params.append(key, values[key]);
+    })
+    axios.post(`${process.env.NEXT_PUBLIC_BACKEND}/v1/website/auth/forgot-password?${form?.otp?.extraFields?.apiQuery}`, params)
+      .then((response) => {
+        props.enqueueSnackbar(response.data.message)
+        router.push(`/change-password?${new URLSearchParams(values).toString()}`)
+      })
+      .catch((error) => {
+        props.enqueueSnackbar(error?.response?.data?.message)
+      });;
   }
   return (
     <Container component="main" maxWidth="xs">
@@ -44,7 +67,7 @@ function ResetPassword(props) {
         <Typography component="h1" variant="h5" className={styles['page-heading']}>
           {t('change-password')}
         </Typography>
-        {showOtp ?
+        {Object.values(showOtp).length > 0 ?
           <>
             <Typography component="h1" variant="h5" className={styles["label-sub-heading-1"]}>
               {t('code-verfication')}
@@ -77,6 +100,7 @@ function ResetPassword(props) {
               fullWidth
               className={'button-button'}
               variant="contained"
+              disabled={otp.length !== form.otp.numInputs}
               onClick={onClickRequest}
               sx={{ mt: 3, mb: 2 }}
             >
@@ -89,7 +113,7 @@ function ResetPassword(props) {
               keyPrefix={"registerParent"}
               form={form.form}
               buttonText={form.button}
-              handleSubmitForm={handleSubmit}
+              handleSubmitForm={handleSubmitForm}
             />
           </>
         }
@@ -109,4 +133,4 @@ export async function getServerSideProps({ locale }) {
 
   }
 }
-export default ResetPassword
+export default withSnackbar(ResetPassword)

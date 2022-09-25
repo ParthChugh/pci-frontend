@@ -38,7 +38,6 @@ function SignIn(props) {
         router.push('/')
       })
       .catch((error) => {
-        console.log("error123123", error)
         props.enqueueSnackbar(error?.response?.data?.message || "Wrong Password")
       });;
 

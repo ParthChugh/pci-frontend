@@ -31,7 +31,6 @@ function SignUp(props) {
 
     axios.post(`${process.env.NEXT_PUBLIC_BACKEND}/v1/website/auth/register?${props?.tabs[selectedTab].extraFields.apiQuery}`, params)
       .then((response) => {
-        console.log("response12321", response)
         props.enqueueSnackbar("Registration Successfull")
         userDispatch(UserActions.updateUserDetails(response.data.data))
         Cookies.set('userData', JSON.stringify(response.data.data), { expires: new Date(response.data.data.accessTokenExpiry) })

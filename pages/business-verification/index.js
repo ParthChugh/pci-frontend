@@ -35,7 +35,6 @@ function BusinessVerfication(props) {
     Object.keys(values).forEach((key) => {
       params.append(key, values[key]);
     })
-    console.log('dwqq123231', values)
     // axios.post(`${process.env.NEXT_PUBLIC_BACKEND}/v1/website/company/file?${props?.tabs[selectedTab].extraFields.apiQuery}`, params)
     //   .then((response) => {
     //     console.log("response12321", response)

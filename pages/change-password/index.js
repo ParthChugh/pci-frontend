@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Image from 'next/image'
+import axios from 'axios';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
@@ -8,6 +9,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
+import { withSnackbar } from 'notistack';
 import InputAdornment from '@mui/material/InputAdornment';
 import styles from 'styles/header.module.scss'
 import { useTheme } from '@mui/material/styles';
@@ -28,7 +30,7 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
     backgroundColor: theme.palette.primary.main,
   },
 }));
-function ResetPassword(props) {
+function ChangePassword(props) {
   const router = useRouter();
   const { t } = useTranslation('common', { keyPrefix: 'registerParent' });
   const theme = useTheme();
@@ -36,13 +38,25 @@ function ResetPassword(props) {
   const [error, setError] = useState("");
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [isPasswordChanged, setIsPasswordChanged] = useState(true);
+  const [isPasswordChanged, setIsPasswordChanged] = useState(false);
   const handleClickShowPassword = () => setShowPassword(!showPassword);
   const handleMouseDownPassword = () => setShowPassword(!showPassword);
   const passwordChange = () => {
     if (password.length > 8 && confirmPassword === password) {
       setError('')
-      setIsPasswordChanged(true)
+      const params = new URLSearchParams();
+      Object.keys(router.query).forEach((key) => {
+        params.append(key, router.query[key]);
+      })
+      params.append('newPassword', password);
+      axios.post(`${process.env.NEXT_PUBLIC_BACKEND}/v1/website/auth/forgot-password?uType=newPassword`, params)
+        .then((response) => {
+          setIsPasswordChanged(true)
+          props.enqueueSnackbar(response.data.message)
+        })
+        .catch((error) => {
+          props.enqueueSnackbar(error?.response?.data?.message)
+        });;
     } else {
       setError(t("password-equal"))
     }
@@ -186,4 +200,4 @@ export async function getServerSideProps({ locale }) {
 
   }
 }
-export default ResetPassword
+export default withSnackbar(ChangePassword)

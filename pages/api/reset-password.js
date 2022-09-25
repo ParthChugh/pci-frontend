@@ -3,6 +3,9 @@
 export default function handler(req, res) {
   res.status(200).json({
     "button": "Kirim kode",
+    extraFields: {
+      "apiQuery": "uType=forgot"
+    },
     form: {
       "0": {
         name: "Email",
@@ -15,9 +18,12 @@ export default function handler(req, res) {
       }
     },
     otp: {
+      extraFields: {
+        "apiQuery": "uType=otp"
+      },
       numInputs: 6,
       "button": "Verifikasi kode",
-      otpResendTime: 10
+      otpResendTime: 60
     }
   })
 }
