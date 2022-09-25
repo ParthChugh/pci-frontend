@@ -23,7 +23,7 @@ export default function handler(req, res) {
         fullWidth: true,
         fieldType: "input",
         type: "password",
-        inputProps: { pattern: "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=]).{8,}$" }
+        // inputProps: { pattern: "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=]).{8,}$" }
       },
     }
   })

@@ -9,6 +9,7 @@ import { useTranslation } from 'next-i18next';
 import { Controller, useForm } from "react-hook-form";
 import Box from '@mui/material/Box';
 import Dropdown from 'components/common/dropdown'
+import DropZone from "components/common/dropZone";
 import { Typography } from '@mui/material';
 
 export default function TabForm(props) {
@@ -21,7 +22,6 @@ export default function TabForm(props) {
     handleSubmitForm(values)
     reset();
   }, []);
-
   const renderInput = ({ field, index }) => {
     return (
       <Grid item xs={12} key={index}>
@@ -61,14 +61,36 @@ export default function TabForm(props) {
               onChange={onChange}
               // error={Boolean(errors[])}
               {...(field.pattern ? { inputProps: { pattern: field.pattern ? new RegExp(field.pattern, 'g') : "" } } : {})}
-              autoFocus={index === 0}
               style={{ marginTop: 10, backgroundColor: theme.palette.neutralLight.main_700 }}
-
             />
           )}
           control={control}
           name={field.id}
           defaultValue=""
+        />
+      </Grid>
+    )
+  }
+
+  const renderFileUpload = ({ field, index }) => {
+    return (
+      <Grid item xs={12} key={index}>
+        <Typography className={styles["label-login"]}>{`${t(field.name)}${field.required ? "*" : ''}`}</Typography>
+        <Controller
+          render={({ field: { name, value, onChange } }) => (
+            <DropZone
+              {...field}
+              name={name}
+              value={value}
+              onChange={onChange}
+              error={errors[field.id]}
+              style={{ marginTop: 10, backgroundColor: theme.palette.neutralLight.main_700 }}
+            />
+          )}
+          control={control}
+          name={field.id}
+          defaultValue={[]}
+          rules={{ required: field.required }}
         />
       </Grid>
     )
@@ -83,6 +105,8 @@ export default function TabForm(props) {
               return renderInput({ field, index })
             } else if (field.fieldType === 'dropdown') {
               return renderDropdown({ field, index })
+            } else if (field.fieldType === 'fileUpload') {
+              return renderFileUpload({ field, index })
             } else {
               return renderInput({ field, index })
             }

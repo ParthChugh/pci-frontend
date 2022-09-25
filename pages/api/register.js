@@ -2,12 +2,14 @@
 
 export default function handler(req, res) {
   res.status(200).json({
+    tabType: 'tab',
     tabs: [
       {
         "button": "Daftar",
         heading: "Umum",
         extraFields: {
-          "apiQuery": "uType=customer"
+          "apiQuery": "uType=customer",
+          "redirect": "/"
         },
         form: {
           "0": {
@@ -64,13 +66,14 @@ export default function handler(req, res) {
         "button": "Daftar",
         heading: "Bisnis",
         extraFields: {
-          "apiQuery": "uType=company"
+          "apiQuery": "uType=architecture",
+          "redirect": "/business-verification"
         },
         form: {
           "0": {
             name: "Nama Perusahaan",
             required: true,
-            id: "nama_perusahaan",
+            id: "nameCompany",
             label: "",
             fullWidth: true,
             fieldType: "input"
@@ -84,6 +87,16 @@ export default function handler(req, res) {
             fieldType: "input"
           },
           "2": {
+            name: "Email",
+            required: true,
+            autoComplete: "email",
+            fullWidth: true,
+            id: "email",
+            label: "",
+            fieldType: "input",
+            inputProps: { pattern: "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$" }
+          },
+          "3": {
             name: "Jenis Pengguna",
             required: true,
             id: "uType",
@@ -96,15 +109,15 @@ export default function handler(req, res) {
               { label: "Lainnya", value: "Lainnya" },
             ]
           },
-          "3": {
+          "4": {
             name: "No. Telepon",
             required: true,
-            id: "telepon",
+            id: "phone",
             label: "",
             fullWidth: true,
             fieldType: "input"
           },
-          "4": {
+          "5": {
             name: "Password",
             fieldType: "password",
             required: true,
@@ -112,9 +125,10 @@ export default function handler(req, res) {
             label: "",
             fullWidth: true,
             fieldType: "input",
-            inputProps: { pattern: "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=]).{8,}$" }
+            type: "password",
+            inputProps: { pattern: "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$" }
           },
-          "5": {
+          "6": {
             name: "Kode Sales",
             required: false,
             id: "referralCode",

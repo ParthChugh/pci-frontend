@@ -2,10 +2,15 @@
 
 export default function handler(req, res) {
   res.status(200).json({
+    tabType: 'stepper',
     tabs: [
       {
+        clickDisabled: true,
         "button": "Submit",
         heading: "NPWP",
+        extraFields: {
+          "apiQuery": "type=npwp"
+        },
         form: {
           "0": {
             name: "Nomor NPWP",
@@ -22,13 +27,17 @@ export default function handler(req, res) {
             fullWidth: true,
             id: "file",
             label: "Pilih File",
-            fieldType: "input",
+            fieldType: "fileUpload",
           },
         }
       },
       {
+        clickDisabled: true,
         "button": "Submit",
         heading: "SPPKP",
+        extraFields: {
+          "apiQuery": "type=sppkp"
+        },
         form: {
           "0": {
             name: "Nomor SPPKP",
@@ -40,18 +49,22 @@ export default function handler(req, res) {
             fieldType: "input"
           },
           "1": {
-            name: "Pilih NPWP",
+            name: "Pilih SPPKP",
             required: true,
             fullWidth: true,
             id: "file",
             label: "Pilih File",
-            fieldType: "input",
+            fieldType: "fileUpload",
           },
         },
       },
       {
+        clickDisabled: true,
         "button": "Submit",
         heading: "NIB",
+        extraFields: {
+          "apiQuery": "type=nib"
+        },
         form: {
           "0": {
             name: "Nomor NIB",
@@ -68,7 +81,7 @@ export default function handler(req, res) {
             fullWidth: true,
             id: "file",
             label: "Pilih File",
-            fieldType: "input",
+            fieldType: "fileUpload",
           },
         }
       }

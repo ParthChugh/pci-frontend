@@ -1,13 +1,15 @@
-import { createRef } from 'react';
 import 'styles/globals.scss'
 import 'styles/bootstrap.css'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
-import Header from 'components/layout/header'
 import Footer from 'components/layout/footer';
 import styles from 'styles/Home.module.css'
 import { SnackbarProvider } from 'notistack';
+import { UserProvider } from 'context/users/reducer';
+import dynamic from "next/dynamic";
 import WhatsappFloat from 'components/common/whatsapp'
 import { appWithTranslation } from 'next-i18next';
+
+const Header = dynamic(() => import("components/layout/header"), { ssr: false });
 function MyApp(props) {
   const { Component, pageProps } = props;
   const theme = createTheme({
@@ -73,20 +75,22 @@ function MyApp(props) {
   });
 
   return (
-    <SnackbarProvider
-      maxSnack={3}
-    >
-      <ThemeProvider theme={theme}>
-        <Header header={props?.props?.header || {}} />
-        <div className={styles.container} id="root">
-          <main className={styles.main}>
-            <Component {...pageProps} />
-            <WhatsappFloat />
-          </main>
-        </div>
-        <Footer footer={props?.props?.footer || []} />
-      </ThemeProvider>
-    </SnackbarProvider>
+    <UserProvider>
+      <SnackbarProvider
+        maxSnack={3}
+      >
+        <ThemeProvider theme={theme}>
+          <Header header={props?.props?.header || {}} />
+          <div className={styles.container} id="root">
+            <main className={styles.main}>
+              <Component {...pageProps} />
+              <WhatsappFloat />
+            </main>
+          </div>
+          <Footer footer={props?.props?.footer || []} />
+        </ThemeProvider>
+      </SnackbarProvider>
+    </UserProvider>
   );
 }
 
@@ -97,7 +101,7 @@ MyApp.getInitialProps = async ({ locale }) => {
   return {
     props: {
       footer: data.footer || [],
-      header: data.header
+      header: data.header,
     }, // will be passed to the page component as props
 
   }

@@ -7,7 +7,7 @@ export default function SelectLabels(props) {
     style,
     options, 
     value,
-    onChange 
+    onChange,
   } = props
   return (
     <div >

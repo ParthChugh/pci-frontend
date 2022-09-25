@@ -10,13 +10,14 @@ import Search from 'components/header/search'
 import Categories from 'views/categories'
 import Products from 'views/products'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { getUserDetails } from 'helpers/user'
 
 const SlideCarousel = dynamic(() => import("components/common/slide-carousel"), { ssr: false });
 
 function Homepage(props) {
   const router = useRouter();
   const { t } = useTranslation('common', { keyPrefix: "categories" });
-  const isLoggedIn = true
+  const isLoggedIn = Object.values(props.userData || {}).length > 0 ? !!props.userData : !(getUserDetails()).error
   const { contentAssets } = props
   const classToggle = (isMobile) => {
     // const element = document.getElementsByClassName('header-search-container')[0]
@@ -68,10 +69,9 @@ function Homepage(props) {
                 return <div />
               default:
                 return <div />
-
             }
           })}
-   
+
           <BottomBar />
         </>
         :
@@ -115,13 +115,15 @@ function Homepage(props) {
   )
 }
 
-export async function getServerSideProps({ locale }) {
+export async function getServerSideProps(appContext) {
+  const { locale, req } = appContext
   const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/home`)
   const data = await response.json()
   return {
     props: {
       ...(await serverSideTranslations(locale, ["common"])),
       contentAssets: data || [],
+      userData: JSON.parse(req.cookies.userData || '{}')
     }, // will be passed to the page component as props
 
   }

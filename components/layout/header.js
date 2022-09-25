@@ -9,11 +9,12 @@ import Slide from '@mui/material/Slide';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
 import styles from 'styles/header.module.scss'
 import { useTheme } from '@mui/material/styles';
+import {getUserDetails} from 'helpers/user'
 
 const ResponsiveAppBar = (props) => {
   const { header } = props;
   const theme = useTheme();
-  const isLoggedIn = false
+  const isLoggedIn = !(getUserDetails()).error
   const icons = (header?.icons || []).filter(el => el.isLoggedIn === isLoggedIn)
   function HideOnScroll(props) {
     const { children, window } = props;
