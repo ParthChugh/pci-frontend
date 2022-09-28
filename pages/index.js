@@ -67,9 +67,9 @@ function Homepage(props) {
                   />
                 )
               case "promotion":
-                return <div />
+                return <div key={index} />
               default:
-                return <div />
+                return <div key={index} />
             }
           })}
 
@@ -77,9 +77,10 @@ function Homepage(props) {
         </>
         :
         <>
-          {(contentAssets?.content_assets || []).filter(asset => asset.type === "carousel").map(carousel => {
+          {(contentAssets?.content_assets || []).filter(asset => asset.type === "carousel").map((carousel, index) => {
             return (
               <SlideCarousel
+                key={`carousel-${index}`}
                 CAROUSEL={carousel.data}
               />
             )
