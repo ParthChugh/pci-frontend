@@ -1,6 +1,7 @@
 import { Grid, Typography, Box } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import Link from "next/link";
+import Image from "next/image";
 import styles from 'styles/header.module.scss'
 import TitleSeeMore from 'components/common/titleSeeMore'
 
@@ -41,18 +42,19 @@ export const RenderCategory = ({ productCategories, heading, readMoreText, readM
         {productCategories?.length ? (
           <Container className="mt-3">
             {productCategories?.map((item, index) => {
-              if (!item.title) {
+              if (!item.name) {
                 return null;
               }
-              const { title, image_url, href, background } = item;
+              const { name, ProductCategoryXFiles, href, background } = item;
               return (
-                <Link key={index} href={href} passHref>
+                <Link key={index} href={href || '/'} passHref>
                   <StyledGrid>
-                    <StyledMenuGrid style={{ background }}>
-                      <img loading={"lazy"} className={styles["menu-avatar"]} alt={title} src={image_url} />
+                    <StyledMenuGrid>
+                      {/* <img loading={"lazy"} className={styles["menu-avatar"]} alt={name} src={ "https://i.picsum.photos/id/129/200/300.jpg?hmac=orJWwWZR-Y_APTSxTwuQsz8j4ROmKGMTOuZEVPyY-3M"} /> */}
+                      <Image src={ProductCategoryXFiles?.[0]?.File?.url ||  "/icons/logo.svg"} alt="Vercel Logo" width={48} height={48} style={{ cursor: 'pointer', borderRadius: '50%' }} />
                     </StyledMenuGrid>
                     <TypographyStyled variant={"body2"} className="mt-2 text-center max-w-md">
-                      {title}
+                      {name}
                     </TypographyStyled>
                   </StyledGrid>
                 </Link>
@@ -69,5 +71,5 @@ export const RenderCategory = ({ productCategories, heading, readMoreText, readM
 
 export default function Category(props) {
   const { productCategories } = props
-  return <RenderCategory {...props} productCategories={productCategories?.item || []} />;
+  return <RenderCategory {...props} productCategories={productCategories || []} />;
 }

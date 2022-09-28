@@ -9,7 +9,8 @@ const nextConfig = {
     domains: [
       "localhost",
       's3-ap-southeast-1.amazonaws.com',
-      "www.zenius.net"
+      "www.zenius.net",
+      "cdn.brik.id"
     ],
   }
 }

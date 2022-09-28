@@ -9,13 +9,13 @@ export default function handler(req, res) {
         "button": "Submit",
         heading: "NPWP",
         extraFields: {
-          "apiQuery": "type=npwp"
+          "apiQuery": "type=npwp&encode=true"
         },
         form: {
           "0": {
             name: "Nomor NPWP",
             required: true,
-            id: "nomor-npwp",
+            id: "number",
             autoComplete: "nomor-npwp",
             label: "XX.XXX.XXX.X-XXX.XXX",
             fullWidth: true,
@@ -25,7 +25,7 @@ export default function handler(req, res) {
             name: "Pilih NPWP",
             required: true,
             fullWidth: true,
-            id: "file",
+            id: "images",
             label: "Pilih File",
             fieldType: "fileUpload",
           },
@@ -36,13 +36,13 @@ export default function handler(req, res) {
         "button": "Submit",
         heading: "SPPKP",
         extraFields: {
-          "apiQuery": "type=sppkp"
+          "apiQuery": "type=sppkp&encode=true"
         },
         form: {
           "0": {
             name: "Nomor SPPKP",
             required: true,
-            id: "nomor-sppkp",
+            id: "number",
             autoComplete: "nomor-sppkp",
             label: "XXX-XXX/XXX.XX/XX.XXXX/XXXX",
             fullWidth: true,
@@ -52,7 +52,7 @@ export default function handler(req, res) {
             name: "Pilih SPPKP",
             required: true,
             fullWidth: true,
-            id: "file",
+            id: "images",
             label: "Pilih File",
             fieldType: "fileUpload",
           },
@@ -63,13 +63,13 @@ export default function handler(req, res) {
         "button": "Submit",
         heading: "NIB",
         extraFields: {
-          "apiQuery": "type=nib"
+          "apiQuery": "type=nib&encode=true"
         },
         form: {
           "0": {
             name: "Nomor NIB",
             required: true,
-            id: "nomor-sppkp",
+            id: "number",
             autoComplete: "nomor-sppkp",
             label: "XXXXXXXXXXXXXX",
             fullWidth: true,
@@ -79,7 +79,7 @@ export default function handler(req, res) {
             name: "Pilih NIB",
             required: true,
             fullWidth: true,
-            id: "file",
+            id: "images",
             label: "Pilih File",
             fieldType: "fileUpload",
           },

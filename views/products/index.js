@@ -11,7 +11,7 @@ const Container = styled(Grid)(({ theme }) => ({
 
 export const RenderCategory = ({ products, heading, readMoreText, readMoreHref }) => {
   if (!products?.length) return null;
-
+  
   return (
     <Box component="div" margin={`30px 0 0px 0`}>
       <Box className="container">

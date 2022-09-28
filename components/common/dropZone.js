@@ -72,6 +72,7 @@ const DropZone = (props) => {
           id="fileSelect"
           type="file"
           multiple
+          data-max-size="2048"
           className={styles.files}
           onChange={(e) => handleFileSelect(e)}
         />

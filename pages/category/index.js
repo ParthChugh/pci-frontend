@@ -14,12 +14,11 @@ import { getUserDetails } from 'helpers/user'
 
 const SlideCarousel = dynamic(() => import("components/common/slide-carousel"), { ssr: false });
 
-function Homepage(props) {
+function Category(props) {
   const router = useRouter();
   const { t } = useTranslation('common', { keyPrefix: "categories" });
   const isLoggedIn = Object.values(props.userData || {}).length > 0 ? !!props.userData : !(getUserDetails()).error
-  const { contentAssets, products } = props
-  console.log('products123213', products)
+  const { contentAssets } = props
   const classToggle = (isMobile) => {
     // const element = document.getElementsByClassName('header-search-container')[0]
     if (isMobile) {
@@ -39,23 +38,6 @@ function Homepage(props) {
           <Search classToggle={classToggle} />
           {contentAssets?.content_assets.map((asset, index) => {
             switch (asset.type) {
-              case "carousel":
-                return (
-                  <SlideCarousel
-                    key={index}
-                    CAROUSEL={asset.data}
-                  />
-                )
-              case "category":
-                return (
-                  <Categories
-                    key={index}
-                    productCategories={products?.data?.rows.filter((product, index) => index < 5)}
-                    heading={t("Kategori Produk")}
-                    readMoreText={t("see-more")}
-                    readMoreHref={t('Lihat semua')}
-                  />
-                )
               case "product":
                 return (
                   <Products
@@ -119,17 +101,14 @@ function Homepage(props) {
 export async function getServerSideProps(appContext) {
   const { locale, req } = appContext
   const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/home`)
-  const products = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/v1/website/homeScreen/productCategory`)
-  console.log('products--------products', products)
   const data = await response.json()
   return {
     props: {
       ...(await serverSideTranslations(locale, ["common"])),
       contentAssets: data || [],
-      userData: JSON.parse(req.cookies.userData || '{}'),
-      products: await products.json()
+      userData: JSON.parse(req.cookies.userData || '{}')
     }, // will be passed to the page component as props
 
   }
 }
-export default Homepage
+export default Category
