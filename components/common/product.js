@@ -1,6 +1,7 @@
 import { Grid, Typography, Box } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import Link from "next/link";
+import Image from "next/image";
 import styles from 'styles/header.module.scss'
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
@@ -28,17 +29,18 @@ const TypographyStyled = styled(Typography)(() => ({
 
 
 const Product = ({ product }) => {
-  const { title, image_url, href, background, currency, price } = product;
+  const { name, currency, price, id, ProductCategoryXFiles} = product;
   return (
-    <Link href={href} passHref>
+    <Link href={`products/${id}`} passHref>
       <StyledGrid>
-        <StyledMenuGrid style={{ background }}>
-          <img loading={"lazy"} className={styles["product-image"]} alt={title} src={image_url} />
+        {/* <StyledMenuGrid> */}
+          {/* <img loading={"lazy"} className={styles["product-image"]} alt={name} src={image_url} /> */}
+          <Image src={ProductCategoryXFiles?.[0]?.File?.url ||  "/icons/logo.svg"} alt="Vercel Logo" width={137} height={140} className={styles["product-image"]}/>
           {/* <Image src="/icons/wishlist.svg" alt="Wishlist" className={styles["wishlist-icon"]} width={13} height={13} />
           <Image src="/icons/wishlist-focused.svg" alt="wishlist-focused" className={styles["wishlist-focused-icon"]} width={13} height={13} /> */}
-        </StyledMenuGrid>
-        <TypographyStyled className="mt-2">
-          {title}
+        {/* </StyledMenuGrid> */}
+        <TypographyStyled className={"mt-2"}>
+          {name}
         </TypographyStyled>
         <TypographyStyled color="primary" className="mt-1">
           {currency} {price}

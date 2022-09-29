@@ -1,6 +1,6 @@
 import React from 'react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-function Category() {
+function Category(props) {
   return (
     <>
     </>

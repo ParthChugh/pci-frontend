@@ -45,7 +45,7 @@ export const RenderCategory = ({ productCategories, heading, readMoreText, readM
               if (!item.name) {
                 return null;
               }
-              const { name, ProductCategoryXFiles, href, background } = item;
+              const { name, ProductCategoryXFiles, href } = item;
               return (
                 <Link key={index} href={href || '/'} passHref>
                   <StyledGrid>

@@ -22,7 +22,7 @@ function MyApp(props) {
         main: "#EA5151",
         // main_400: "#EF7C7C",
         // main_300: "#F5A8A8",
-        // main_200: "#F7BEBE",
+        main_200: "#F7BEBE",
         // main_100: "#FAD3D3",
       },
       secondary: {
@@ -40,7 +40,7 @@ function MyApp(props) {
         // main_900: '#CED1D9',
         // main_800: "#FCFDFE",
         main_700: "#F9FBFD",
-        // main_600: "#F6F8FC",
+        main_600: "#F6F8FC",
         main: "#F3F6FB",
         // main_400: "#ECF2F8",
         // main_300: "#E6EDF6",

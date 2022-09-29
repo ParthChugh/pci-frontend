@@ -1,0 +1,21 @@
+
+@import "variables.scss";
+
+.breadcrumb {
+  font-family: $DEFAULT_FONT_FAMILTY;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 24px;
+  color: $NEUTRAL_DARK_COLOR_600;
+}
+
+.price-product-details {
+  font-family: $DEFAULT_FONT_FAMILTY;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 30px;
+  // margin-bottom: 8px;
+  color: $PIMARY_COLOR_600;
+}

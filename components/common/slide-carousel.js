@@ -16,7 +16,7 @@ const useStyles = makeStyles(() => ({
     }
   },
   car: {
-    width: "75%",
+    width: "100%",
     "& .next_prev": {
       bottom: "50%",
       zIndex: 1,
@@ -75,12 +75,12 @@ export default function SlideCarousel(props) {
     appendDots: dots => <ul className={classes.dots}> {dots} </ul>
   };
 
-  const ImageList = (onboardingCarosuelConfig["item"]||[]).map(item => {
+  const ImageList = (onboardingCarosuelConfig ||[]).map(item => {
     return { ...item, height: 20, width: 20 };
   });
   
   return (
-    <Slider {...settings} className={classes.car}>
+    <Slider {...settings} className={classes.car} style={props.style}>
       {ImageList.map((item, i) => (
         <Paper elevation={0} key={i} className={classes?.carouselItem}>
           <div

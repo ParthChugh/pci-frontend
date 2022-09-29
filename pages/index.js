@@ -19,7 +19,7 @@ function Homepage(props) {
   const { t } = useTranslation('common', { keyPrefix: "categories" });
   const isLoggedIn = Object.values(props.userData || {}).length > 0 ? !!props.userData : !(getUserDetails()).error
   const { contentAssets, products } = props
-  console.log('products123213', products)
+  
   const classToggle = (isMobile) => {
     // const element = document.getElementsByClassName('header-search-container')[0]
     if (isMobile) {
@@ -43,17 +43,18 @@ function Homepage(props) {
                 return (
                   <SlideCarousel
                     key={index}
-                    CAROUSEL={asset.data}
+                    CAROUSEL={asset.data.item}
+                    style={{width: '75%'}}
                   />
                 )
               case "category":
                 return (
                   <Categories
                     key={index}
-                    productCategories={products?.data?.rows.filter((product, index) => index < 5)}
-                    heading={t("Kategori Produk")}
+                    productCategories={products?.data?.rows.filter((product, index) => index < 4)}
+                    heading={asset.data.heading}
                     readMoreText={t("see-more")}
-                    readMoreHref={t('Lihat semua')}
+                    readMoreHref={asset.data.readMoreHref}
                   />
                 )
               case "product":
@@ -81,7 +82,8 @@ function Homepage(props) {
             return (
               <SlideCarousel
                 key={`carousel-${index}`}
-                CAROUSEL={carousel.data}
+                CAROUSEL={carousel.data.item}
+                style={{width: '75%'}}
               />
             )
           })}

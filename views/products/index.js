@@ -9,7 +9,9 @@ const Container = styled(Grid)(({ theme }) => ({
   gridGap: "1.5rem",
 }));
 
-export const RenderCategory = ({ products, heading, readMoreText, readMoreHref }) => {
+export const RenderCategory = (props) => {
+  const { products, heading, readMoreText, readMoreHref } = props;
+  console.log('props----', props)
   if (!products?.length) return null;
   
   return (
@@ -19,7 +21,7 @@ export const RenderCategory = ({ products, heading, readMoreText, readMoreHref }
         {products?.length ? (
           <Container className="mt-3">
             {products?.map((item, index) => {
-              if (!item.title) {
+              if (!item.name) {
                 return null;
               }
               return (

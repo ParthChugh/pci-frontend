@@ -39,6 +39,7 @@
   // margin-bottom: 8px;
   margin-top: 16px;
 }
+
 .label-sub-heading-2 {
   font-family: $DEFAULT_FONT_FAMILTY;
   font-style: normal;
@@ -180,4 +181,145 @@
 
 .wishlist-icon {
   position: absolute;  
+}
+
+.typography {
+  text-decoration: line-through;
+  font-family: $DEFAULT_FONT_FAMILTY;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 24px;
+  color: rgba(1, 2, 6, 0.4);
+}
+
+.discount-button {
+  background: $PIMARY_COLOR_200;
+  border-radius: 16px;
+  font-weight: 600;
+  font-size: 10px;
+  line-height: 12px;
+  color: #FFFFFF;
+  padding-left: 10px;
+  padding-right: 10px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.discount-descrption {
+  font-family: $DEFAULT_FONT_FAMILTY;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 24px;
+  color: rgba(1, 2, 6, 0.4);
+}
+
+.variant-container {
+  overflow: auto;
+  white-space: nowrap;
+}
+.variant-button {
+  background: $PIMARY_COLOR_600;
+  border-radius: 26.5px;
+  font-family: $DEFAULT_FONT_FAMILTY;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  color: #FFFFFF;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  // margin-right: 30px;
+  // width: 133px;
+}
+.number {
+  // margin: 100px;
+  display: flex;
+}
+.minus, .plus{
+  width: 30px;
+  height: 34px;
+  background: $NEUTRAL_LIGHT_COLOR_600;
+  border-radius:4px;
+  border:1px solid #fff;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+}
+.input {
+  height:34px;
+  min-width: 37px;
+  border-radius: 20px;
+  max-width: 57px;
+  text-align: center;
+  border:1px solid #fff;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  background: $NEUTRAL_LIGHT_COLOR_600;
+  color: #010206;
+}
+.minimum {
+  color: $PIMARY_COLOR_600;
+  font-family: $DEFAULT_FONT_FAMILTY;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 24px;
+}
+.subtotal {
+  font-family: $DEFAULT_FONT_FAMILTY;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 26px;
+  color: $NEUTRAL_DARK_COLOR_600;
+}
+.total {
+  font-family: $DEFAULT_FONT_FAMILTY;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 26px;
+  color: $PIMARY_COLOR_600;
+}
+.buy-now-button {
+  width: '100%';
+  height: 46px;
+  background: $PIMARY_COLOR_600;
+  border-radius: 8px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: $DEFAULT_FONT_FAMILTY;
+  font-style: normal;
+  font-size: 18px;
+  line-height: 30px;
+  text-align: center;
+  color: #FFFFFF;
+}
+.category-name {
+  font-family: $DEFAULT_FONT_FAMILTY;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 24px;
+  color: $NEUTRAL_DARK_COLOR_600;
+}
+.breadcrumb {
+  font-family: $DEFAULT_FONT_FAMILTY;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 24px;
+  color: $NEUTRAL_DARK_COLOR_600;
 }
