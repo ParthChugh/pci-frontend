@@ -13,8 +13,8 @@ export default function BasicBreadcrumbs({ items }) {
   return (
     <div role="presentation" onClick={handleClick}>
       <Breadcrumbs aria-label="breadcrumb" className='d-flex align-items-start'>
-        {(items.filter((_, index) => index < items.length - 1)).map(breadcrumb => (
-          <Link underline="hover" color="inherit" href={breadcrumb.href} className={breadcrumbStyles.breadcrumb}>
+        {(items.filter((_, index) => index < items.length - 1)).map((breadcrumb, index) => (
+          <Link underline="hover" color="inherit" href={breadcrumb.href} className={breadcrumbStyles.breadcrumb} key={`breadcrumb-${index}`}>
             {breadcrumb.name}
           </Link>
         ))}
