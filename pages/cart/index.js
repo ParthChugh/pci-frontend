@@ -62,9 +62,9 @@ function Cart(props) {
         <Typography component="h1" variant="h5" className={styles['page-heading']}>
           {t("Pilih semua")}
         </Typography>
-        {items.map(product => {
+        {items.map((product, index) => {
           return (
-            <div className={`d-flex justify-content-between ${styles['product_cart']} mb-2 p-2`}>
+            <div className={`d-flex justify-content-between ${styles['product_cart']} mb-2 p-2`} key={`cart-${index}`}>
               <TopContent
                 imgUrl={product.image}
                 name={product.name}
