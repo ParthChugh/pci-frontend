@@ -9,7 +9,6 @@ function handleClick(event) {
 }
 
 export default function BasicBreadcrumbs({ items }) {
-  console.log('items21321', items)
   return (
     <div role="presentation" onClick={handleClick}>
       <Breadcrumbs aria-label="breadcrumb" className='d-flex align-items-start'>

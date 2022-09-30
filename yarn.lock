@@ -566,6 +566,11 @@ acorn@^8.7.1:
   resolved "https://registry.npmjs.org/acorn/-/acorn-8.7.1.tgz#0197122c843d1bf6d0a5e83220a788f278f63c30"
   integrity sha512-Xx54uLJQZ19lKygFXOWsscKUbsBZW0CPykPhVQdhIeIwrbPmJzqeASDInc8nKBnp/JT6igTs82qPXz069H8I/A==
 
+actionsheet-react@^1.0.14:
+  version "1.0.14"
+  resolved "https://registry.yarnpkg.com/actionsheet-react/-/actionsheet-react-1.0.14.tgz#28834812403162b479b53027d01ff5a70b44e395"
+  integrity sha512-bdZ4camgcdvLXvfE8/NaoV/MC70wWFLFd+/qmG2nS4dD1vK5qdtnQgMMnKDWxOkcmZQFWK6nqUHdMN+/h/mGnQ==
+
 ajv@^6.10.0, ajv@^6.12.4:
   version "6.12.6"
   resolved "https://registry.npmjs.org/ajv/-/ajv-6.12.6.tgz#baf5a62e802b07d977034586f8c3baf5adf26df4"
