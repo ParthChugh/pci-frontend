@@ -773,4 +773,6 @@
   text-align: left !important;
 }
 
-
+.capitalize {
+  text-transform: capitalize;
+}

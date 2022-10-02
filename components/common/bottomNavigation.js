@@ -16,7 +16,7 @@ function SimpleBottomNavigation(props) {
     } else if (value === 1) {
       router.push('/products')
     } else if (value === 2) {
-      router.push('/wallet')
+      router.push('/orders')
     } else {
       router.push('/profile')
     }
@@ -33,7 +33,7 @@ function SimpleBottomNavigation(props) {
       >
         <BottomNavigationAction classes={actionClasses} label="Home" icon={value === 0 ? <Image src="/icons/home-focused.svg" alt="home" width={20} height={20} /> : <Image src="/icons/home.svg" alt="home" width={20} height={20} />} />
         <BottomNavigationAction classes={actionClasses} label="Produk" icon={value === 1 ? <Image src="/icons/products-focused.svg" alt="home" width={20} height={20} /> : <Image src="/icons/products.svg" alt="products" width={20} height={20} />} />
-        <BottomNavigationAction classes={actionClasses} label="Transaksi" icon={value === 2 ? <Image src="/icons/wallet-focused.svg" alt="home" width={20} height={20} /> : <Image src="/icons/wallet.svg" alt="wallet" width={20} height={20} />} />
+        <BottomNavigationAction classes={actionClasses} label="Transaksi" icon={value === 2 ? <Image src="/icons/wallet-focused.svg" alt="home" width={20} height={20} /> : <Image src="/icons/wallet.svg" alt="orders" width={20} height={20} />} />
         <BottomNavigationAction classes={actionClasses} label="Profile" icon={value === 3 ? <Image src="/icons/profile-focused.svg" alt="home" width={20} height={20} /> : <Image src="/icons/profile.svg" alt="profile" width={20} height={20} />} />
       </BottomNavigation>
     </Paper>

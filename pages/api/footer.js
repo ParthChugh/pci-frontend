@@ -6,19 +6,19 @@ export default function handler(req, res) {
       items: [
         {
           title: "Beranda",
-          href: "/search?q=nfts"
+          href: "/customer-service/beranda"
         },
         {
           title: "Produk",
-          href: "/search?q=art"
+          href: "/customer-service/produk"
         },
         {
           title: "Tentang Kami",
-          href: "/search?q=collectibles"
+          href: "/customer-service/tentang-kami"
         },
         {
           title: "Kontak Kami",
-          href: "/search?q=domain+names"
+          href: "/customer-service/kontak-kami"
         }
       ]
     },
@@ -27,16 +27,16 @@ export default function handler(req, res) {
       items: [
         {
           title: "FAQ",
-          href: "/profile"
+          href: "/customer-service/faq"
         },
         {
           title: "Syarat & Ketentuan",
-          href: "/my+favorurites"
+          href: "/customer-service/syarat-and-ketentuan"
         },
         {
           title: "Kebijakan Privasi",
-          href: "/my+collection"
-        }, i
+          href: "/customer-service/kebijakan-privasi"
+        },
       ]
     }
   ])

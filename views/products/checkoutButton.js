@@ -41,6 +41,7 @@ const CheckoutButton = (props) => {
             <Button
               type="submit"
               fullWidth
+              onClick={props.onClickButton}
               className={styles['checkout-button']}
             >
               {totalItems}

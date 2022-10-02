@@ -5,6 +5,7 @@ import Footer from 'components/layout/footer';
 import styles from 'styles/Home.module.css'
 import { SnackbarProvider } from 'notistack';
 import { UserProvider } from 'context/users/reducer';
+import BottomBar from 'components/common/bottomNavigation'
 import dynamic from "next/dynamic";
 import WhatsappFloat from 'components/common/whatsapp'
 import { appWithTranslation } from 'next-i18next';
@@ -88,6 +89,7 @@ function MyApp(props) {
             </main>
           </div>
           <Footer footer={props?.props?.footer || []} />
+          <BottomBar />
         </ThemeProvider>
       </SnackbarProvider>
     </UserProvider>

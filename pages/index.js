@@ -5,7 +5,6 @@ import { Typography } from '@mui/material'
 import styles from 'styles/header.module.scss'
 import { useTranslation } from 'next-i18next';
 import { useRouter } from "next/router";
-import BottomBar from 'components/common/bottomNavigation'
 import Search from 'components/header/search'
 import Categories from 'views/categories'
 import Products from 'views/products'
@@ -61,7 +60,7 @@ function Homepage(props) {
                 return (
                   <Products
                     key={index}
-                    products={asset.data}
+                    products={{item: products?.data?.rows}}
                     heading={asset.data.heading}
                     readMoreText={t("see-more")}
                     readMoreHref={asset.data.readMoreHref}
@@ -74,7 +73,6 @@ function Homepage(props) {
             }
           })}
 
-          <BottomBar />
         </>
         :
         <>
@@ -112,7 +110,6 @@ function Homepage(props) {
             {t('already-have-account')}
             <Link color="primary" href="/login/" style={{ textDecoration: 'none' }}>{" Masuk"}</Link>
           </Typography>
-          <BottomBar />
         </>
       }
     </>

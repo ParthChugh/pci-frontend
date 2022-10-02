@@ -152,6 +152,9 @@ function Cart(props) {
         <CheckoutButton
           totalHeading={"Total Harga"}
           currency={"Rp"}
+          onClickButton={() => {
+            router.push('/checkout-shipping')
+          }}
           totalItems={`Checkout (${items.length})`}
           totalAmount={totalAmount}
           actionSheetDiv={
