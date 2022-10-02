@@ -29,16 +29,13 @@ const TypographyStyled = styled(Typography)(() => ({
 
 
 const Product = ({ product }) => {
-  const { name, currency, price, id, ProductCategoryXFiles} = product;
+  const { name, currency, price, id, ProductCategoryXFiles } = product;
   return (
     <Link href={`products/${id}`} passHref>
       <StyledGrid>
-        {/* <StyledMenuGrid> */}
-          {/* <img loading={"lazy"} className={styles["product-image"]} alt={name} src={image_url} /> */}
-          <Image src={ProductCategoryXFiles?.[0]?.File?.url ||  "/icons/logo.svg"} alt="Vercel Logo" width={137} height={140} className={styles["product-image"]}/>
-          {/* <Image src="/icons/wishlist.svg" alt="Wishlist" className={styles["wishlist-icon"]} width={13} height={13} />
-          <Image src="/icons/wishlist-focused.svg" alt="wishlist-focused" className={styles["wishlist-focused-icon"]} width={13} height={13} /> */}
-        {/* </StyledMenuGrid> */}
+        <Box>
+          <Image src={ProductCategoryXFiles?.[0]?.File?.url || "/icons/logo.svg"} alt="Vercel Logo" width={137} height={140} className={styles["product-image"]} />
+        </Box>
         <TypographyStyled className={"mt-2"}>
           {name}
         </TypographyStyled>

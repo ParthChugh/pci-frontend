@@ -1,4 +1,5 @@
 import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 import breadcrumbStyles from 'styles/breadcrumb.module.scss'
 import Image from "next/image";
 import styles from 'styles/header.module.scss'
@@ -17,17 +18,18 @@ export default function TopContent({ name, discount, price, discountMessage, var
         </div>
       }
       <div>
-        {variant && <Typography className={styles['variant']}>{variant}</Typography>}
+        {variant && <Typography className={`${styles['variant']} mb-2`}>{variant}</Typography>}
         <div>
-          <Typography className={styles['label-sub-heading-1']}>{name}</Typography>
-          <Typography className={breadcrumbStyles['price-product-details']}>Rp. {parseFloat(price) * (100 - parseFloat(discount)) / 100}</Typography>
+          <Typography className={styles['cart-product-name']}>{name}</Typography>
+          <Box className='d-flex'>
+            <Typography className={`${styles['cart-product-price']} mt-1`}>Rp. {parseFloat(price) * (100 - parseFloat(discount)) / 100}</Typography>
+            <Typography className={`${styles.typography} ml-2`} component="div">
+              Rp. {parseFloat(price)}
+            </Typography>
+          </Box>
         </div>
-
         <div className='d-flex flex-row'>
-          <Typography className={styles.typography} component="div">
-            Rp. {parseFloat(price)}
-          </Typography>
-          <Typography component="div" className={`ml-2 ${styles["discount-button"]}`}>
+          <Typography component="div" className={`${styles["discount-button"]}`}>
             {`${discount}%`}
           </Typography>
         </div>

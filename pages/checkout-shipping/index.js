@@ -1,12 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import axios from 'axios';
 import { useRouter } from "next/router";
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Tabform from 'components/common/tabform';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import { Button, IconButton } from '@mui/material';
+import { IconButton } from '@mui/material';
 import ActionSheet from "actionsheet-react";
 import Image from "next/image";
 import Products from 'views/products'
@@ -19,8 +13,6 @@ import Container from '@mui/material/Container';
 import styles from 'styles/header.module.scss'
 import { withSnackbar } from 'notistack';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { UserContext } from 'context/users/reducer';
-import * as UserActions from 'context/users/actions'
 
 function Cart(props) {
   const { product } = props;
@@ -60,6 +52,7 @@ function Cart(props) {
   const totalAmount = (items.reduce(function (sum, product) {
     return (sum + ((product.price) * product.totalItems - (100 - parseFloat(product.discount)) / 100));
   }, 0)).toFixed(3)
+  const shippingCost = 18
 
   const handleOpen = () => {
     delRef.current.open();
@@ -79,6 +72,26 @@ function Cart(props) {
       }, 5000)
     }
   }, [delRef.current])
+
+  const Amount = () => {
+    return (
+      <Box component="div">
+        <Typography component="span" className={styles['page-sub-heading']}>{'Buat Pesanan'}</Typography>
+        <Box className='d-flex justify-content-between mt-2'>
+          <Typography component="span" className={styles["total-amount"]}>{'Total Harga'}</Typography>
+          <Typography component="span" className={styles["total-amount"]}>{`Rp. ${totalAmount}`}</Typography>
+        </Box>
+        <Box className='d-flex justify-content-between mt-2'>
+          <Typography component="span" className={styles["total-amount"]}>{'Biaya Pengiriman'}</Typography>
+          <Typography component="span" className={styles["total-amount"]}>{`Rp. ${shippingCost}`}</Typography>
+        </Box>
+        <Box className='d-flex justify-content-between mt-2 mb-4'>
+          <Typography component="span" className={styles["total-amount"]}>{'Total Pembayaran'}</Typography>
+          <Typography component="span" className={styles["total-amount"]} color="primary">{`Rp. ${parseFloat(totalAmount) + parseFloat(shippingCost)}`}</Typography>
+        </Box>
+      </Box>
+    )
+  }
   return (
     <Container component="main" maxWidth="xs">
       <Box
@@ -90,83 +103,40 @@ function Cart(props) {
         }}
       >
         <Typography component="h1" variant="h5" className={styles['page-heading']}>
-          {t("Pilih semua")}
+          {t("Pesanan Anda")}
         </Typography>
         {items.map((product, index) => {
           return (
             <div className={`d-flex justify-content-between ${styles['product_cart']} mb-2 p-2 align-items-center`} key={`cart-${index}`}>
               <TopContent
+                variant={product.categoryName}
                 imgUrl={product.image}
                 name={product.name}
                 price={product.price}
                 discount={product.discount}
                 postDiv={
-                  <div className='d-flex mt-2 align-items-center'>
-                    <Typography className={styles["minus"]}>-</Typography>
-                    <input type="text" className={styles['input']} value="1" />
-                    <Typography className={`${styles["plus"]} `}>+</Typography>
-                    <IconButton
-                      className="ml-2"
-                      onClick={handleOpen}
-                    >
-                      <Image src="/icons/trash.svg" alt="upload" height={16} width={16} />
-                    </IconButton>
-                    <ActionSheet
-                      ref={delRef}
-                      closeOnBgTap
-                      mouseEnable
-                      touchEnable
-                      sheetStyle={{
-                        background: "linear-gradient(90deg, #16222A 0%, #3A6073 100%)"
-                      }}
-                      bgStyle={{
-                        backgroundColor: "rgba(1, 1, 1, 0.8)"
-                      }}
-                    >
-                      <Box id="__next" className='px-4 d-flex flex-column align-items-center'>
-                        <Box className="mt-3 mb-3">
-                          <Image src="/icons/check.svg" alt="Checkbox" width={62} height={62} />
-                        </Box>
-                        <Typography className={styles['delete-cart-item']}>
-                          {"Anda berhasil menghapus \n produk dari keranjang!"}
-                        </Typography>
-                      </Box>
-                    </ActionSheet>
-                  </div>
+                  <Box className='d-flex mt-2 align-items-center'>
+                    <Typography className={styles['category-name-checkout']}>{product.categoryName}</Typography>
+                  </Box>
                 }
               />
-              <div style={{ backgroundColor: 'white', height: 30, width: 30, borderRadius: '50%' }} className="d-flex align-items-center justify-content-center">
-                <Image src="/icons/heart.svg" alt="upload" height={12} width={12} />
-              </div>
+              <Box className="d-flex align-items-center justify-content-center">
+                <Typography className={styles["cart-product-name"]}>x{product.totalItems}</Typography>
+              </Box>
 
             </div>
 
           )
         })}
-        <Products
-          products={{ item: product.data.details.products.rows }}
-          heading={product.data.details.products.name}
-          readMoreText={""}
-          readMoreHref={''}
-        />
+        <Amount />
         <CheckoutButton
           totalHeading={"Total Harga"}
           currency={"Rp"}
-          totalItems={`Checkout (${items.length})`}
+          totalItems={`Buat Pesanan`}
           totalAmount={totalAmount}
-          actionSheetDiv={
-            <Box component="div">
-              <Typography component="span" className={styles['page-sub-heading']}>{'Detail Pembayaran'}</Typography>
-              <Box className='d-flex justify-content-between mt-2'>
-                <Typography component="span" className={styles["total-amount"]}>{'Total Harga'}</Typography>
-                <Typography component="span" className={styles["total-amount"]}>{`Rp. ${totalAmount}`}</Typography>
-              </Box>
-              <Box className='d-flex justify-content-between mt-2 mb-4'>
-                <Typography component="span" className={styles["total-amount"]}>{'Total Pembayaran'}</Typography>
-                <Typography component="span" className={styles["total-amount"]} color="primary">{`Rp. ${totalAmount}`}</Typography>
-              </Box>
-            </Box>
-          }
+          // actionSheetDiv={
+          //   <Amount />
+          // }
         />
       </Box>
     </Container>

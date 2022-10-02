@@ -1,7 +1,5 @@
 import { useRef } from 'react';
 import Typography from '@mui/material/Typography';
-import Image from "next/image";
-import Link from '@mui/material/Link';
 import ActionSheet from "actionsheet-react";
 import { useTranslation } from 'next-i18next';
 import Accordion from '@mui/material/Accordion';
@@ -107,6 +105,9 @@ export default function ProductDetails(props) {
       />
       <ActionSheet
         ref={ref}
+        closeOnBgTap
+        mouseEnable
+        touchEnable
         sheetStyle={{
           background: "linear-gradient(90deg, #16222A 0%, #3A6073 100%)"
         }}
@@ -116,7 +117,6 @@ export default function ProductDetails(props) {
       >
         <div id="__next" className='px-4'>
           <div className='d-flex align-items-start justify-content-between mt-4'>
-
             <TopContent
               imgUrl="https://s3-ap-southeast-1.amazonaws.com/zenius-zenfeed/feed/media-9af6547f-c49b-4a54-a19a-9d81398b55f9-file.png"
               variant={"Default"}
@@ -125,8 +125,6 @@ export default function ProductDetails(props) {
               discount={discount}
               discountMessage={''}
             />
-
-
             <div>
               <IconButton
                 aria-label="close"
