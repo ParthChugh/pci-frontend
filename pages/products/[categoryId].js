@@ -21,7 +21,9 @@ function RenderProducts(props) {
     userState,
     userDispatch,
   } = useContext(UserContext);
-  const cachedProducts = userState.products["main"] || products["main"]
+  const cachedProducts = userState.products[router.query.categoryId] || products[router.query.categoryId]
+  console.log("cachedProducts1231232112321", userState.products)
+  console.log("cachedProducts12312321", products[router.query.categoryId])
 
   const classToggle = (isMobile) => {
     // const element = document.getElementsByClassName('header-search-container')[0]
@@ -35,10 +37,10 @@ function RenderProducts(props) {
     }
   }
   useEffect(() => {
-    if (JSON.stringify(products?.["main"] || {}).length > 0) {
-      userDispatch(UserActions.updateProducts({ products: products["main"], categoryId: "main" }))
+    if (JSON.stringify(products?.[router.query.categoryId] || {}).length > 0) {
+      userDispatch(UserActions.updateProducts({ products: products[router.query.categoryId], categoryId: router.query.categoryId }))
     }
-  }, [JSON.stringify(products?.["main"] || {})])
+  }, [JSON.stringify(products?.[router.query.categoryId] || {})])
   return (
     <>
       <Search classToggle={classToggle} />
@@ -64,7 +66,7 @@ function RenderProducts(props) {
                         href={router.pathname}
                         style={{ textDecoration: 'underline' }}
                         onClick={() => {
-                          userDispatch(UserActions.updateProducts({ categoryId: "main", clear: true }))
+                          userDispatch(UserActions.updateProducts({ categoryId: router.query.categoryId, clear: true }))
                         }}
                       >
                         {`browse from the start`}
@@ -107,10 +109,10 @@ function RenderProducts(props) {
   )
 }
 export async function getServerSideProps(appContext) {
-  const { locale, req, query } = appContext
+  const { locale, req, query, params } = appContext
   const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products`)
   const categories = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/v1/customer/homeScreen/productCategory`)
-  const products = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/v1/customer/homeScreen/product?page=${query?.page || 1}`)
+  const products = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/v1/customer/homeScreen/product?page=${query?.page || 1}${params.categoryId ? `&query=ProductCategoryId=${params.categoryId}` : ""}`)
   const productsResponse = await products.json()
   const data = await response.json()
   if (productsResponse?.data?.rows?.length === 0 || products?.data?.total_page < (query?.page || 1)) {
@@ -128,7 +130,7 @@ export async function getServerSideProps(appContext) {
       contentAssets: data || [],
       userData: JSON.parse(req.cookies.userData || '{}'),
       categories: await categories.json(),
-      products: { main: { [query?.page || 1]: productsResponse } }
+      products: { [params.categoryId]: { [query?.page || 1]: productsResponse } }
     }, // will be passed to the page component as props
 
   }

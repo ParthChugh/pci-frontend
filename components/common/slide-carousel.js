@@ -78,7 +78,7 @@ export default function SlideCarousel(props) {
   const ImageList = (onboardingCarosuelConfig ||[]).map(item => {
     return { ...item, height: 20, width: 20 };
   });
-  
+  console.log("ImageList123213", ImageList)
   return (
     <Slider {...settings} className={classes.car} style={props.style}>
       {ImageList.map((item, i) => (
@@ -90,7 +90,7 @@ export default function SlideCarousel(props) {
               position: "relative"
             }}
           >
-            <Image src={item?.image_url} alt="login" layout="fill" objectFit="contain" />
+            <Image src={item?.url} alt="login" layout="fill" objectFit="contain" />
           </div>
           <div className="p-2">
             {item?.title && (

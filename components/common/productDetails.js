@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import Typography from '@mui/material/Typography';
 import ActionSheet from "actionsheet-react";
 import { useTranslation } from 'next-i18next';
@@ -23,46 +23,70 @@ export default function ProductDetails(props) {
   const handleClose = () => {
     ref.current.close();
   };
-  const { productDetails: {
-    name,
-    price,
-    discount,
-    discountMessage,
-    details: {
-      variants,
-      buyNowButton,
-      addToCart,
-      descriptionHeading,
-      categoryName,
-      description,
-      variantsHeading,
-      minimum
+  const {
+    productDetails: {
+      // name,
+      // price,
+      // discount,
+      discountMessage,
+      details: {
+        // variants,
+        buyNowButton,
+        addToCart,
+        descriptionHeading,
+        categoryName,
+        // description,
+        // variantsHeading,
+        // minimum
+      },
+      // products
     },
-    products
-  } } = props;
-  console.log('products-----', products.rows)
-  const total = 64.000
+    categoryProduct: {
+      name,
+      Price,
+      basePercent,
+      description
+    },
+    categoryProduct
+  } = props;
+  const price = Price[0]?.publicPrice
+  const total = price
   const { t } = useTranslation('common', { keyPrefix: "categories" });
+  const [orderValue, setOrderValue] = useState(1)
   return (
     <div className='ml-3 mr-3'>
-
       <TopContent
         name={name}
         price={price}
-        discount={discount}
+        discount={basePercent}
         discountMessage={discountMessage}
       />
-      <TitleSeeMore heading={variantsHeading} readMoreText={t("see-more")} href={'/variants'} />
+      {/* <TitleSeeMore heading={variantsHeading} readMoreText={t("see-more")} href={'/variants'} />
       <div className={`d-flex ${styles["variant-container"]}`}>
         {variants.map((el, index) => (
           <Typography key={`variants-${index}`} className={styles["variant-button"]}>{el.name}</Typography>
         ))}
-      </div>
+      </div> */}
       <div className={`${styles["number"]} mt-4 mb-4 align-items-center`}>
-        <Typography className={styles["minus"]}>-</Typography>
-        <input type="text" className={styles['input']} value="1" />
-        <Typography className={styles["plus"]}>+</Typography>
-        <Typography className={styles["minimum"]}>Pesanan minimal: {minimum}</Typography>
+        <Typography
+          className={styles["minus"]}
+          onClick={() => {
+            if (orderValue !== 1) {
+              setOrderValue(orderValue - 1)
+            }
+          }}
+        >
+          -</Typography>
+        <input type="text" className={styles['input']} value={orderValue} disabled />
+        <Typography
+          className={styles["plus"]}
+          onClick={() => {
+            setOrderValue(orderValue + 1)
+          }}
+        >
+          +
+        </Typography>
+        {/* <Typography className={styles["minimum"]}>Pesanan minimal: {minimum}</Typography> */}
       </div>
       <div className='d-flex justify-content-between'>
         <Typography component="div" className={styles["subtotal"]}>
@@ -97,12 +121,12 @@ export default function ProductDetails(props) {
           </Typography>
         </AccordionDetails>
       </Accordion>
-      <Products
+      {/* <Products
         products={{ item: products.rows }}
         heading={products.name}
         readMoreText={""}
         readMoreHref={''}
-      />
+      /> */}
       <ActionSheet
         ref={ref}
         closeOnBgTap
@@ -118,11 +142,11 @@ export default function ProductDetails(props) {
         <div id="__next" className='px-4'>
           <div className='d-flex align-items-start justify-content-between mt-4'>
             <TopContent
-              imgUrl="https://s3-ap-southeast-1.amazonaws.com/zenius-zenfeed/feed/media-9af6547f-c49b-4a54-a19a-9d81398b55f9-file.png"
+              imgUrl={categoryProduct?.Files[0]?.url || "/icons/logo.svg"}
               variant={"Default"}
               name={name}
               price={price}
-              discount={discount}
+              discount={basePercent}
               discountMessage={''}
             />
             <div>
@@ -138,24 +162,38 @@ export default function ProductDetails(props) {
               </IconButton>
             </div>
           </div>
-          <TitleSeeMore heading={variantsHeading} readMoreText={""} />
+          {/* <TitleSeeMore heading={variantsHeading} readMoreText={""} />
           <div className={`d-flex ${styles["variant-container"]}`}>
             {variants.map((el, index) => (
               <Typography key={`variants-${index}`} className={styles["variant-button"]}>{el.name}</Typography>
             ))}
-          </div>
+          </div> */}
           <div className={`${styles["number"]} mt-4 align-items-center justify-content-between`}>
             <Typography className={styles["subtotal"]}>Jumlah Produk</Typography>
 
             <div className='d-flex'>
-              <Typography className={styles["minus"]}>-</Typography>
-              <input type="text" className={styles['input']} value="1" />
-              <Typography className={styles["plus"]}>+</Typography>
+              <Typography
+                className={styles["minus"]}
+                onClick={() => {
+                  if (orderValue !== 1) {
+                    setOrderValue(orderValue - 1)
+                  }
+                }}
+              >
+                -</Typography>
+              <input type="text" className={styles['input']} value={orderValue} disabled />
+              <Typography
+                className={styles["plus"]}
+                onClick={() => {
+                  setOrderValue(orderValue + 1)
+                }}
+              >
+                +
+              </Typography>
             </div>
-
           </div>
-          <Typography className={styles["minimum"]}>Pesanan minimal: {minimum}</Typography>
-          <Typography component="div" className={`${styles['buy-now-button']} mb-3 mt-3`} style={{ cursor: 'pointer' }}>
+          {/* <Typography className={styles["minimum"]}>Pesanan minimal: {minimum}</Typography> */}
+          <Typography component="div" className={`${styles['buy-now-button']} mb-3 mt-3 mb-8`} style={{ cursor: 'pointer' }}>
             {"Masukkan Keranjang"}
           </Typography>
         </div>

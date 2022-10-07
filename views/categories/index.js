@@ -45,9 +45,9 @@ export const RenderCategory = ({ productCategories, heading, readMoreText, readM
               if (!item.name) {
                 return null;
               }
-              const { name, Files, href } = item;
+              const { name, Files, id } = item;
               return (
-                <Link key={index} href={href || '/'} passHref>
+                <Link key={index} href={`/products/${id}`} passHref>
                   <StyledGrid>
                     <StyledMenuGrid>
                       {/* <img loading={"lazy"} className={styles["menu-avatar"]} alt={name} src={ "https://i.picsum.photos/id/129/200/300.jpg?hmac=orJWwWZR-Y_APTSxTwuQsz8j4ROmKGMTOuZEVPyY-3M"} /> */}

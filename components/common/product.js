@@ -30,9 +30,10 @@ const TypographyStyled = styled(Typography)(() => ({
 
 
 const Product = ({ product = {}, skeleton = false }) => {
-  const { name, currency = "Rp.", id, Files, Price } = product;
+  const { name, currency = "Rp.", id, Files, Price, ProductCategoryId } = product;
+  console.log('product123213-', product)
   return (
-    <Link href={`products/${id}`} passHref>
+    <Link href={`/products/${ProductCategoryId}/${id}`} passHref>
       <StyledGrid>
         <Box>
           {skeleton ? <Box component={"div"}><Skeleton width={137} height={100} /> </Box> : <Image src={Files?.[0]?.url || "/icons/logo.svg"} alt="Vercel Logo" width={137} height={140} className={styles["product-image"]} />}

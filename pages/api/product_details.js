@@ -15,23 +15,23 @@ export default function handler(req, res) {
         "btn_done_ba": "Done ba",
         "item": [
           {
-            "image_url": "https://www.zenius.net/blog/wp-content/uploads/2022/03/Blog-Learning-Guide_Blog-Banner-1-1-1.png",
+            "url": "https://www.zenius.net/blog/wp-content/uploads/2022/03/Blog-Learning-Guide_Blog-Banner-1-1-1.png",
             "href": "/bahan_kimia"
           },
           {
-            "image_url": "https://s3-ap-southeast-1.amazonaws.com/zenius-zenfeed/feed/media-a443312f-41ee-4c4b-920b-2fc780d4fec7-file.png",
+            "url": "https://s3-ap-southeast-1.amazonaws.com/zenius-zenfeed/feed/media-a443312f-41ee-4c4b-920b-2fc780d4fec7-file.png",
             "href": "/bahan_kimia"
           },
           {
-            "image_url": "https://www.zenius.net/blog/wp-content/uploads/2022/03/Blog-Learning-Guide_Blog-Banner-1-1-1.png",
+            "url": "https://www.zenius.net/blog/wp-content/uploads/2022/03/Blog-Learning-Guide_Blog-Banner-1-1-1.png",
             "href": "/bahan_kimia"
           },
           {
-            "image_url": "https://s3-ap-southeast-1.amazonaws.com/zenius-zenfeed/feed/media-c13f159e-1f0c-4832-94bf-a3c657872b68-file.png",
+            "url": "https://s3-ap-southeast-1.amazonaws.com/zenius-zenfeed/feed/media-c13f159e-1f0c-4832-94bf-a3c657872b68-file.png",
             "href": "/bahan_kimia"
           },
           {
-            "image_url": "https://s3-ap-southeast-1.amazonaws.com/zenius-zenfeed/feed/media-856f8aad-0738-413a-9df9-1431c3e86953-file.png",
+            "url": "https://s3-ap-southeast-1.amazonaws.com/zenius-zenfeed/feed/media-856f8aad-0738-413a-9df9-1431c3e86953-file.png",
             "href": "/bahan_kimia"
           }
         ],
