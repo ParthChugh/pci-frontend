@@ -121,11 +121,8 @@ export async function getServerSideProps(appContext) {
   const { locale, req } = appContext
   const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/home`)
   const data = await response.json()
-  const isCategory = data.find(el => el.type === 'category')
-  let categories = []
-  if (isCategory) {
-    categories = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/v1/customer/homeScreen/productCategory`)
-  }
+  const categories = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/v1/customer/homeScreen/productCategory`)
+
   const products = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/v1/customer/homeScreen/product`)
 
   return {
