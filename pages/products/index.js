@@ -62,10 +62,12 @@ function RenderProducts(props) {
                 <Box>
                   {typeof cachedProducts?.[1] === 'undefined' &&
                     <Typography>
-                      You've arrived in the middle of a list! You can scroll as normal or <Link
+                      {`You've arrived in the middle of a list! You can scroll as normal or `}<Link
                         href={router.pathname}
                         style={{ textDecoration: 'underline' }}
-                      >browse from the start</Link>
+                      >
+                        {`browse from the start`}
+                      </Link>
                     </Typography>
                   }
                 </Box>

@@ -9,6 +9,7 @@ function Media(props) {
     <Grid className='d-flex justify-content-center flex-wrap'>
       {data.map((_, index) => (
         <Product
+          key={`skeleton-${index}`}
           skeleton
         />
       ))}
