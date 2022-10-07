@@ -28,6 +28,15 @@ function SimpleBottomNavigation(props) {
         showLabels
         value={value}
         onChange={(event, newValue) => {
+          if (newValue === 0) {
+            router.push('/')
+          } else if (newValue === 1) {
+            router.push('/products')
+          } else if (newValue === 2) {
+            router.push('/orders')
+          } else {
+            router.push('/profile')
+          }
           setValue(newValue);
         }}
       >

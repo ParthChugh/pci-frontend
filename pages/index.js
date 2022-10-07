@@ -34,19 +34,19 @@ function Homepage(props) {
 
   return (
     <>
-      {isLoggedIn ?
+      {/* {isLoggedIn ? */}
         <>
           <Search classToggle={classToggle} />
           {contentAssets?.content_assets.map((asset, index) => {
             switch (asset.type) {
-              case "carousel":
-                return (
-                  <SlideCarousel
-                    key={index}
-                    CAROUSEL={asset.data.item}
-                    style={{ width: '75%' }}
-                  />
-                )
+              // case "carousel":
+              //   return (
+              //     <SlideCarousel
+              //       key={index}
+              //       CAROUSEL={asset.data.item}
+              //       style={{ width: '75%' }}
+              //     />
+              //   )
               case "category":
                 return (
                   <Categories
@@ -75,7 +75,7 @@ function Homepage(props) {
           })}
 
         </>
-        :
+        {/* :
         <>
           {(contentAssets?.content_assets || []).filter(asset => asset.type === "carousel").map((carousel, index) => {
             return (
@@ -111,8 +111,8 @@ function Homepage(props) {
             {t('already-have-account')}
             <Link color="primary" href="/login/" style={{ textDecoration: 'none' }}>{" Masuk"}</Link>
           </Typography>
-        </>
-      }
+        </> */}
+      {/* } */}
     </>
   )
 }
