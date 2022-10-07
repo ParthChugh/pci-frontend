@@ -37,7 +37,7 @@ const TypographyStyled = styled(Typography)(({ theme }) => ({
 }));
 
 
-const RenderProducts = ({ product, heading, readMoreText, readMoreHref }) => {
+const RenderProducts = ({ product }) => {
   if (!product) return null;
 
   return (
@@ -60,8 +60,11 @@ function Products(props) {
 }
 
 export async function getServerSideProps(appContext) {
-  const { locale, req } = appContext
+  const { locale, req, params } = appContext
   const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/product_details`)
+  const productResponse = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/v1/customer/homeScreen/product?query=ProductCategoryId=${params.id}`)
+  const product = await productResponse.json()
+  console.log('product1232---', product)
   const data = await response.json()
   return {
     props: {

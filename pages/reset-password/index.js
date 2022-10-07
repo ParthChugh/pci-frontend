@@ -25,7 +25,7 @@ function ResetPassword(props) {
     Object.keys(values).forEach((key) => {
       params.append(key, values[key]);
     })
-    axios.post(`${process.env.NEXT_PUBLIC_BACKEND}/v1/website/auth/forgot-password?${form?.extraFields?.apiQuery}`, params)
+    axios.post(`${process.env.NEXT_PUBLIC_BACKEND}/v1/customer/auth/forgot-password?${form?.extraFields?.apiQuery}`, params)
       .then((response) => {
         props.enqueueSnackbar(response.data.message)
         setShowSetup(values)
@@ -45,7 +45,7 @@ function ResetPassword(props) {
     Object.keys(values).forEach((key) => {
       params.append(key, values[key]);
     })
-    axios.post(`${process.env.NEXT_PUBLIC_BACKEND}/v1/website/auth/forgot-password?${form?.otp?.extraFields?.apiQuery}`, params)
+    axios.post(`${process.env.NEXT_PUBLIC_BACKEND}/v1/customer/auth/forgot-password?${form?.otp?.extraFields?.apiQuery}`, params)
       .then((response) => {
         props.enqueueSnackbar(response.data.message)
         router.push(`/change-password?${new URLSearchParams(values).toString()}`)

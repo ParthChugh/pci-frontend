@@ -4,6 +4,7 @@ import * as types from './types'
 const initialState = {
   user: {},
   businessDetails: {},
+  products: {}
 };
 
 const userReducer = (state, action) => {
@@ -17,6 +18,12 @@ const userReducer = (state, action) => {
       return {
         ...state,
         businessDetails: action.payload,
+      };
+    case types.GET_PRODUCTS_PAGE:
+      console.log("action.payload12323", action.payload)
+      return {
+        ...state,
+        products: { ...state.products, ...(action.payload || {}) },
       };
     default:
       return state;

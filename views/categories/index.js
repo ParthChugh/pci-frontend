@@ -45,13 +45,13 @@ export const RenderCategory = ({ productCategories, heading, readMoreText, readM
               if (!item.name) {
                 return null;
               }
-              const { name, ProductCategoryXFiles, href } = item;
+              const { name, Files, href } = item;
               return (
                 <Link key={index} href={href || '/'} passHref>
                   <StyledGrid>
                     <StyledMenuGrid>
                       {/* <img loading={"lazy"} className={styles["menu-avatar"]} alt={name} src={ "https://i.picsum.photos/id/129/200/300.jpg?hmac=orJWwWZR-Y_APTSxTwuQsz8j4ROmKGMTOuZEVPyY-3M"} /> */}
-                      <Image src={ProductCategoryXFiles?.[0]?.File?.url ||  "/icons/logo.svg"} alt="Vercel Logo" width={48} height={48} style={{ cursor: 'pointer', borderRadius: '50%' }} />
+                      <Image src={Files?.[0]?.url ||  "/icons/logo.svg"} alt="Vercel Logo" width={48} height={48} style={{ cursor: 'pointer', borderRadius: '50%' }} />
                     </StyledMenuGrid>
                     <TypographyStyled variant={"body2"} className="mt-2 text-center max-w-md">
                       {name}

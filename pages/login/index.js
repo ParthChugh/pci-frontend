@@ -27,10 +27,11 @@ function SignIn(props) {
 
   const router = useRouter();
   const handleSubmitForm = async (values) => {
+    console.log('dqdqwdqwdqwdwqd')
     const params = new URLSearchParams();
     params.append('email', values.email);
     params.append('password', values.password);
-    axios.post(`${process.env.NEXT_PUBLIC_BACKEND}/v1/website/auth/login`, params)
+    axios.post(`${process.env.NEXT_PUBLIC_BACKEND}/v1/customer/auth/login`, params)
       .then((response) => {
         props.enqueueSnackbar("Successfully loggedIn")
         userDispatch(UserActions.updateUserDetails(response.data.data))
@@ -89,7 +90,9 @@ function SignIn(props) {
 }
 export async function getServerSideProps(appContext) {
   const { locale, req } = appContext
+  console.log("req.cookies.userData12312", req.cookies.userData)
   if (req.cookies.userData) {
+    console.log('-awdwadwdawdwa')
     return {
       redirect: {
         permanent: false,

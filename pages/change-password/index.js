@@ -49,7 +49,7 @@ function ChangePassword(props) {
         params.append(key, router.query[key]);
       })
       params.append('newPassword', password);
-      axios.post(`${process.env.NEXT_PUBLIC_BACKEND}/v1/website/auth/forgot-password?uType=newPassword`, params)
+      axios.post(`${process.env.NEXT_PUBLIC_BACKEND}/v1/customer/auth/forgot-password?uType=newPassword`, params)
         .then((response) => {
           setIsPasswordChanged(true)
           props.enqueueSnackbar(response.data.message)

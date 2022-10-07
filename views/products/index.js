@@ -11,9 +11,8 @@ const Container = styled(Grid)(({ theme }) => ({
 
 export const RenderCategory = (props) => {
   const { products, heading, readMoreText, readMoreHref } = props;
-  console.log('props----', props)
   if (!products?.length) return null;
-  
+
   return (
     <Box component="div" margin={`30px 0 0px 0`}>
       <Box className="container">
@@ -25,10 +24,13 @@ export const RenderCategory = (props) => {
                 return null;
               }
               return (
-                <Product
-                  key={index}
-                  product={item}
-                />
+                <Box style={{ cursor: 'pointer' }}>
+                  <Product
+                    key={index}
+                    product={item}
+                  />
+                </Box>
+
               )
             })}
           </Container>

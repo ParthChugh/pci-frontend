@@ -29,7 +29,7 @@ function SignUp(props) {
       params.append(key, values[key]);
     })
 
-    axios.post(`${process.env.NEXT_PUBLIC_BACKEND}/v1/website/auth/register?${props?.tabs[selectedTab].extraFields.apiQuery}`, params)
+    axios.post(`${process.env.NEXT_PUBLIC_BACKEND}/v1/customer/auth/register?${props?.tabs[selectedTab].extraFields.apiQuery}`, params)
       .then((response) => {
         props.enqueueSnackbar("Registration Successfull")
         userDispatch(UserActions.updateUserDetails(response.data.data))

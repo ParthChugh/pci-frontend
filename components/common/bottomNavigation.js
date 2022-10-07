@@ -10,17 +10,17 @@ function SimpleBottomNavigation(props) {
   const [value, setValue] = React.useState(0);
   const actionClasses = props.classes;
   const router = useRouter();
-  React.useEffect(() => {
-    if (value === 0) {
-      router.push('/')
-    } else if (value === 1) {
-      router.push('/products')
-    } else if (value === 2) {
-      router.push('/orders')
-    } else {
-      router.push('/profile')
-    }
-  }, [value])
+  // React.useEffect(() => {
+  //   if (value === 0) {
+  //     router.push('/')
+  //   } else if (value === 1) {
+  //     router.push('/products')
+  //   } else if (value === 2) {
+  //     router.push('/orders')
+  //   } else {
+  //     router.push('/profile')
+  //   }
+  // }, [value])
   return (
     <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 999 }} elevation={3} id="__next">
 

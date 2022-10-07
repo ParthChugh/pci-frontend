@@ -3,6 +3,7 @@ import { styled } from '@mui/material/styles';
 import Link from "next/link";
 import Image from "next/image";
 import styles from 'styles/header.module.scss'
+import Skeleton from '@mui/material/Skeleton';
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
   margin: "0px 8px",
@@ -28,19 +29,19 @@ const TypographyStyled = styled(Typography)(() => ({
 }));
 
 
-const Product = ({ product }) => {
-  const { name, currency, price, id, ProductCategoryXFiles } = product;
+const Product = ({ product = {}, skeleton = false }) => {
+  const { name, currency = "Rp.", id, Files, Price } = product;
   return (
     <Link href={`products/${id}`} passHref>
       <StyledGrid>
         <Box>
-          <Image src={ProductCategoryXFiles?.[0]?.File?.url || "/icons/logo.svg"} alt="Vercel Logo" width={137} height={140} className={styles["product-image"]} />
+          {skeleton ? <Box component={"div"}><Skeleton width={137} height={100} /> </Box> : <Image src={Files?.[0]?.url || "/icons/logo.svg"} alt="Vercel Logo" width={137} height={140} className={styles["product-image"]} />}
         </Box>
         <TypographyStyled className={"mt-2"}>
-          {name}
+          {skeleton ? <Skeleton /> : name}
         </TypographyStyled>
         <TypographyStyled color="primary" className="mt-1">
-          {currency} {price}
+          {skeleton ? <Skeleton /> : `${currency} ${Price?.[0]?.publicPrice}`}
         </TypographyStyled>
       </StyledGrid>
     </Link>

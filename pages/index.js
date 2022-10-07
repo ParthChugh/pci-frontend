@@ -17,8 +17,8 @@ function Homepage(props) {
   const router = useRouter();
   const { t } = useTranslation('common', { keyPrefix: "categories" });
   const isLoggedIn = Object.values(props.userData || {}).length > 0 ? !!props.userData : !(getUserDetails()).error
-  const { contentAssets, products } = props
-  
+  const { contentAssets, products, categories } = props
+
   const classToggle = (isMobile) => {
     // const element = document.getElementsByClassName('header-search-container')[0]
     if (isMobile) {
@@ -30,6 +30,7 @@ function Homepage(props) {
       document.getElementById('header-wrapper').classList.remove('stop-scroll')
     }
   }
+  console.log('products123123', products)
 
   return (
     <>
@@ -43,14 +44,14 @@ function Homepage(props) {
                   <SlideCarousel
                     key={index}
                     CAROUSEL={asset.data.item}
-                    style={{width: '75%'}}
+                    style={{ width: '75%' }}
                   />
                 )
               case "category":
                 return (
                   <Categories
                     key={index}
-                    productCategories={products?.data?.rows.filter((product, index) => index < 4)}
+                    productCategories={categories?.data?.rows.filter((product, index) => index < 4)}
                     heading={asset.data.heading}
                     readMoreText={t("see-more")}
                     readMoreHref={asset.data.readMoreHref}
@@ -60,10 +61,10 @@ function Homepage(props) {
                 return (
                   <Products
                     key={index}
-                    products={{item: products?.data?.rows}}
+                    products={{ item: products?.data?.rows }}
                     heading={asset.data.heading}
                     readMoreText={t("see-more")}
-                    readMoreHref={asset.data.readMoreHref}
+                    readMoreHref={"/products/"}
                   />
                 )
               case "promotion":
@@ -81,7 +82,7 @@ function Homepage(props) {
               <SlideCarousel
                 key={`carousel-${index}`}
                 CAROUSEL={carousel.data.item}
-                style={{width: '75%'}}
+                style={{ width: '75%' }}
               />
             )
           })}
@@ -119,14 +120,20 @@ function Homepage(props) {
 export async function getServerSideProps(appContext) {
   const { locale, req } = appContext
   const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/home`)
-  const products = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/v1/website/homeScreen/productCategory`)
-  console.log('products--------products', products)
   const data = await response.json()
+  const isCategory = data.find(el => el.type === 'category')
+  let categories = []
+  if (isCategory) {
+    categories = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/v1/customer/homeScreen/productCategory`)
+  }
+  const products = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/v1/customer/homeScreen/product`)
+
   return {
     props: {
       ...(await serverSideTranslations(locale, ["common"])),
       contentAssets: data || [],
       userData: JSON.parse(req.cookies.userData || '{}'),
+      categories: await categories.json(),
       products: await products.json()
     }, // will be passed to the page component as props
 

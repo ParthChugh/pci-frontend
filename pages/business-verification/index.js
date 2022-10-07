@@ -60,7 +60,7 @@ function BusinessVerfication(props) {
     console.log('base64Url12312321---', base64Url)
     params.append("images", base64Url)
 
-    axios.post(`${process.env.NEXT_PUBLIC_BACKEND}/v1/website/company/file?${props?.tabs[selectedTab].extraFields.apiQuery}`, params, {
+    axios.post(`${process.env.NEXT_PUBLIC_BACKEND}/v1/customer/company/file?${props?.tabs[selectedTab].extraFields.apiQuery}`, params, {
       headers: {
         Authorization: `Bearer ${userData.accessToken}`,
         "Content-Type": "application/x-www-form-urlencoded"
