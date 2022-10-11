@@ -6,7 +6,7 @@ const SlideCarousel = dynamic(() => import("components/common/slide-carousel"), 
 
 const RenderProducts = ({ product, categoryProduct }) => {
   if (!product) return null;
-  console.log('categoryProduct123213', categoryProduct)
+  // console.log('categoryProduct123213', categoryProduct)
   return (
     <>
       <SlideCarousel

@@ -13,7 +13,7 @@ import DropZone from "components/common/dropZone";
 import { Typography } from '@mui/material';
 
 export default function TabForm(props) {
-  const { form, buttonText, handleSubmitForm, preButton = <div />, postButton = <div /> } = props;
+  const { form, buttonText, handleSubmitForm, preButton = <div />, postButton = <div />, defaultValues = {} } = props;
   const { handleSubmit, control, reset, formState: { errors } } = useForm();
   const { t } = useTranslation('common', { keyPrefix: props.keyPrefix });
   const formFields = Object.values(form)
@@ -41,7 +41,7 @@ export default function TabForm(props) {
           )}
           control={control}
           name={field.id}
-          defaultValue=""
+          defaultValue={defaultValues[field.id] || ''}
         // rules={{ required: field.required, pattern: field.pattern }}
         />
       </Grid>
@@ -66,7 +66,7 @@ export default function TabForm(props) {
           )}
           control={control}
           name={field.id}
-          defaultValue=""
+          defaultValue={defaultValues[field.id] || ''}
         />
       </Grid>
     )
@@ -89,7 +89,7 @@ export default function TabForm(props) {
           )}
           control={control}
           name={field.id}
-          defaultValue={[]}
+          defaultValue={defaultValues[field.id] || []}
           rules={{ required: field.required }}
         />
       </Grid>

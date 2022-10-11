@@ -33,12 +33,12 @@ const getBase64 = (file) => {
     // on reader load somthing...
     reader.onload = () => {
       // Make a fileInfo Object
-      console.log("Called", reader);
+      // console.log("Called", reader);
       baseURL = reader.result;
-      console.log('baseURL=-------', baseURL);
+      // console.log('baseURL=-------', baseURL);
       resolve(baseURL);
     };
-    console.log(fileInfo);
+    // console.log(fileInfo);
   });
 };
 
@@ -48,16 +48,16 @@ function BusinessVerfication(props) {
   const userData = getUserDetails()
   const router = useRouter();
   const { t } = useTranslation('common', { keyPrefix: 'registerParent' });
-  console.log("userData.accessToken", userData.accessToken)
+  // console.log("userData.accessToken", userData.accessToken)
   const handleSubmitForm = async (values) => {
     const params = new URLSearchParams();
     // Object.keys(values).forEach((key) => {
     //   params.append(key, values[key]);
     // })
-    console.log("values.Files[0].name", values.images[0].name)
+    // console.log("values.Files[0].name", values.images[0].name)
     params.append("number", values.number);
     const base64Url = await getBase64(values.images[0])
-    console.log('base64Url12312321---', base64Url)
+    // console.log('base64Url12312321---', base64Url)
     params.append("images", base64Url)
 
     axios.post(`${process.env.NEXT_PUBLIC_BACKEND}/v1/customer/company/file?${props?.tabs[selectedTab].extraFields.apiQuery}`, params, {
@@ -68,7 +68,7 @@ function BusinessVerfication(props) {
       withCredentials: true
     })
       .then((response) => {
-        console.log("response12321", response)
+        // console.log("response12321", response)
         props.enqueueSnackbar(response.data.message)
       })
       .catch((error) => {

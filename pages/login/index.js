@@ -27,7 +27,7 @@ function SignIn(props) {
 
   const router = useRouter();
   const handleSubmitForm = async (values) => {
-    console.log('dqdqwdqwdqwdwqd')
+    // console.log('dqdqwdqwdqwdwqd')
     const params = new URLSearchParams();
     params.append('email', values.email);
     params.append('password', values.password);
@@ -90,9 +90,9 @@ function SignIn(props) {
 }
 export async function getServerSideProps(appContext) {
   const { locale, req } = appContext
-  console.log("req.cookies.userData12312", req.cookies.userData)
+  // console.log("req.cookies.userData12312", req.cookies.userData)
   if (req.cookies.userData) {
-    console.log('-awdwadwdawdwa')
+    // console.log('-awdwadwdawdwa')
     return {
       redirect: {
         permanent: false,

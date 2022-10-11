@@ -6,7 +6,7 @@ import styles from 'styles/header.module.scss'
 const CustomerService = (props) => {
   const { data } = props;
   const router = useRouter()
-  console.log('data123123', router.query)
+  // console.log('data123123', router.query)
 
   return (
     <Box component={"div"}>

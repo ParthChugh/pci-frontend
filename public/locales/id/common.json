@@ -41,7 +41,13 @@
     "Pilih semua": "Pilih semua",
     "Pesanan Anda": "Pesanan Anda",
     "address-heading": "Alamat Pengiriman",
-    "address-subheading": "Silahkan pilih alamat utama Anda dahulu."
+    "address-subheading": "Silahkan pilih alamat utama Anda dahulu.",
+    "Postal Id": "Postal Id",
+    "Name": "Name",
+    "Address Line 1": "Address Line 1",
+    "Address Line 2": "Address Line 2",
+    "Add Address": "Add Address",
+    "Update Address": "Update Address"
   },
   "categories": {
     "Kategori Produk": "Kategori Produk",

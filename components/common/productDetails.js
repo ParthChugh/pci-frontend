@@ -49,7 +49,7 @@ export default function ProductDetails(props) {
     },
     categoryProduct
   } = props;
-  const price = Price[0]?.publicPrice
+  const price = Price
   const total = price
   const { t } = useTranslation('common', { keyPrefix: "categories" });
   const [orderValue, setOrderValue] = useState(1)

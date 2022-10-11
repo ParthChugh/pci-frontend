@@ -22,8 +22,8 @@ function RenderProducts(props) {
     userDispatch,
   } = useContext(UserContext);
   const cachedProducts = userState.products[router.query.categoryId] || products[router.query.categoryId]
-  console.log("cachedProducts1231232112321", userState.products)
-  console.log("cachedProducts12312321", products[router.query.categoryId])
+  // console.log("cachedProducts1231232112321", userState.products)
+  // console.log("cachedProducts12312321", products[router.query.categoryId])
 
   const classToggle = (isMobile) => {
     // const element = document.getElementsByClassName('header-search-container')[0]
@@ -41,6 +41,7 @@ function RenderProducts(props) {
       userDispatch(UserActions.updateProducts({ products: products[router.query.categoryId], categoryId: router.query.categoryId }))
     }
   }, [JSON.stringify(products?.[router.query.categoryId] || {})])
+  console.log("cachedProducts?.[router?.query?.page || 1]?.total_page", cachedProducts?.[router?.query?.page || 1]?.total_page)
   return (
     <>
       <Search classToggle={classToggle} />
@@ -88,14 +89,16 @@ function RenderProducts(props) {
                     <ProductSkeleton data={Array.from(new Array(20))} />
                   </Box>
                 }
-                <Typography component="div" className={`${styles['buy-now-button']} mb-3 mt-3`} style={{ cursor: 'pointer' }} onClick={() => {
-                  router.replace({
-                    pathname: router.pathname,
-                    query: { ...router.query, page: (parseInt(router.query.page) || 1) + 1 }
-                  })
-                }}>
-                  Load More
-                </Typography>
+                {typeof cachedProducts?.[router?.query?.page || 1] !== 'undefined' && cachedProducts?.[router?.query?.page || 1]?.data?.total_page > (router?.query?.page || 1) &&
+                  <Typography component="div" className={`${styles['buy-now-button']} mb-3 mt-3`} style={{ cursor: 'pointer' }} onClick={() => {
+                    router.replace({
+                      pathname: router.pathname,
+                      query: { ...router.query, page: (parseInt(router.query.page) || 1) + 1 }
+                    }, undefined, { scroll: false })
+                  }}>
+                    Load More
+                  </Typography>
+                }
               </Box>
 
             )

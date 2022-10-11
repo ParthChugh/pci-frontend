@@ -400,3 +400,40 @@
   line-height: 12px;
   color: $NEUTRAL_DARK_COLOR_600;
 }
+.delivers-to-component {
+  display: flex;
+}
+.delivers-to-heading {
+  font-family: $DEFAULT_FONT_FAMILTY;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  color: $NEUTRAL_DARK_COLOR_600;
+}
+
+.delivers-to-sub-heading {
+  font-family:  $DEFAULT_FONT_FAMILTY;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: $NEUTRAL_DARK_COLOR_600;
+}
+
+.name-address {
+  font-family: $DEFAULT_FONT_FAMILTY;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 26px;
+  color: $NEUTRAL_DARK_COLOR_600;
+}
+.subheading-address {
+  font-family: $DEFAULT_FONT_FAMILTY;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  color: $NEUTRAL_DARK_COLOR_600;
+}

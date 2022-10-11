@@ -39,6 +39,7 @@ function RenderProducts(props) {
       userDispatch(UserActions.updateProducts({ products: products["main"], categoryId: "main" }))
     }
   }, [JSON.stringify(products?.["main"] || {})])
+
   return (
     <>
       <Search classToggle={classToggle} />
@@ -86,14 +87,16 @@ function RenderProducts(props) {
                     <ProductSkeleton data={Array.from(new Array(20))} />
                   </Box>
                 }
-                <Typography component="div" className={`${styles['buy-now-button']} mb-3 mt-3`} style={{ cursor: 'pointer' }} onClick={() => {
-                  router.replace({
-                    pathname: router.pathname,
-                    query: { ...router.query, page: (parseInt(router.query.page) || 1) + 1 }
-                  })
-                }}>
-                  Load More
-                </Typography>
+                {typeof cachedProducts?.[router?.query?.page || 1] !== 'undefined' && cachedProducts?.[router?.query?.page || 1]?.data?.total_page > (router?.query?.page || 1) &&
+                  <Typography component="div" className={`${styles['buy-now-button']} mb-3 mt-3`} style={{ cursor: 'pointer' }} onClick={() => {
+                    router.replace({
+                      pathname: router.pathname,
+                      query: { ...router.query, page: (parseInt(router.query.page) || 1) + 1 },
+                    }, undefined, { scroll: false })
+                  }}>
+                    Load More
+                  </Typography>
+                }
               </Box>
 
             )

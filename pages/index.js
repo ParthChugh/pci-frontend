@@ -30,7 +30,7 @@ function Homepage(props) {
       document.getElementById('header-wrapper').classList.remove('stop-scroll')
     }
   }
-  console.log('products123123', products)
+  // console.log('products123123', products)
 
   return (
     <>
@@ -51,7 +51,7 @@ function Homepage(props) {
                 return (
                   <Categories
                     key={index}
-                    productCategories={categories?.data?.rows.filter((product, index) => index < 4)}
+                    productCategories={categories?.data?.rows.filter((product, index) => index < 5)}
                     heading={asset.data.heading}
                     readMoreText={t("see-more")}
                     readMoreHref={asset.data.readMoreHref}

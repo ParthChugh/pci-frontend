@@ -31,7 +31,7 @@ const TypographyStyled = styled(Typography)(() => ({
 
 const Product = ({ product = {}, skeleton = false }) => {
   const { name, currency = "Rp.", id, Files, Price, ProductCategoryId } = product;
-  console.log('product123213-', product)
+  // console.log('product123213-', product)
   return (
     <Link href={`/products/${ProductCategoryId}/${id}`} passHref>
       <StyledGrid>
@@ -42,7 +42,7 @@ const Product = ({ product = {}, skeleton = false }) => {
           {skeleton ? <Skeleton /> : name}
         </TypographyStyled>
         <TypographyStyled color="primary" className="mt-1">
-          {skeleton ? <Skeleton /> : `${currency} ${Price?.[0]?.publicPrice}`}
+          {skeleton ? <Skeleton /> : `${currency} ${Price}`}
         </TypographyStyled>
       </StyledGrid>
     </Link>

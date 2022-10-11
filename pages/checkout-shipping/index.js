@@ -63,10 +63,10 @@ function Cart(props) {
     delRef.current.close();
     setDelActionSheet(false)
   }
-  console.log("delRef.current", delRef.current)
+  // console.log("delRef.current", delRef.current)
   useEffect(() => {
     if (isDelActionSheetOpened) {
-      console.log("delRef.current123123", delRef)
+      // console.log("delRef.current123123", delRef)
       setTimeout(() => {
         handleClose()
       }, 5000)

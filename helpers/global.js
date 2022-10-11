@@ -11,11 +11,11 @@ const getBase64 = (file) => {
     // on reader load somthing...
     reader.onload = () => {
       // Make a fileInfo Object
-      console.log("Called", reader);
+      // console.log("Called", reader);
       baseURL = reader.result;
-      console.log('baseURL=-------', baseURL);
+      // console.log('baseURL=-------', baseURL);
       resolve(baseURL);
     };
-    console.log(fileInfo);
+    // console.log(fileInfo);
   });
 };

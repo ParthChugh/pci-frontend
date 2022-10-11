@@ -74,7 +74,6 @@ function MyApp(props) {
       },
     },
   });
-
   return (
     <UserProvider>
       <SnackbarProvider
@@ -97,7 +96,7 @@ function MyApp(props) {
 }
 
 
-MyApp.getInitialProps = async ({ locale }) => {
+MyApp.getInitialProps = async ({ req }) => {
   const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/page_details`)
   const data = await response.json()
   return {

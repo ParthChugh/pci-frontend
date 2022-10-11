@@ -70,10 +70,10 @@ function Cart(props) {
     delRef.current.close();
     setDelActionSheet(false)
   }
-  console.log("delRef.current", delRef.current)
+  // console.log("delRef.current", delRef.current)
   useEffect(() => {
     if (isDelActionSheetOpened) {
-      console.log("delRef.current123123", delRef)
+      // console.log("delRef.current123123", delRef)
       setTimeout(() => {
         handleClose()
       }, 5000)
@@ -127,7 +127,7 @@ function Cart(props) {
                         <Box className="mt-3 mb-3">
                           <Image src="/icons/check.svg" alt="Checkbox" width={62} height={62} />
                         </Box>
-                        <Typography className={styles['delete-cart-item']}>
+                        <Typography className={`${styles['delete-cart-item']} mb-8`}>
                           {"Anda berhasil menghapus \n produk dari keranjang!"}
                         </Typography>
                       </Box>
@@ -138,9 +138,7 @@ function Cart(props) {
               <div style={{ backgroundColor: 'white', height: 30, width: 30, borderRadius: '50%' }} className="d-flex align-items-center justify-content-center">
                 <Image src="/icons/heart.svg" alt="upload" height={12} width={12} />
               </div>
-
             </div>
-
           )
         })}
         <Products
