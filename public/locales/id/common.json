@@ -47,7 +47,9 @@
     "Address Line 1": "Address Line 1",
     "Address Line 2": "Address Line 2",
     "Add Address": "Add Address",
-    "Update Address": "Update Address"
+    "Update Address": "Update Address",
+    "Posisi": "Posisi",
+    "Simpan": "Simpan"
   },
   "categories": {
     "Kategori Produk": "Kategori Produk",
@@ -56,6 +58,9 @@
     "main-heading": " Bangun properti impian Anda\ndengan pengalaman baru",
     "sub-heading": "Tidak perlu lagi menghubungi berbagai\nmacam pemasok dan kirim berbagai barang",
     "shop-now": "Belanja Sekarang",
-    "already-have-account": "Sudah punya akun?"
+    "already-have-account": "Sudah punya akun?",
+    "add-pic": "Tambah PIC",
+    "pic": "PIC",
+    "update-pic": "Kemas kini"
   }
 }

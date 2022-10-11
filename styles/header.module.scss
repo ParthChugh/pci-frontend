@@ -437,3 +437,25 @@
   line-height: 20px;
   color: $NEUTRAL_DARK_COLOR_600;
 }
+.show-content-heading {
+  font-family: $DEFAULT_FONT_FAMILTY;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 28px;
+  color: $NEUTRAL_DARK_COLOR_600
+}
+
+.pic-label  {
+  font-family: $DEFAULT_FONT_FAMILTY;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  /* identical to box height */
+
+
+  /* Black/600 */
+
+  color: $NEUTRAL_DARK_COLOR_600;
+}

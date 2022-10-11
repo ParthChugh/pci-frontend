@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
 import dynamic from "next/dynamic";
-import { Button, Box, Link } from '@mui/material';
+import { Box } from '@mui/material';
 import { Typography } from '@mui/material'
 import Image from "next/image";
 import styles from 'styles/header.module.scss'
 import { useTranslation } from 'next-i18next';
-import Radio from '@mui/material/Radio';
 import axios from 'axios';
 import TitleSeeMore from 'components/common/titleSeeMore'
 import { useRouter } from "next/router";
@@ -13,12 +12,11 @@ import Container from '@mui/material/Container';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { withSnackbar } from 'notistack';
 import Cookies from 'js-cookie'
-import RadioGroup from '@mui/material/RadioGroup';
+
 import IconButton from '@mui/material/IconButton';
 import ProductSkeleton from 'components/common/skeleton'
 import { getUserDetails } from 'helpers/user'
-import FormControlLabel from '@mui/material/FormControlLabel';
-import ArrowForwardIos from '@mui/icons-material/ArrowForwardIos';
+
 
 // ArrowForwardIos
 

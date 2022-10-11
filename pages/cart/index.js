@@ -21,11 +21,14 @@ import { withSnackbar } from 'notistack';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { UserContext } from 'context/users/reducer';
 import * as UserActions from 'context/users/actions'
+import Cookies from 'js-cookie'
+import ShowContent from "views/showContent"
 
 function Cart(props) {
   const { product } = props;
   const [isDelActionSheetOpened, setDelActionSheet] = useState(false)
   const delRef = useRef()
+  const myAddress = JSON.parse(Cookies.get('defaultAddress') || '{}')
   const { t } = useTranslation('common', { keyPrefix: 'registerParent' });
   const router = useRouter();
   const items = [
@@ -89,9 +92,40 @@ function Cart(props) {
 
         }}
       >
-        <Typography component="h1" variant="h5" className={styles['page-heading']}>
+        <ShowContent
+          heading={'Alamat Pengiriman'}
+          onClickHandler={() => {
+            if (Object.values(myAddress).length > 0) {
+              router.push('/my-addresses')
+            } else {
+              router.push('/my-addresses/new')
+            }
+          }}
+          postDiv={myAddress ? (
+            <Box>
+              <Typography className={styles['total-amount']}>
+                {myAddress.name}
+              </Typography>
+              <Typography className={`${styles['delivers-to-heading']} mt-2`}>
+                {myAddress.line1}, {myAddress.line2}
+              </Typography>
+              <Typography className={`${styles['delivers-to-heading']}`}>
+                {myAddress.PostalId}
+              </Typography>
+            </Box>
+          )
+            :
+            (<Box>
+              <Typography className={styles['total-amount']}>
+                Please enter an address
+              </Typography>
+
+            </Box>)
+          }
+        />
+        {/* <Typography component="h1" variant="h5" className={styles['page-heading']}>
           {t("Pilih semua")}
-        </Typography>
+        </Typography> */}
         {items.map((product, index) => {
           return (
             <div className={`d-flex justify-content-between ${styles['product_cart']} mb-2 p-2 align-items-center`} key={`cart-${index}`}>
@@ -141,11 +175,38 @@ function Cart(props) {
             </div>
           )
         })}
-        <Products
+        {/* <Products
           products={{ item: product.data.details.products.rows }}
           heading={product.data.details.products.name}
           readMoreText={""}
           readMoreHref={''}
+        /> */}
+        <hr />
+        {/* <ShowContent
+          heading={'Jadwal Pengiriman'}
+          onClickHandler={() => {
+
+          }}
+          postDiv={
+            <Box>
+              <Typography className={styles['total-amount']}>
+                Silahkan atur pengiriman Anda kembali.
+              </Typography>
+            </Box>
+          }
+        /> */}
+        <ShowContent
+          heading={'Tipe Pembayaran'}
+          onClickHandler={() => {
+            router.push('/delivery-schedule')
+          }}
+          postDiv={
+            <Box>
+              <Typography className={styles['total-amount']}>
+                Silahkan pilih tipe pembayaran Anda dahulu.
+              </Typography>
+            </Box>
+          }
         />
         <CheckoutButton
           totalHeading={"Total Harga"}
