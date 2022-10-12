@@ -6,7 +6,8 @@ const initialState = {
   businessDetails: {},
   products: {
     main: {}
-  }
+  },
+  loading: false
 };
 
 const userReducer = (state, action) => {
@@ -26,6 +27,11 @@ const userReducer = (state, action) => {
       return {
         ...state,
         products: state.products
+      };
+    case types.SET_LOADING:
+      return {
+        ...state,
+        loading: action.payload
       };
     default:
       return state;

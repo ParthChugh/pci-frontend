@@ -1,31 +1,32 @@
-import { useEffect, useRef, useState } from 'react';
-import axios from 'axios';
+import { useEffect, useRef, useState, useContext } from 'react';
 import { useRouter } from "next/router";
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Tabform from 'components/common/tabform';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import { Button, IconButton } from '@mui/material';
+import { UserContext } from 'context/users/reducer';
+import { IconButton } from '@mui/material';
 import ActionSheet from "actionsheet-react";
 import Image from "next/image";
-import Products from 'views/products'
 import { useTranslation } from 'next-i18next';
 import Box from '@mui/material/Box';
 import TopContent from 'components/common/topContent'
+import dynamic from "next/dynamic";
 import CheckoutButton from 'views/products/checkoutButton'
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import styles from 'styles/header.module.scss'
 import { withSnackbar } from 'notistack';
+import { updateCart, getUserDetails } from 'helpers/user';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { UserContext } from 'context/users/reducer';
-import * as UserActions from 'context/users/actions'
 import Cookies from 'js-cookie'
-import ShowContent from "views/showContent"
+import * as UserActions from 'context/users/actions'
+
+const ShowContent = dynamic(() => import("views/showContent"), { ssr: false });
 
 function Cart(props) {
-  const { product } = props;
+  const { cart } = props;
+  const {
+    userDispatch
+  } = useContext(UserContext);
+  const userData = getUserDetails()
+  const cartId = cart?.data?.rows?.[0]?.id
   const [isDelActionSheetOpened, setDelActionSheet] = useState(false)
   const delRef = useRef()
   const myAddress = JSON.parse(Cookies.get('defaultAddress') || '{}')
@@ -126,19 +127,52 @@ function Cart(props) {
         {/* <Typography component="h1" variant="h5" className={styles['page-heading']}>
           {t("Pilih semua")}
         </Typography> */}
-        {items.map((product, index) => {
+        {(cart?.data?.rows?.[0]?.Products || []).map((product, index) => {
           return (
             <div className={`d-flex justify-content-between ${styles['product_cart']} mb-2 p-2 align-items-center`} key={`cart-${index}`}>
               <TopContent
-                imgUrl={product.image}
+                imgUrl={product?.Files[0]?.url || "/icons/logo.svg"}
                 name={product.name}
-                price={product.price}
-                discount={product.discount}
+                price={product.Price}
                 postDiv={
                   <div className='d-flex mt-2 align-items-center'>
-                    <Typography className={styles["minus"]}>-</Typography>
-                    <input type="text" className={styles['input']} value="1" />
-                    <Typography className={`${styles["plus"]} `}>+</Typography>
+                    <Typography
+                      className={styles["minus"]}
+                      onClick={async () => {
+                        if (product.qty !== 1) {
+                          // updateCart(orderValue - 1)
+                          userDispatch(UserActions.setLoading(true))
+                          const response = await updateCart({ productId: product.id, userData, cartId, quantity: product.qty - 1 })
+                          if (response?.error && response.name !== "AlreadyExists") {
+  
+                            router.push('/login')
+                          } else {
+                            props.enqueueSnackbar(response.message)
+                          }
+                          userDispatch(UserActions.setLoading(false))
+                        }
+                      }}
+                    >
+                      -</Typography>
+                    <input type="text" className={styles['input']} value={product.qty} disabled />
+                    <Typography
+                      className={styles["plus"]}
+                      onClick={async () => {
+                        // updateCart(product.qty + 1)
+                        userDispatch(UserActions.setLoading(true))
+                        const response = await updateCart({ productId: product.id, userData, cartId, quantity: product.qty + 1 })
+                        if (response?.error && response.name !== "AlreadyExists") {
+
+                          router.push('/login')
+                        } else {
+                          props.enqueueSnackbar(response.message)
+                        }
+                        userDispatch(UserActions.setLoading(false))
+
+                      }}
+                    >
+                      +
+                    </Typography>
                     <IconButton
                       className="ml-2"
                       onClick={handleOpen}
@@ -169,9 +203,9 @@ function Cart(props) {
                   </div>
                 }
               />
-              <div style={{ backgroundColor: 'white', height: 30, width: 30, borderRadius: '50%' }} className="d-flex align-items-center justify-content-center">
+              {/* <div style={{ backgroundColor: 'white', height: 30, width: 30, borderRadius: '50%' }} className="d-flex align-items-center justify-content-center">
                 <Image src="/icons/heart.svg" alt="upload" height={12} width={12} />
-              </div>
+              </div> */}
             </div>
           )
         })}
@@ -236,13 +270,33 @@ function Cart(props) {
   );
 }
 export async function getServerSideProps(appContext) {
-  const { locale } = appContext
+  const { locale, req } = appContext
   const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/product_details`)
   const data = await response.json()
+  const userData = JSON.parse(req.cookies.userData || '{}')
+  if (!req.cookies.userData) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/"
+      }
+    }
+  }
+  const cartProductsResponse = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/v1/customer/cart`, {
+    method: 'GET', // *GET, POST, PUT, DELETE, etc.
+    headers: {
+      'Content-Type': 'application/json',
+      "Authorization": `Bearer ${userData.accessToken}`
+
+    },
+  })
+  const cart = await cartProductsResponse.json()
+  console.log('cart12321', cart)
   return {
     props: {
       ...(await serverSideTranslations(locale, ["common"])),
-      product: data || []
+      product: data || [],
+      cart
     }, // will be passed to the page component as props
 
   }

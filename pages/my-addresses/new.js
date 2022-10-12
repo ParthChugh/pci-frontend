@@ -14,9 +14,10 @@ function AddNewAddress(props) {
   const userData = getUserDetails()
   const handleSubmitForm = (values) => {
     const params = new URLSearchParams();
-    Object.keys(values).forEach((key) => {
-      params.append(key, values[key]);
-    })
+    params.append('line1', values.line1.name)
+    params.append('line2', values.line2)
+    params.append('PostalId', values.line1.id)
+    params.append('name', values.name)
     if (navigator.geolocation) { // the navigator.geolocation object is supported
       navigator.geolocation.getCurrentPosition((position) => {
         params.append("lat", position.coords.latitude)

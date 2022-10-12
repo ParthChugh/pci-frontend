@@ -4,16 +4,6 @@ export default function handler(req, res) {
     button: "Add Address",
     form: {
       "0": {
-        name: "Postal Id",
-        required: true,
-        autoComplete: "postalid",
-        fullWidth: true,
-        id: "PostalId",
-        label: "Postal Id",
-        fieldType: "input",
-        type: "number"
-      },
-      "1": {
         name: "Name",
         fieldType: "name",
         required: true,
@@ -22,16 +12,19 @@ export default function handler(req, res) {
         fullWidth: true,
         fieldType: "input",
       },
-      "2": {
+      "1": {
         name: "Address Line 1",
         fieldType: "line1",
         required: true,
         id: "line1",
         label: "Address Line 1",
         fullWidth: true,
-        fieldType: "input",
+        fieldType: "searchDropdown",
+        autoFill: {
+          api: "/v1/address/?search=${text}&size=10",
+        }
       },
-      "3": {
+      "2": {
         name: "Address Line 2",
         fieldType: "line2",
         id: "line2",

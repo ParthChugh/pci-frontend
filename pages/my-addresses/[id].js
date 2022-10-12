@@ -15,6 +15,7 @@ function AddNewAddress(props) {
   const userData = getUserDetails()
   const handleSubmitForm = (values) => {
     const params = new URLSearchParams();
+
     Object.keys(values).forEach((key) => {
       params.append(key, values[key]);
     })
@@ -76,7 +77,7 @@ export async function getServerSideProps(appContext) {
       }
     }
   }
-  const address = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/v1/customer/address/?query=id=${params.id}`, {
+  const address = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/v1/customer/address/?query=id=${params.id}&limit=50`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

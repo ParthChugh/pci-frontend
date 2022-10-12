@@ -20,3 +20,10 @@ export const updateProducts = (data) => {
     payload: data,
   };
 }
+
+export const setLoading = (data) => {
+  return {
+    type: actionTypes.SET_LOADING,
+    payload: data,
+  };
+}

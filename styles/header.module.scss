@@ -419,6 +419,10 @@
   font-size: 14px;
   line-height: 17px;
   color: $NEUTRAL_DARK_COLOR_600;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 200px;
 }
 
 .name-address {

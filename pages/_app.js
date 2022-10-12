@@ -9,6 +9,7 @@ import BottomBar from 'components/common/bottomNavigation'
 import dynamic from "next/dynamic";
 import WhatsappFloat from 'components/common/whatsapp'
 import { appWithTranslation } from 'next-i18next';
+import Loader from 'components/common/loader'
 
 const Header = dynamic(() => import("components/layout/header"), { ssr: false });
 function MyApp(props) {
@@ -76,10 +77,12 @@ function MyApp(props) {
   });
   return (
     <UserProvider>
+
       <SnackbarProvider
         maxSnack={3}
       >
         <ThemeProvider theme={theme}>
+          <Loader />
           <Header header={props?.props?.header || {}} />
           <div className={styles.container} id="root">
             <main className={styles.main}>

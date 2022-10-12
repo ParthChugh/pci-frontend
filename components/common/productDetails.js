@@ -1,4 +1,5 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useContext } from 'react';
+import { UserContext } from 'context/users/reducer';
 import Typography from '@mui/material/Typography';
 import ActionSheet from "actionsheet-react";
 import { useTranslation } from 'next-i18next';
@@ -8,14 +9,21 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import TitleSeeMore from 'components/common/titleSeeMore'
 import styles from 'styles/header.module.scss'
 import CloseIcon from '@mui/icons-material/Close';
+import { useRouter } from "next/router";
+import { withSnackbar } from 'notistack';
 import IconButton from '@mui/material/IconButton';
 import Products from 'views/products'
 import TopContent from 'components/common/topContent'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { addProductToBasket, getUserDetails } from 'helpers/user'
+import * as UserActions from 'context/users/actions'
 
-export default function ProductDetails(props) {
+function ProductDetails(props) {
   const ref = useRef();
-
+  const router = useRouter()
+  const {
+    userDispatch
+  } = useContext(UserContext);
   const handleOpen = () => {
     ref.current.open();
   };
@@ -42,13 +50,18 @@ export default function ProductDetails(props) {
       // products
     },
     categoryProduct: {
+      id,
       name,
       Price,
       basePercent,
-      description
+      description,
+      SelectedPrices: {
+        ProductFixedPriceId
+      }
     },
     categoryProduct
   } = props;
+  const userData = getUserDetails()
   const price = Price
   const total = price
   const { t } = useTranslation('common', { keyPrefix: "categories" });
@@ -96,7 +109,22 @@ export default function ProductDetails(props) {
           Rp. {total}
         </Typography>
       </div>
-      <Typography component="div" className={`${styles['buy-now-button']} mb-3 mt-3`} style={{ cursor: 'pointer' }}>
+      <Typography
+        component="div"
+        className={`${styles['buy-now-button']} mb-3 mt-3`}
+        style={{ cursor: 'pointer' }}
+        onClick={async () => {
+          userDispatch(UserActions.setLoading(true))
+          const response = await addProductToBasket({ priceId: ProductFixedPriceId, quantity: orderValue, productId: id, enqueueSnackbar: props.enqueueSnackbar, userData })
+          console.log('response?.error12321', response)
+          if (response?.error && response.name !== "AlreadyExists") {
+
+            router.push('/login')
+          } else {
+            props.enqueueSnackbar(response.message)
+          }
+          userDispatch(UserActions.setLoading(false))
+        }}>
         {buyNowButton}
       </Typography>
       <Typography component="div" className={`${styles['buy-now-button']} mb-3`} onClick={handleOpen} style={{ cursor: 'pointer' }}>
@@ -193,7 +221,19 @@ export default function ProductDetails(props) {
             </div>
           </div>
           {/* <Typography className={styles["minimum"]}>Pesanan minimal: {minimum}</Typography> */}
-          <Typography component="div" className={`${styles['buy-now-button']} mb-3 mt-3 mb-8`} style={{ cursor: 'pointer' }}>
+          <Typography component="div" className={`${styles['buy-now-button']} mb-3 mt-3 mb-8`} style={{ cursor: 'pointer' }}
+            onClick={async () => {
+              userDispatch(UserActions.setLoading(true))
+              const response = await addProductToBasket({ priceId: ProductFixedPriceId, quantity: orderValue, productId: id, enqueueSnackbar: props.enqueueSnackbar, userData })
+              console.log('response?.error12321', response)
+              if (response?.error && response.name !== "AlreadyExists") {
+
+                router.push('/login')
+              } else {
+                props.enqueueSnackbar(response.message)
+              }
+              userDispatch(UserActions.setLoading(false))
+            }}>
             {"Masukkan Keranjang"}
           </Typography>
         </div>
@@ -201,3 +241,4 @@ export default function ProductDetails(props) {
     </div>
   );
 }
+export default withSnackbar(ProductDetails)

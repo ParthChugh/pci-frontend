@@ -11,9 +11,20 @@ export default function handler(req, res) {
         id: "PostalId",
         label: "Postal Id",
         fieldType: "input",
-        type: "number"
+        type: "number",
+        disabled: true
       },
       "1": {
+        name: "Address Line 1",
+        fieldType: "line1",
+        required: true,
+        id: "line1",
+        label: "Address Line 1",
+        fullWidth: true,
+        fieldType: "input",
+        disabled: true
+      },
+      "2": {
         name: "Name",
         fieldType: "name",
         required: true,
@@ -22,15 +33,7 @@ export default function handler(req, res) {
         fullWidth: true,
         fieldType: "input",
       },
-      "2": {
-        name: "Address Line 1",
-        fieldType: "line1",
-        required: true,
-        id: "line1",
-        label: "Address Line 1",
-        fullWidth: true,
-        fieldType: "input",
-      },
+     
       "3": {
         name: "Address Line 2",
         fieldType: "line2",
@@ -39,6 +42,7 @@ export default function handler(req, res) {
         fullWidth: true,
         fieldType: "input",
       },
+
     }
   })
 }

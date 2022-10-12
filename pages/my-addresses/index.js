@@ -58,23 +58,15 @@ function MyAddresses(props) {
         props.enqueueSnackbar(error?.response?.data?.message || "Wrong Password")
       });;
   }
-  console.log("addresses.findIndex(address => address.id === cachedDefaultAddress.id) || 0", addresses.findIndex(address => address.id === cachedDefaultAddress.id) || 0)
 
   return (
     <Container component="main" maxWidth="xs">
       <TitleSeeMore heading={"My Addresses"} readMoreText={"Add New"} href={'/my-addresses/new'} />
-      {/* <RadioGroup
-        aria-labelledby="demo-radio-buttons-group-label"
-        // defaultValue={defaultAddressIndex}
-        onChange={handleChange}
-        name={"radio-addresses"}
-      > */}
       {addresses.map((address, index) => {
         return (
           <Box key={`address-${index}`} >
-            <Box component={"div"} className='d-flex justify-content-between align-items-center mt-2 mb-2'style={{ cursor: 'pointer' }} onClick={() => { handleChange(index) }}>
+            <Box component={"div"} className='d-flex justify-content-between align-items-center mt-2 mb-2' style={{ cursor: 'pointer' }} onClick={() => { handleChange(index) }}>
               <Box component={"div"} className="d-flex flex-column">
-                {/* <FormControlLabel value={index} control={<Radio />} label={address.name} /> */}
                 <Box className='d-flex flex-row align-items-center'>
                   {defaultAddressIndex === index && <Image src="/icons/check.svg" alt="Checkbox" width={20} height={20} />}
 
@@ -141,7 +133,7 @@ export async function getServerSideProps(appContext) {
       }
     }
   }
-  const addresses = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/v1/customer/address`, {
+  const addresses = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/v1/customer/address?limit=50`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
