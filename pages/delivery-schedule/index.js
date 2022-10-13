@@ -1,29 +1,42 @@
-import React, { useState } from 'react';
-import { Box, Typography } from '@mui/material';
-import axios from 'axios';
-import { useTranslation } from 'next-i18next';
+import React, { useEffect, useState } from 'react';
+import { Box } from '@mui/material';
 import { withSnackbar } from 'notistack';
-import Tabform from 'components/common/tabform';
 import { useRouter } from "next/router";
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { getUserDetails } from 'helpers/user'
 import Container from '@mui/material/Container';
+import Cookies from 'js-cookie'
 import { useTheme } from '@mui/material/styles';
-import ArrowForwardIos from '@mui/icons-material/ArrowForwardIos';
-import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
 import styles from 'styles/header.module.scss'
 import TextField from '@mui/material/TextField';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import TitleSeeMore from 'components/common/titleSeeMore'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import PicDetails from 'views/pic'
 
 
 function DeliverySchedule(props) {
   const [value, setValue] = useState(null);
   const theme = useTheme();
+  const userData = getUserDetails()
   const router = useRouter()
-  console.log("props?.pics12321", props?.pics)
+  const handleClick = () => {
+    if (typeof Cookies.get('scheduleTime') === 'undefined') {
+      props.enqueueSnackbar("Please add preferred schedule time for delivery")
+    } else if (JSON.parse(Cookies.get('pics') || '[]').length === 0) {
+      props.enqueueSnackbar("Please add atleast one PIC")
+      router.push('/delivery-schedule/add-pic')
+    } else {
+      router.push('/cart')
+    }
+  }
+  useEffect(() => {
+    if(Cookies.get('scheduleTime')) {
+      setValue(Cookies.get('scheduleTime'))
+    }
+  },[Cookies.get('scheduleTime')])
   return (
     <Container >
       <Box
@@ -44,6 +57,7 @@ function DeliverySchedule(props) {
               value={value}
               onChange={(newValue) => {
                 setValue(newValue);
+                Cookies.set('scheduleTime', newValue, { expires: new Date(userData.accessTokenExpiry) })
               }}
 
             />
@@ -52,36 +66,19 @@ function DeliverySchedule(props) {
 
         <Box style={{ backgroundColor: theme.palette.neutralLight.main_700 }} >
           <TitleSeeMore heading={"PIC"} readMoreText={"Tambah PIC"} href={'/delivery-schedule/add-pic'} showPlus hideArrow />
-          <Box className="mt-4" >
-            {(props?.pics || []).map((pic) => (
-              <Box key={`pics-${pic.id}`} className={"d-flex flex-wrap align-items-start"} style={{ backgroundColor: 'white', margin: 20, borderRadius: 10, cursor: 'pointer'}} onClick={() => {
-                router.push(`delivery-schedule/add-pic/${pic.id}`)
-              }} >
-                {Object.values(props?.pic?.form || {}).map((field, index) => {
-                  return (
-                    <Box key={`pic-${index}`} style={{ width: '45%' }} className="mb-3">
-                      <Typography className={styles['pic-label']}>
-                        {field.name}
-                      </Typography>
-                      <Typography className={styles['subtotal']}>
-                        {pic[field.id]}
-                      </Typography>
-                    </Box>
-                  )
-                })}
-                <IconButton
-                  className="ml-2"
-
-                  style={{ height: 16, width: 16 }}
-                >
-                  <ArrowForwardIos />
-                </IconButton>
-              </Box>
-            )
-            )}
-          </Box>
+          <PicDetails {...props} />
         </Box>
       </Box>
+      <Button
+        type="submit"
+        fullWidth
+        className={'button-button'}
+        variant="contained"
+        sx={{ mt: 3, mb: 2 }}
+        onClick={handleClick}
+      >
+        {"Submit"}
+      </Button>
     </Container>
   )
 }

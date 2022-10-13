@@ -27,7 +27,7 @@ function Cart(props) {
     userDispatch
   } = useContext(UserContext);
   let cartProducts = products.length > 0 ? products : (cart?.data?.Products?.rows || [])
-  
+
   const userData = getUserDetails()
   const cartId = cart?.data?.id
   const [isDelActionSheetOpened, setDelActionSheet] = useState(false)
@@ -255,13 +255,19 @@ function Cart(props) {
           totalHeading={"Total Harga"}
           currency={"Rp"}
           onClickButton={() => {
-            if(cartProducts.length > 0) {
+            if (Object.values(JSON.parse(Cookies.get('defaultAddress') || '{}')).length === 0) {
+              props.enqueueSnackbar("Please add an address, to continue the process")
+              router.push('/my-addresses/new')
+            } else if (JSON.parse(Cookies.get('pics') || '[]').length === 0 || typeof Cookies.get('scheduleTime') === 'undefined') {
+              props.enqueueSnackbar("Please add atleast one PIC and also add schedule time for delivery")
+              router.push('/delivery-schedule')
+            } else if (cartProducts.length > 0) {
               router.push('/checkout-shipping')
             } else {
               props.enqueueSnackbar("Cart is empty, please add something in the cart")
               router.push('/products')
             }
-            
+
           }}
           totalItems={`Checkout (${products.length})`}
           totalAmount={totalAmount}

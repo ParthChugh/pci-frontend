@@ -33,7 +33,7 @@ function SignUp(props) {
       .then((response) => {
         props.enqueueSnackbar("Registration Successfull")
         userDispatch(UserActions.updateUserDetails(response.data.data))
-        Cookies.set('userData', JSON.stringify(response.data.data), { expires: new Date(response.data.data.accessTokenExpiry) })
+        // Cookies.set('userData', JSON.stringify(response.data.data), { expires: new Date(response.data.data.accessTokenExpiry) })
         router.push(props?.tabs?.[selectedTab]?.extraFields?.redirect || '/')
       })
       .catch((error) => {
