@@ -32,7 +32,7 @@ export const addProductToBasket = async ({ productId, quantity, priceId, userDat
     },
     // withCredentials: true
   })
-    .then((response) => response)
+    .then((response) => response.data)
     .catch((response) => response)
 }
 
@@ -42,6 +42,20 @@ export const updateCart = async ({ cartId, productId, quantity, userData }) => {
   params.append("ProductId", productId);
   params.append("qty", quantity);
   return axios.put(`${process.env.NEXT_PUBLIC_BACKEND}/v1/customer/cart/${cartId}`, params, {
+    headers: {
+      Authorization: `Bearer ${userData.accessToken}`,
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    // withCredentials: true
+  })
+    .then((response) => response)
+    .catch((response) => response)
+}
+
+export const deleteCart = async ({ cartId, productId, quantity, userData }) => {
+  if (userData.error === true) return { error: "User Not autherized" }
+
+  return axios.delete(`${process.env.NEXT_PUBLIC_BACKEND}/v1/customer/cart/${cartId}?ProductId=${productId}`, {
     headers: {
       Authorization: `Bearer ${userData.accessToken}`,
       "Content-Type": "application/x-www-form-urlencoded"

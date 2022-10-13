@@ -116,7 +116,6 @@ function ProductDetails(props) {
         onClick={async () => {
           userDispatch(UserActions.setLoading(true))
           const response = await addProductToBasket({ priceId: ProductFixedPriceId, quantity: orderValue, productId: id, enqueueSnackbar: props.enqueueSnackbar, userData })
-          console.log('response?.error12321', response)
           if (response?.error && response.name !== "AlreadyExists") {
 
             router.push('/login')

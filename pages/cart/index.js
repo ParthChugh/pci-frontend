@@ -13,7 +13,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import styles from 'styles/header.module.scss'
 import { withSnackbar } from 'notistack';
-import { updateCart, getUserDetails } from 'helpers/user';
+import { updateCart, getUserDetails, deleteCart } from 'helpers/user';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Cookies from 'js-cookie'
 import * as UserActions from 'context/users/actions'
@@ -22,9 +22,11 @@ const ShowContent = dynamic(() => import("views/showContent"), { ssr: false });
 
 function Cart(props) {
   const { cart } = props;
+  const [products, setProducts] = useState([])
   const {
     userDispatch
   } = useContext(UserContext);
+  let cartProducts = products.length > 0 ? products : (cart?.data?.rows?.[0]?.Products || [])
   const userData = getUserDetails()
   const cartId = cart?.data?.rows?.[0]?.id
   const [isDelActionSheetOpened, setDelActionSheet] = useState(false)
@@ -32,6 +34,9 @@ function Cart(props) {
   const myAddress = JSON.parse(Cookies.get('defaultAddress') || '{}')
   const { t } = useTranslation('common', { keyPrefix: 'registerParent' });
   const router = useRouter();
+  useEffect(() => {
+    setProducts(cart?.data?.rows?.[0]?.Products || [])
+  }, [cart?.data?.rows?.[0]?.Products])
   const items = [
     {
       name: "Pasir Rangkas",
@@ -61,13 +66,25 @@ function Cart(props) {
       totalItems: 2
     }
   ]
-  const totalAmount = (items.reduce(function (sum, product) {
-    return (sum + ((product.price) * product.totalItems - (100 - parseFloat(product.discount)) / 100));
+  const totalAmount = ((cartProducts || []).reduce(function (sum, product) {
+    return (sum + ((product.Price) * product.qty));
   }, 0)).toFixed(3)
 
-  const handleOpen = () => {
+  const handleOpen = async (product, index) => {
+    products.splice(index, 1);
     delRef.current.open();
     setDelActionSheet(true)
+    setProducts(products)
+    const response = await deleteCart({ productId: product.id, userData, cartId })
+    const data = response.data
+
+    if (data?.error && data.name !== "AlreadyExists") {
+      router.push('/login')
+    } else {
+      props.enqueueSnackbar(data.message)
+    }
+    userDispatch(UserActions.setLoading(false))
+
   };
 
   const handleClose = () => {
@@ -76,7 +93,7 @@ function Cart(props) {
   }
   // console.log("delRef.current", delRef.current)
   useEffect(() => {
-    if (isDelActionSheetOpened) {
+    if (isDelActionSheetOpened && delRef.current) {
       // console.log("delRef.current123123", delRef)
       setTimeout(() => {
         handleClose()
@@ -124,10 +141,14 @@ function Cart(props) {
             </Box>)
           }
         />
-        {/* <Typography component="h1" variant="h5" className={styles['page-heading']}>
-          {t("Pilih semua")}
-        </Typography> */}
-        {(cart?.data?.rows?.[0]?.Products || []).map((product, index) => {
+        {(cartProducts || []).length === 0 &&
+          <Typography component="h1" variant="h5" className={styles['page-heading']}>
+            Cart is Empty
+          </Typography>
+        }
+
+
+        {(cartProducts || []).map((product, index) => {
           return (
             <div className={`d-flex justify-content-between ${styles['product_cart']} mb-2 p-2 align-items-center`} key={`cart-${index}`}>
               <TopContent
@@ -139,18 +160,31 @@ function Cart(props) {
                     <Typography
                       className={styles["minus"]}
                       onClick={async () => {
+                        userDispatch(UserActions.setLoading(true))
                         if (product.qty !== 1) {
-                          // updateCart(orderValue - 1)
-                          userDispatch(UserActions.setLoading(true))
+
+                          products[index] = { ...products[index], qty: product.qty - 1 }
+                          setProducts(products)
                           const response = await updateCart({ productId: product.id, userData, cartId, quantity: product.qty - 1 })
-                          if (response?.error && response.name !== "AlreadyExists") {
-  
+                          const data = response.data
+                          if (data?.error && data.name !== "AlreadyExists") {
                             router.push('/login')
                           } else {
-                            props.enqueueSnackbar(response.message)
+                            props.enqueueSnackbar(data.message)
                           }
-                          userDispatch(UserActions.setLoading(false))
+
+                        } else {
+                          products.splice(index, 1);
+                          setProducts(products)
+                          const response = await deleteCart({ productId: product.id, userData, cartId })
+                          const data = response.data
+                          if (data?.error && data.name !== "AlreadyExists") {
+                            router.push('/login')
+                          } else {
+                            props.enqueueSnackbar(data.message)
+                          }
                         }
+                        userDispatch(UserActions.setLoading(false))
                       }}
                     >
                       -</Typography>
@@ -160,12 +194,14 @@ function Cart(props) {
                       onClick={async () => {
                         // updateCart(product.qty + 1)
                         userDispatch(UserActions.setLoading(true))
+                        products[index] = { ...products[index], qty: product.qty + 1 }
+                        setProducts(products)
                         const response = await updateCart({ productId: product.id, userData, cartId, quantity: product.qty + 1 })
-                        if (response?.error && response.name !== "AlreadyExists") {
-
+                        const data = response.data
+                        if (data?.error && data.name !== "AlreadyExists") {
                           router.push('/login')
                         } else {
-                          props.enqueueSnackbar(response.message)
+                          props.enqueueSnackbar(data.message)
                         }
                         userDispatch(UserActions.setLoading(false))
 
@@ -175,7 +211,7 @@ function Cart(props) {
                     </Typography>
                     <IconButton
                       className="ml-2"
-                      onClick={handleOpen}
+                      onClick={() => handleOpen(product, index)}
                     >
                       <Image src="/icons/trash.svg" alt="upload" height={16} width={16} />
                     </IconButton>
@@ -246,7 +282,13 @@ function Cart(props) {
           totalHeading={"Total Harga"}
           currency={"Rp"}
           onClickButton={() => {
-            router.push('/checkout-shipping')
+            if(cartProducts.length > 0) {
+              router.push('/checkout-shipping')
+            } else {
+              props.enqueueSnackbar("Cart is empty, please add something in the cart")
+              router.push('/products')
+            }
+            
           }}
           totalItems={`Checkout (${items.length})`}
           totalAmount={totalAmount}
