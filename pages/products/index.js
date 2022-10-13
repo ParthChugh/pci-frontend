@@ -2,6 +2,7 @@ import { useEffect, useContext } from 'react';
 import { useTranslation } from 'next-i18next';
 import Categories from 'views/categories'
 import Products from 'views/products'
+import Container from '@mui/material/Container';
 import { UserContext } from 'context/users/reducer';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Search from 'components/header/search'
@@ -41,7 +42,8 @@ function RenderProducts(props) {
   }, [JSON.stringify(products?.["main"] || {})])
 
   return (
-    <>
+    <Container component="main" maxWidth="xs" className='d-flex flex-column'>
+      
       <Search classToggle={classToggle} />
       {contentAssets?.content_assets.map((asset, index) => {
         switch (asset.type) {
@@ -52,7 +54,7 @@ function RenderProducts(props) {
                 productCategories={categories?.data?.rows.filter((product, index) => index < 5)}
                 heading={asset.data.heading}
                 readMoreText={t("see-more")}
-                readMoreHref={asset.data.readMoreHref}
+                readMoreHref={'/categories'}
               />
             )
           case "product":
@@ -106,7 +108,7 @@ function RenderProducts(props) {
             return <div key={index} />
         }
       })}
-    </>
+    </Container>
   )
 }
 export async function getServerSideProps(appContext) {

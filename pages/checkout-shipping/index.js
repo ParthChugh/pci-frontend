@@ -1,23 +1,23 @@
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from "next/router";
-import { IconButton } from '@mui/material';
-import ActionSheet from "actionsheet-react";
-import Image from "next/image";
-import Products from 'views/products'
 import { useTranslation } from 'next-i18next';
 import Box from '@mui/material/Box';
+import dynamic from "next/dynamic";
 import TopContent from 'components/common/topContent'
 import CheckoutButton from 'views/products/checkoutButton'
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import styles from 'styles/header.module.scss'
+import Cookies from 'js-cookie'
 import { withSnackbar } from 'notistack';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
+const ShowContent = dynamic(() => import("views/showContent"), { ssr: false });
+
 function Cart(props) {
-  const { product } = props;
-  const [isDelActionSheetOpened, setDelActionSheet] = useState(false)
-  const delRef = useRef()
+  const { cart } = props;
+  let cartProducts = (cart?.data?.Products?.rows || [])
+  const myAddress = JSON.parse(Cookies.get('defaultAddress') || '{}')
   const { t } = useTranslation('common', { keyPrefix: 'registerParent' });
   const router = useRouter();
   const items = [
@@ -49,29 +49,11 @@ function Cart(props) {
       totalItems: 2
     }
   ]
-  const totalAmount = (items.reduce(function (sum, product) {
-    return (sum + ((product.price) * product.totalItems - (100 - parseFloat(product.discount)) / 100));
+  const totalAmount = ((cartProducts || []).reduce(function (sum, product) {
+    return (sum + ((product.Price) * product.qty));
   }, 0)).toFixed(3)
   const shippingCost = 18
 
-  const handleOpen = () => {
-    delRef.current.open();
-    setDelActionSheet(true)
-  };
-
-  const handleClose = () => {
-    delRef.current.close();
-    setDelActionSheet(false)
-  }
-  // console.log("delRef.current", delRef.current)
-  useEffect(() => {
-    if (isDelActionSheetOpened) {
-      // console.log("delRef.current123123", delRef)
-      setTimeout(() => {
-        handleClose()
-      }, 5000)
-    }
-  }, [delRef.current])
 
   const Amount = () => {
     return (
@@ -102,26 +84,58 @@ function Cart(props) {
 
         }}
       >
+        <ShowContent
+          heading={'Alamat Pengiriman'}
+          onClickHandler={() => {
+            if (Object.values(myAddress).length > 0) {
+              router.push('/my-addresses')
+            } else {
+              router.push('/my-addresses/new')
+            }
+          }}
+          postDiv={myAddress ? (
+            <Box>
+              <Typography className={styles['total-amount']}>
+                {myAddress.name}
+              </Typography>
+              <Typography className={`${styles['delivers-to-heading']} mt-2`}>
+                {myAddress.line1}, {myAddress.line2}
+              </Typography>
+              <Typography className={`${styles['delivers-to-heading']}`}>
+                {myAddress.PostalId}
+              </Typography>
+            </Box>
+          )
+            :
+            (
+              <Box>
+                <Typography className={styles['total-amount']}>
+                  Please enter an address
+                </Typography>
+              </Box>
+            )
+          }
+        />
         <Typography component="h1" variant="h5" className={styles['page-heading']}>
           {t("Pesanan Anda")}
         </Typography>
-        {items.map((product, index) => {
+        {(cartProducts || []).map((product, index) => {
           return (
             <div className={`d-flex justify-content-between ${styles['product_cart']} mb-2 p-2 align-items-center`} key={`cart-${index}`}>
               <TopContent
-                variant={product.categoryName}
-                imgUrl={product.image}
+                variant={"Default"}
+                imgUrl={product?.Files[0]?.url || "/icons/logo.svg"}
                 name={product.name}
-                price={product.price}
+                price={product.Price}
                 discount={product.discount}
                 postDiv={
                   <Box className='d-flex mt-2 align-items-center'>
-                    <Typography className={styles['category-name-checkout']}>{product.categoryName}</Typography>
+                    <Typography className={styles['category-name-checkout']}>{"product.categoryName"}</Typography>
                   </Box>
                 }
               />
               <Box className="d-flex align-items-center justify-content-center">
-                <Typography className={styles["cart-product-name"]}>x{product.totalItems}</Typography>
+                <Typography className={styles["cart-product-name"]}>x{product.qty}</Typography>
               </Box>
 
             </div>
@@ -134,9 +148,9 @@ function Cart(props) {
           currency={"Rp"}
           totalItems={`Buat Pesanan`}
           totalAmount={totalAmount}
-          // actionSheetDiv={
-          //   <Amount />
-          // }
+        // actionSheetDiv={
+        //   <Amount />
+        // }
         />
       </Box>
     </Container>
@@ -144,16 +158,31 @@ function Cart(props) {
   );
 }
 export async function getServerSideProps(appContext) {
-  const { locale } = appContext
-  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/product_details`)
-  const data = await response.json()
+  const { locale, req } = appContext
+  const userData = JSON.parse(req.cookies.userData || '{}')
+  if (!req.cookies.userData) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/"
+      }
+    }
+  }
+  const cartProductsResponse = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/v1/customer/cart`, {
+    method: 'GET', // *GET, POST, PUT, DELETE, etc.
+    headers: {
+      'Content-Type': 'application/json',
+      "Authorization": `Bearer ${userData.accessToken}`
+
+    },
+  })
+  const cart = await cartProductsResponse.json()
   return {
     props: {
       ...(await serverSideTranslations(locale, ["common"])),
-      product: data || []
+      cart
     }, // will be passed to the page component as props
 
   }
-
 }
 export default withSnackbar(Cart)

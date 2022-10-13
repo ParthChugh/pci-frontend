@@ -6,7 +6,7 @@ import styles from 'styles/header.module.scss'
 import Skeleton from '@mui/material/Skeleton';
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
-  margin: "0px 8px",
+  // margin: "0px 8px",
   backgroundColor: theme.palette.neutralLight.main_700,
   padding: 8,
   borderRadius: 8
@@ -35,9 +35,12 @@ const Product = ({ product = {}, skeleton = false }) => {
   return (
     <Link href={`/products/${ProductCategoryId}/${id}`} passHref>
       <StyledGrid>
-        <Box>
-          {skeleton ? <Box component={"div"}><Skeleton width={137} height={100} /> </Box> : <Image src={Files?.[0]?.url || "/icons/logo.svg"} alt="Vercel Logo" width={137} height={140} className={styles["product-image"]} />}
-        </Box>
+
+        {skeleton ? <Box component={"div"}><Skeleton width={137} height={100} /> </Box>
+          :
+          <Image src={Files?.[0]?.url || "/icons/logo.svg"} alt="Vercel Logo" layout="responsive" width={150} height={150} className={styles["product-image"]} />
+        }
+
         <TypographyStyled className={"mt-2"}>
           {skeleton ? <Skeleton /> : name}
         </TypographyStyled>

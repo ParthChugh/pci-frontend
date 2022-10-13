@@ -26,46 +26,19 @@ function Cart(props) {
   const {
     userDispatch
   } = useContext(UserContext);
-  let cartProducts = products.length > 0 ? products : (cart?.data?.rows?.[0]?.Products || [])
+  let cartProducts = products.length > 0 ? products : (cart?.data?.Products?.rows || [])
+  
   const userData = getUserDetails()
-  const cartId = cart?.data?.rows?.[0]?.id
+  const cartId = cart?.data?.id
   const [isDelActionSheetOpened, setDelActionSheet] = useState(false)
   const delRef = useRef()
   const myAddress = JSON.parse(Cookies.get('defaultAddress') || '{}')
   const { t } = useTranslation('common', { keyPrefix: 'registerParent' });
   const router = useRouter();
   useEffect(() => {
-    setProducts(cart?.data?.rows?.[0]?.Products || [])
-  }, [cart?.data?.rows?.[0]?.Products])
-  const items = [
-    {
-      name: "Pasir Rangkas",
-      price: 42,
-      currency: "Rp",
-      image: "https://s3-ap-southeast-1.amazonaws.com/zenius-zenfeed/feed/media-9af6547f-c49b-4a54-a19a-9d81398b55f9-file.png",
-      discount: 20,
-      categoryName: "Kategori: Pasir & Agregat",
-      totalItems: 2
-    },
-    {
-      name: "Batu Belah",
-      price: 54,
-      currency: "Rp",
-      image: "https://s3-ap-southeast-1.amazonaws.com/zenius-zenfeed/feed/media-9af6547f-c49b-4a54-a19a-9d81398b55f9-file.png",
-      discount: 20,
-      categoryName: "Kategori: Pasir & Agregat",
-      totalItems: 2
-    },
-    {
-      name: "Batu Kapur",
-      price: 66,
-      currency: "Rp",
-      image: "https://s3-ap-southeast-1.amazonaws.com/zenius-zenfeed/feed/media-9af6547f-c49b-4a54-a19a-9d81398b55f9-file.png",
-      discount: 20,
-      categoryName: "Kategori: Pasir & Agregat",
-      totalItems: 2
-    }
-  ]
+    setProducts(cart?.data?.Products?.rows || [])
+  }, [cart?.data?.Products?.rows])
+
   const totalAmount = ((cartProducts || []).reduce(function (sum, product) {
     return (sum + ((product.Price) * product.qty));
   }, 0)).toFixed(3)
@@ -290,7 +263,7 @@ function Cart(props) {
             }
             
           }}
-          totalItems={`Checkout (${items.length})`}
+          totalItems={`Checkout (${products.length})`}
           totalAmount={totalAmount}
           actionSheetDiv={
             <Box component="div">
@@ -313,8 +286,6 @@ function Cart(props) {
 }
 export async function getServerSideProps(appContext) {
   const { locale, req } = appContext
-  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/product_details`)
-  const data = await response.json()
   const userData = JSON.parse(req.cookies.userData || '{}')
   if (!req.cookies.userData) {
     return {
@@ -333,11 +304,9 @@ export async function getServerSideProps(appContext) {
     },
   })
   const cart = await cartProductsResponse.json()
-  console.log('cart12321', cart)
   return {
     props: {
       ...(await serverSideTranslations(locale, ["common"])),
-      product: data || [],
       cart
     }, // will be passed to the page component as props
 

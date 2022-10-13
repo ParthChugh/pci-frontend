@@ -117,12 +117,12 @@ function ProductDetails(props) {
           userDispatch(UserActions.setLoading(true))
           const response = await addProductToBasket({ priceId: ProductFixedPriceId, quantity: orderValue, productId: id, enqueueSnackbar: props.enqueueSnackbar, userData })
           if (response?.error && response.name !== "AlreadyExists") {
-
             router.push('/login')
           } else {
             props.enqueueSnackbar(response.message)
           }
           userDispatch(UserActions.setLoading(false))
+          router.push('/cart')
         }}>
         {buyNowButton}
       </Typography>

@@ -67,7 +67,7 @@ const ResponsiveAppBar = (props) => {
     if (isLoggedIn && typeof Cookies.get('defaultAddress') === 'undefined') {
       getMyAddresses()
     }
-  }, [JSON.stringify(isLoggedIn)])
+  }, [JSON.stringify(isLoggedIn), router.pathname])
 
   return (
     <HideOnScroll {...props}>

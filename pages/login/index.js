@@ -45,7 +45,7 @@ function SignIn(props) {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" className='d-flex'>
       <Box
         sx={{
           marginTop: 8,

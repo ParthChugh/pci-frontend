@@ -6,7 +6,7 @@ import styles from 'styles/header.module.scss'
 import TitleSeeMore from 'components/common/titleSeeMore'
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
-  margin: "0px 8px"
+  margin: "0px 4px"
 }));
 
 const StyledMenuGrid = styled(Grid)(({ theme }) => ({
@@ -40,7 +40,7 @@ export const RenderCategory = ({ productCategories, heading, readMoreText, readM
       <Box className="container">
         <TitleSeeMore heading={heading} readMoreText={readMoreText} href={readMoreHref} />
         {productCategories?.length ? (
-          <Container className="mt-3">
+          <Container className="d-flex flex-wrap justify-content-center mt-4">
             {productCategories?.map((item, index) => {
               if (!item.name) {
                 return null;

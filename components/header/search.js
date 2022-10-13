@@ -60,7 +60,7 @@ export default function Search(props) {
   }
 
   return (
-    <div className='d-flex' style={{ width: '90%' }}>
+    <div className='d-flex'>
       <Search className={styles['search-wrapper']}>
         <div className={styles["search-bar"]}>
           <StyledInputBase

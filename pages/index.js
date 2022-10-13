@@ -1,6 +1,6 @@
 import React from 'react';
 import dynamic from "next/dynamic";
-import { Button, Box, Link } from '@mui/material';
+import { Button, Box, Link, Container } from '@mui/material';
 import { Typography } from '@mui/material'
 import styles from 'styles/header.module.scss'
 import { useTranslation } from 'next-i18next';
@@ -33,7 +33,7 @@ function Homepage(props) {
   // console.log('products123123', products)
 
   return (
-    <>
+    <Container component="main" maxWidth="xs">
       {/* {isLoggedIn ? */}
         <>
           <Search classToggle={classToggle} />
@@ -113,7 +113,7 @@ function Homepage(props) {
           </Typography>
         </> */}
       {/* } */}
-    </>
+    </Container>
   )
 }
 

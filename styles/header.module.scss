@@ -323,6 +323,12 @@
   text-align: center;
   color: #FFFFFF;
 }
+.category-page-name {
+  position: absolute;
+  z-index: 999;
+  color: white;
+  
+}
 .category-name {
   font-family: $DEFAULT_FONT_FAMILTY;
   font-style: normal;
