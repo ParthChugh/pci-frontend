@@ -50,12 +50,12 @@ export default function handler(req, res) {
           "href": "/login",
           "isLoggedIn": false
         },
-        {
-          "name": "Wishlist",
-          "href": "/wishlist",
-          "icon": "/icons/love.svg",
-          "isLoggedIn": true,
-        },
+        // {
+        //   "name": "Wishlist",
+        //   "href": "/wishlist",
+        //   "icon": "/icons/love.svg",
+        //   "isLoggedIn": true,
+        // },
         {
           "name": "Cart",
           "href": "/cart",

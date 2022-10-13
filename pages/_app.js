@@ -1,6 +1,7 @@
 import 'styles/globals.scss'
 import 'styles/bootstrap.css'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
+import CssBaseline from '@mui/material/CssBaseline';
 import Footer from 'components/layout/footer';
 import styles from 'styles/Home.module.css'
 import { SnackbarProvider } from 'notistack';
@@ -77,11 +78,11 @@ function MyApp(props) {
   });
   return (
     <UserProvider>
-
       <SnackbarProvider
         maxSnack={3}
       >
         <ThemeProvider theme={theme}>
+          <CssBaseline enableColorScheme />
           <Loader />
           <Header header={props?.props?.header || {}} />
           <div className={styles.container} id="root">
@@ -95,6 +96,7 @@ function MyApp(props) {
         </ThemeProvider>
       </SnackbarProvider>
     </UserProvider>
+
   );
 }
 
