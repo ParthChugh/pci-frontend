@@ -15,7 +15,7 @@ export default function handler(req, res) {
       },
       "1": {
         name: "Posisi",
-        id: "posisi",
+        id: "position",
         autoComplete: "postion",
         label: "",
         fullWidth: true,

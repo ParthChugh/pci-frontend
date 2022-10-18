@@ -65,3 +65,16 @@ export const deleteCart = async ({ cartId, productId, quantity, userData }) => {
     .then((response) => response)
     .catch((response) => response)
 }
+
+export const createCheckoutProcess = async ({ data, userData }) => {
+  if (userData.error === true) return { error: "User Not autherized" }
+
+  return axios.post(`${process.env.NEXT_PUBLIC_BACKEND}/v1/customer/checkout`, data, {
+    headers: {
+      Authorization: `Bearer ${userData.accessToken}`,
+      "Content-Type": "application/json"
+    },
+  })
+    .then((response) => response)
+    .catch((response) => response)
+}

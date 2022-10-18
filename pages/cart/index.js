@@ -13,7 +13,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import styles from 'styles/header.module.scss'
 import { withSnackbar } from 'notistack';
-import { updateCart, getUserDetails, deleteCart } from 'helpers/user';
+import { updateCart, getUserDetails, deleteCart, createCheckoutProcess } from 'helpers/user';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Cookies from 'js-cookie'
 import * as UserActions from 'context/users/actions'
@@ -254,7 +254,7 @@ function Cart(props) {
         <CheckoutButton
           totalHeading={"Total Harga"}
           currency={"Rp"}
-          onClickButton={() => {
+          onClickButton={async () => {
             if (Object.values(JSON.parse(Cookies.get('defaultAddress') || '{}')).length === 0) {
               props.enqueueSnackbar("Please add an address, to continue the process")
               router.push('/my-addresses/new')
@@ -262,7 +262,33 @@ function Cart(props) {
               props.enqueueSnackbar("Please add atleast one PIC and also add schedule time for delivery")
               router.push('/delivery-schedule')
             } else if (cartProducts.length > 0) {
-              router.push('/checkout-shipping')
+              userDispatch(UserActions.setLoading(true))
+              const data = {
+                checkout: (cartProducts || []).map((product, index) => {
+                  return { ProductId: product.id, qty: `${product.qty}` }
+                }),
+                AddressId: JSON.parse(Cookies.get('defaultAddress') || '{}')?.id || "",
+                typePayment: "Cash Before Delivery",
+                notes: "",
+                CartId: cart?.data?.id,
+                schedule: {
+                  date: new Date(Cookies.get('scheduleTime')).toISOString(),
+                  PIC: JSON.parse(Cookies.get('pics') || '[]').map((pic, index) => {
+                    if (index === 0) {
+                      return { ...pic, default: `${true}` }
+                    }
+                    return { ...pic }
+                  })
+                }
+              }
+
+              const response = await createCheckoutProcess({ data, userData })
+              console.log('response123123', response)
+              userDispatch(UserActions.setLoading(false))
+              if (!response.error) {
+                router.push('/checkout-shipping')
+              }
+
             } else {
               props.enqueueSnackbar("Cart is empty, please add something in the cart")
               router.push('/products')

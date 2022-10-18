@@ -33,7 +33,7 @@ function AddNewAddress(props) {
             console.log('qwewqdqwqwdqwdqwd')
             router.replace('/my-addresses')
             props.enqueueSnackbar(response.data.message)
-            setShowSetup(values)
+            // setShowSetup(values)
             
           })
           .catch((error) => {
