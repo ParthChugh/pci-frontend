@@ -469,3 +469,50 @@
 
   color: $NEUTRAL_DARK_COLOR_600;
 }
+
+// .checkout-button-container {
+//   position: fixed;
+//   bottom: 0;
+//   background: #f7f7f7;
+//   padding: 0 20px 20px;
+//   margin-bottom: 50px;
+//   z-index: 0;
+// }
+
+.error-message {
+  font-family: $DEFAULT_FONT_FAMILTY !important;
+  font-style: normal !important;
+  font-weight: 600 !important;
+  font-size: 12px !important;
+  line-height: 15px !important;
+
+  /* Red/600 */
+
+  color: $PIMARY_COLOR_600 !important;
+}
+
+.product-name {
+  // position: absolute;
+  z-index: 999999;
+  background: linear-gradient(180deg, rgba(18, 18, 18, 0) 0%, rgba(18, 18, 18, 0.35) 52.08%, rgba(18, 18, 18, 0.5) 100%);
+  border-radius: 8px;
+  height: 73px;
+  display: flex;
+  align-items: center;
+  text-align:  center;
+  justify-content: center;
+  
+  // top: 35px
+}
+
+// .overlapGrid {
+//   display: grid;
+//   grid-template-areas: "overlay";
+// }
+
+// .overlapGrid > span {
+//   grid-area: overlay;
+// }
+// .overlapGrid > div {
+//   grid-area: overlay;
+// }

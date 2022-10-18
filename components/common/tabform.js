@@ -9,11 +9,57 @@ import { useTranslation } from 'next-i18next';
 import { Controller, useForm } from "react-hook-form";
 import AsyncSelect from 'react-select/async';
 import Box from '@mui/material/Box';
-
+import Radio from '@mui/material/Radio';
+import RadioGroup, { useRadioGroup } from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import { styled } from '@mui/material/styles';
 import Dropdown from 'components/common/dropdown'
 import DropZone from "components/common/dropZone";
 import { Typography } from '@mui/material';
 import axios from 'axios';
+
+const StyledFormControlLabel = styled((props) => <FormControlLabel {...props} />)(
+  ({ theme, checked, disabled }) => ({
+    '.MuiFormControlLabel-label': checked && {
+      fontFamily: 'Montserrat',
+      fontStyle: "normal",
+      fontWeight: 600,
+      fontSize: "14px",
+      lineHeight: '17px',
+      color: theme.palette.neutralDark.main_600
+    },
+    '.Mui-disabled': disabled && {
+      fontFamily: 'Montserrat',
+      fontStyle: "normal",
+      fontWeight: 600,
+      fontSize: "14px",
+      lineHeight: '17px'
+    },
+    // '.MuiTypography-root': {
+    //   fontFamily: 'Montserrat',
+    //   fontStyle: "normal",
+    //   fontWeight: 600,
+    //   fontSize: "12px",
+    //   lineHeight: '12px',
+    //   color: theme.palette.primary.main_600
+    // }
+  }),
+);
+
+function MyFormControlLabel(props) {
+  const radioGroup = useRadioGroup();
+  let checked = false;
+  if (radioGroup) {
+    checked = radioGroup.value === props.value;    
+  }
+
+  return (
+    <Box>
+      <StyledFormControlLabel checked={checked} {...props} disabled={props.disabled} />
+      <Typography className={styles["error-message"]}>{props.errorMessage}</Typography>
+    </Box>
+  )
+}
 
 export default function TabForm(props) {
   const { form, buttonText, handleSubmitForm, preButton = <div />, postButton = <div />, defaultValues = {} } = props;
@@ -138,6 +184,37 @@ export default function TabForm(props) {
       </Grid>
     )
   }
+  const renderSingleSelect = ({ field, index }) => {
+    return (
+      <Grid item xs={12} key={index}>
+        <Typography className={styles["label-login"]}>{`${t(field.name)}${field.required ? "*" : ''}`}</Typography>
+        <Controller
+          render={({ field: { name, value, onChange } }) => (
+            <RadioGroup
+              name={name}
+              defaultValue={field.defaultValue}
+              value={value}
+              onChange={onChange}
+            >
+              {field.options.map((option, index) => (
+                <MyFormControlLabel
+                  key={`form-data-label-${index}`}
+                  value={option.value}
+                  control={<Radio />}
+                  label={option.label}
+                  disabled={option.disabled}
+                  errorMessage={option.errorMessage} />
+              ))}
+            </RadioGroup>
+          )}
+          control={control}
+          name={field.id}
+          defaultValue={defaultValues[field.id] || []}
+          rules={{ required: field.required }}
+        />
+      </Grid>
+    )
+  }
 
   return (
     <div className={styles.container}>
@@ -152,6 +229,8 @@ export default function TabForm(props) {
               return renderFileUpload({ field, index })
             } else if (field.fieldType === 'searchDropdown') {
               return renderSearchDropdown({ field, index })
+            } else if (field.fieldType === 'singleSelect') {
+              return renderSingleSelect({ field, index })
             } else {
               return renderInput({ field, index })
             }

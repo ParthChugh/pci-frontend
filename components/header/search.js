@@ -13,22 +13,22 @@ export default function Search(props) {
   const wrapperRef = useRef(null);
   const onSearchFocus = () => {
     setShowSearch('')
-    props.classToggle(false)
+    // props.classToggle(false)
   }
   const onClick = (event) => {
 
   }
-  useEffect(() => {
-    const handleClickOutsideForHeaderDropdown = (event) => {
-      if (event.offsetX <= event.target.clientWidth && !wrapperRef?.current?.contains(event.target)) {
-        setShowSearch('none')
-      }
-    }
-    document.addEventListener('click', handleClickOutsideForHeaderDropdown)
-    return () => {
-      document.removeEventListener('click', handleClickOutsideForHeaderDropdown)
-    }
-  })
+  // useEffect(() => {
+  //   const handleClickOutsideForHeaderDropdown = (event) => {
+  //     if (event.offsetX <= event.target.clientWidth && !wrapperRef?.current?.contains(event.target)) {
+  //       setShowSearch('none')
+  //     }
+  //   }
+  //   document.addEventListener('click', handleClickOutsideForHeaderDropdown)
+  //   return () => {
+  //     document.removeEventListener('click', handleClickOutsideForHeaderDropdown)
+  //   }
+  // })
 
   const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: 'inherit',
@@ -82,9 +82,9 @@ export default function Search(props) {
         </div>
 
       </Search>
-      <IconButton aria-label="delete" className={`${styles["filter-button"]} ml-2`} style={{width: '15%'}}>
+      {/* <IconButton aria-label="delete" className={`${styles["filter-button"]} ml-2`} style={{width: '15%'}}>
         <Image src="/icons/filter.svg" alt="filter" width={24} height={24} />
-      </IconButton>
+      </IconButton> */}
     </div>
 
   )

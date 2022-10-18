@@ -1,6 +1,8 @@
 import 'styles/globals.scss'
 import 'styles/bootstrap.css'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
+import { CacheProvider } from '@emotion/react';
+import createCache from '@emotion/cache';
 import CssBaseline from '@mui/material/CssBaseline';
 import Footer from 'components/layout/footer';
 import styles from 'styles/Home.module.css'
@@ -13,6 +15,11 @@ import { appWithTranslation } from 'next-i18next';
 import Loader from 'components/common/loader'
 
 const Header = dynamic(() => import("components/layout/header"), { ssr: false });
+
+const cache = createCache({
+  key: 'css',
+  prepend: true,
+});
 function MyApp(props) {
   const { Component, pageProps } = props;
   const theme = createTheme({
@@ -21,7 +28,7 @@ function MyApp(props) {
         // main_900: '#620F0F',
         // main_800: "#8D1717",
         // main_700: "#B91E1E",
-        // main_600: "#E52525",
+        main_600: "#E52525",
         main: "#EA5151",
         // main_400: "#EF7C7C",
         // main_300: "#F5A8A8",
@@ -77,25 +84,29 @@ function MyApp(props) {
     },
   });
   return (
-    <UserProvider>
-      <SnackbarProvider
-        maxSnack={3}
-      >
-        <ThemeProvider theme={theme}>
-          <CssBaseline enableColorScheme />
-          <Loader />
-          <Header header={props?.props?.header || {}} />
-          <div className={styles.container} id="root">
-            <main className={styles.main}>
-              <Component {...pageProps} />
-              <WhatsappFloat />
-            </main>
-          </div>
-          <Footer footer={props?.props?.footer || []} />
-          <BottomBar />
-        </ThemeProvider>
-      </SnackbarProvider>
-    </UserProvider>
+    <CacheProvider value={cache}>
+      <UserProvider>
+        <SnackbarProvider
+          maxSnack={3}
+        >
+
+          <ThemeProvider theme={theme}>
+            <CssBaseline enableColorScheme />
+            <Loader />
+            <Header header={props?.props?.header || {}} />
+            <div className={styles.container} id="root">
+              <main className={styles.main}>
+                <Component {...pageProps} />
+                <WhatsappFloat />
+              </main>
+            </div>
+            <Footer footer={props?.props?.footer || []} />
+            <BottomBar />
+          </ThemeProvider>
+
+        </SnackbarProvider>
+      </UserProvider>
+    </CacheProvider>
 
   );
 }

@@ -114,7 +114,7 @@ function MyAddresses(props) {
           const response = JSON.parse(Cookies.get('userData'))
           Cookies.set('defaultAddress', JSON.stringify(addresses?.[defaultAddressIndex]), { expires: new Date(response.accessTokenExpiry) })
           props.enqueueSnackbar("Default Address Changed")
-          router.push('/')
+          router.back()
         }}>
           Change Default Password
         </Typography>}

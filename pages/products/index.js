@@ -51,7 +51,7 @@ function RenderProducts(props) {
             return (
               <Categories
                 key={index}
-                productCategories={categories?.data?.rows.filter((product, index) => index < 5)}
+                productCategories={categories?.data?.rows.filter((product, index) => index < 4)}
                 heading={asset.data.heading}
                 readMoreText={t("see-more")}
                 readMoreHref={'/categories'}

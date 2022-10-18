@@ -27,28 +27,9 @@ function SignIn(props) {
 
   const router = useRouter();
   const handleSubmitForm = async (values) => {
-    // console.log('dqdqwdqwdqwdwqd')
-    const params = new URLSearchParams();
-    params.append('email', values.email);
-    params.append('password', values.password);
-    axios.post(`${process.env.NEXT_PUBLIC_BACKEND}/v1/customer/auth/login`, params)
-      .then((response) => {
-        props.enqueueSnackbar("Successfully loggedIn")
-        console.log("response.data.data", response.data.data)
-        userDispatch(UserActions.updateUserDetails(response.data.data))
-        Cookies.set('userData', JSON.stringify(response.data.data), { expires: new Date(response.data.data.accessTokenExpiry) })
-        Cookies.set('pics', JSON.stringify([{
-          fullName: response.data.data.user.fullName,
-          position: '',
-          phone: response.data.data.user.phone,
-          email: response.data.data.user.email
-        }]), { expires: new Date(response.data.data.accessTokenExpiry) })
-        router.push('/')
-      })
-      .catch((error) => {
-        props.enqueueSnackbar(error?.response?.data?.message || "Wrong Password")
-      });;
-
+    console.log("defaultValues", values)
+    Cookies.set('modeOfPayment', values['modeOfPayment'])
+    router.push('/checkout-shipping')
   };
 
   return (
@@ -58,37 +39,16 @@ function SignIn(props) {
           marginTop: 8,
           display: 'flex',
           flexDirection: 'column',
-
         }}
       >
-        <Typography component="h1" variant="h5" className={styles['page-heading']}>
-          {t("login")}
-        </Typography>
         <Tabform
           keyPrefix={"registerParent"}
           form={form.form}
           buttonText={form.button}
           handleSubmitForm={handleSubmitForm}
-          preButton={<Grid container alignItems="center">
-            <Grid item xs>
-              <FormControlLabel
-                control={<Checkbox value="remember" color={"secondary"} />}
-                label={t("terms-and-condition")}
-              />
-            </Grid>
-            <Grid item>
-              <Link href="/reset-password/" variant="body2">
-                {t("forget-password")}
-              </Link>
-            </Grid>
-          </Grid>}
-          postButton={<Grid container justifyContent="flex-end">
-            <Grid item>
-              <Link href="/register/" variant="body2">
-                {t("register-account")}
-              </Link>
-            </Grid>
-          </Grid>}
+          defaultValues={{
+            modeOfPayment: Cookies.get('modeOfPayment') || form.defaultValue
+          }}
         />
       </Box>
     </Container>
@@ -98,7 +58,7 @@ function SignIn(props) {
 export async function getServerSideProps(appContext) {
   const { locale, req } = appContext
   // console.log("req.cookies.userData12312", req.cookies.userData)
-  if (req.cookies.userData) {
+  if (!req.cookies.userData) {
     // console.log('-awdwadwdawdwa')
     return {
       redirect: {
@@ -107,7 +67,7 @@ export async function getServerSideProps(appContext) {
       }
     }
   } else {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/login`)
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/mode-of-payment`)
     const data = await response.json()
     return {
       props: {

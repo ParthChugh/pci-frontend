@@ -25,7 +25,7 @@ const CheckoutButton = (props) => {
     ref.current.close();
   };
   return (
-    <Box component="div">
+    <Box component="div" className={styles['checkout-button-container']}>
       <Box className="container">
         <Container className="mt-3 d-flex justify-content-between">
           <Box component="div" className="d-flex flex-column">
