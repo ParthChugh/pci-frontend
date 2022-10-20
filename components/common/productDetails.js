@@ -115,18 +115,28 @@ function ProductDetails(props) {
         style={{ cursor: 'pointer' }}
         onClick={async () => {
           userDispatch(UserActions.setLoading(true))
-          const response = await addProductToBasket({ priceId: ProductFixedPriceId, quantity: orderValue, productId: id, enqueueSnackbar: props.enqueueSnackbar, userData })
-          if (response?.error && response.name !== "AlreadyExists") {
-            router.push('/login')
-          } else {
-            props.enqueueSnackbar(response.message)
-          }
-          userDispatch(UserActions.setLoading(false))
-          router.push('/cart')
+          // const response = await addProductToBasket({ priceId: ProductFixedPriceId, quantity: orderValue, productId: id, enqueueSnackbar: props.enqueueSnackbar, userData })
+          // if (response?.error && response.name !== "AlreadyExists") {
+          //   router.push('/login')
+          // } else {
+          handleOpen()
+          //   props.enqueueSnackbar(response.message)
+          // }
+          // userDispatch(UserActions.setLoading(false))
         }}>
         {buyNowButton}
       </Typography>
-      <Typography component="div" className={`${styles['buy-now-button']} mb-3`} onClick={handleOpen} style={{ cursor: 'pointer' }}>
+      <Typography component="div" className={`${styles['buy-now-button']} mb-3`} onClick={async () => {
+        userDispatch(UserActions.setLoading(true))
+        const response = await addProductToBasket({ priceId: ProductFixedPriceId, quantity: orderValue, productId: id, enqueueSnackbar: props.enqueueSnackbar, userData })
+        if (response?.error && response.name !== "AlreadyExists") {
+          router.push('/login')
+        } else {
+
+          props.enqueueSnackbar(response.message)
+        }
+        userDispatch(UserActions.setLoading(false))
+      }} style={{ cursor: 'pointer' }}>
         {addToCart}
       </Typography>
       <Accordion elevation={0} defaultExpanded>
@@ -213,6 +223,7 @@ function ProductDetails(props) {
                 className={styles["plus"]}
                 onClick={() => {
                   setOrderValue(orderValue + 1)
+                  router.push('/cart')
                 }}
               >
                 +

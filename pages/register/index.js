@@ -24,6 +24,7 @@ function SignUp(props) {
     userDispatch,
   } = useContext(UserContext);
   const handleSubmitForm = async (values) => {
+    userDispatch(UserActions.setLoading(true))
     const params = new URLSearchParams();
     Object.keys(values).forEach((key) => {
       params.append(key, values[key]);
@@ -34,10 +35,13 @@ function SignUp(props) {
         props.enqueueSnackbar("Registration Successfull")
         userDispatch(UserActions.updateUserDetails(response.data.data))
         // Cookies.set('userData', JSON.stringify(response.data.data), { expires: new Date(response.data.data.accessTokenExpiry) })
+
         router.push(props?.tabs?.[selectedTab]?.extraFields?.redirect || '/')
+        userDispatch(UserActions.setLoading(false))
       })
       .catch((error) => {
         props.enqueueSnackbar(error?.response?.data?.message || "Wrong Password")
+        userDispatch(UserActions.setLoading(false))
       });;
   };
 

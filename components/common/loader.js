@@ -17,7 +17,10 @@ export default function Loader() {
         textAlign: "center",
         backgroundColor: "rgba(0, 0, 0, 0.5)",
         height: '100%',
-        zIndex: 99999999
+        zIndex: 99999999,
+        display: 'flex',
+        alignItems: "center",
+        justifyContent: "center",
       }}>
         <CircularProgress />
       </Box>

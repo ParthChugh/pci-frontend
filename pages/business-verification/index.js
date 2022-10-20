@@ -72,6 +72,7 @@ function BusinessVerfication(props) {
         props.enqueueSnackbar(response.data.message)
       })
       .catch((error) => {
+        
         props.enqueueSnackbar(error?.response?.data?.message || "Wrong Password")
       });
 

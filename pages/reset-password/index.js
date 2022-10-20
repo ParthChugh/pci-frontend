@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { UserContext } from 'context/users/reducer';
 import axios from 'axios';
 import Tabform from 'components/common/tabform';
 import CountDown from 'components/common/countdown';
@@ -16,6 +17,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 function ResetPassword(props) {
   const { form } = props;
+  const { userDispatch } = useContext(UserContext);
   const { t } = useTranslation('common', { keyPrefix: 'registerParent' });
   const [showOtp, setShowSetup] = useState({})
   const [otp, setOtp] = useState('')
@@ -40,6 +42,7 @@ function ResetPassword(props) {
   }
 
   const onClickRequest = () => {
+    userDispatch(UserActions.setLoading(true))
     const values = { ...showOtp, otp: otp }
     const params = new URLSearchParams();
     Object.keys(values).forEach((key) => {
@@ -49,9 +52,11 @@ function ResetPassword(props) {
       .then((response) => {
         props.enqueueSnackbar(response.data.message)
         router.push(`/change-password?${new URLSearchParams(values).toString()}`)
+        userDispatch(UserActions.setLoading(false))
       })
       .catch((error) => {
         props.enqueueSnackbar(error?.response?.data?.message)
+        userDispatch(UserActions.setLoading(false))
       });;
   }
   return (

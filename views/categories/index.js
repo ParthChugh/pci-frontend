@@ -17,7 +17,7 @@ const StyledMenuGrid = styled(Grid)(({ theme }) => ({
   // alignItems: "center",
   // justifyContent: "center",
   cursor: "pointer",
-  // width: '100%',
+  width: '100%',
   position: 'absolute',
 
 }));
@@ -39,7 +39,7 @@ const TypographyStyled = styled(Typography)(({ theme }) => ({
 }));
 
 
-export const RenderCategory = ({ productCategories, heading, readMoreText, readMoreHref }) => {
+export const RenderCategory = ({ productCategories, heading, readMoreText, readMoreHref, isScroll = false }) => {
   if (!productCategories?.length) return null;
 
   return (
@@ -47,7 +47,7 @@ export const RenderCategory = ({ productCategories, heading, readMoreText, readM
       <Box className="container">
         <TitleSeeMore heading={heading} readMoreText={readMoreText} href={readMoreHref} />
         {productCategories?.length ? (
-          <Container className="d-flex flex-wrap justify-content-around mt-4">
+          <Container className={isScroll ? "d-flex scroll__container" : "d-flex flex-wrap justify-content-around mt-4"}>
             {productCategories?.map((item, index) => {
               if (!item.name) {
                 return null;
@@ -58,14 +58,14 @@ export const RenderCategory = ({ productCategories, heading, readMoreText, readM
                   <StyledGrid>
                     <Box style={{ width: 153, height: 79, marginBottom: 20 }} >
                       <StyledMenuGrid >
-                        <TypographyStyled variant={"body2"}  className={`${styles['product-name']} text-white`}>
+                        <TypographyStyled variant={"body2"} className={`${styles['product-name']} text-white`}>
                           {name}
                         </TypographyStyled>
                         <Image
                           src={Files?.[0]?.url || "/icons/logo.svg"}
                           alt="Vercel Logo"
                           width={153}
-                          height={73}
+                          height={79}
                           style={{ cursor: 'pointer', borderRadius: '8px', }}
                         />
                       </StyledMenuGrid>

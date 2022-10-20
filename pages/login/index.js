@@ -21,14 +21,15 @@ function SignIn(props) {
   const { form } = props;
   const { t } = useTranslation('common', { keyPrefix: 'registerParent' });
   const {
-    userState,
     userDispatch,
   } = React.useContext(UserContext);
 
   const router = useRouter();
   const handleSubmitForm = async (values) => {
     // console.log('dqdqwdqwdqwdwqd')
+
     const params = new URLSearchParams();
+    userDispatch(UserActions.setLoading(true))
     params.append('email', values.email);
     params.append('password', values.password);
     axios.post(`${process.env.NEXT_PUBLIC_BACKEND}/v1/customer/auth/login`, params)
@@ -44,8 +45,10 @@ function SignIn(props) {
           email: response.data.data.user.email
         }]), { expires: new Date(response.data.data.accessTokenExpiry) })
         router.push('/')
+        userDispatch(UserActions.setLoading(false))
       })
       .catch((error) => {
+        userDispatch(UserActions.setLoading(false))
         props.enqueueSnackbar(error?.response?.data?.message || "Wrong Password")
       });;
 

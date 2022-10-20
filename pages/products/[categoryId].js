@@ -5,7 +5,7 @@ import Products from 'views/products'
 import { UserContext } from 'context/users/reducer';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Search from 'components/header/search'
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, Container } from '@mui/material';
 import Link from "next/link";
 import styles from 'styles/header.module.scss'
 import { useRouter } from "next/router";
@@ -43,7 +43,7 @@ function RenderProducts(props) {
   }, [JSON.stringify(products?.[router.query.categoryId] || {})])
   console.log("cachedProducts?.[router?.query?.page || 1]?.total_page", cachedProducts?.[router?.query?.page || 1]?.total_page)
   return (
-    <>
+    <Container component="main" maxWidth="xs">
       <Search classToggle={classToggle} />
       {contentAssets?.content_assets.map((asset, index) => {
         switch (asset.type) {
@@ -51,10 +51,11 @@ function RenderProducts(props) {
             return (
               <Categories
                 key={index}
-                productCategories={categories?.data?.rows.filter((product, index) => index < 5)}
+                productCategories={categories?.data?.rows}
                 heading={asset.data.heading}
                 readMoreText={t("see-more")}
                 readMoreHref={asset.data.readMoreHref}
+                isScroll
               />
             )
           case "product":
@@ -108,7 +109,7 @@ function RenderProducts(props) {
             return <div key={index} />
         }
       })}
-    </>
+    </Container>
   )
 }
 export async function getServerSideProps(appContext) {
