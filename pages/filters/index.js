@@ -98,7 +98,7 @@ const Filters = (props) => {
   }
   return (
     <Container component="main" maxWidth="xs">
-      <Typography className={styles["label-login"]}>{`${field.name}${field.required ? "*" : ''}`}</Typography>
+      <Typography className={styles["label-filter"]}>{`${field.name}${field.required ? "*" : ''}`}</Typography>
       <Box>
         <RadioGroup
           name={field.name}
@@ -127,7 +127,7 @@ const Filters = (props) => {
           ))}
         </RadioGroup>
       </Box>
-      <Typography className={styles["label-login"]}>{`${fieldMinimum.name}${fieldMinimum.required ? "*" : ''}`}</Typography>
+      <Typography className={`${styles["label-filter"]} mt-4`}>{`${fieldMinimum.name}${fieldMinimum.required ? "*" : ''}`}</Typography>
       <Box className='d-flex justify-content-between mt-4'>
         {fieldMinimum.options.map((option, index) => (
           <IconButton className={`ml-2  ${styles["filter-button-type"]}`}

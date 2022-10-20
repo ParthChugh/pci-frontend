@@ -508,7 +508,7 @@
 .filter-button-type {
   background-color: $NEUTRAL_LIGHT_COLOR_600;
   border-radius: 26.5px;
-  padding: 13px 48px 13px 48px;
+  padding: 13px 40px 13px 40px;
 }
 
 .filter-text {
@@ -517,4 +517,19 @@
   font-weight: 500;
   line-height: 15px;
   color: $NEUTRAL_DARK_COLOR_600
+}
+
+.label-filter {
+  font-family: $DEFAULT_FONT_FAMILTY;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 30px;
+  /* identical to box height, or 167% */
+
+
+  /* Black/600 */
+
+  color: $NEUTRAL_DARK_COLOR_600
+
 }
