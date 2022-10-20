@@ -6,6 +6,7 @@ import Container from '@mui/material/Container';
 import { UserContext } from 'context/users/reducer';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Search from 'components/header/search'
+import Filter from 'components/common/filter'
 import { Box, Typography } from '@mui/material';
 import Link from "next/link";
 import styles from 'styles/header.module.scss'
@@ -43,8 +44,8 @@ function RenderProducts(props) {
 
   return (
     <Container component="main" maxWidth="xs" className='d-flex flex-column'>
-      
       <Search classToggle={classToggle} />
+      <Filter />
       {contentAssets?.content_assets.map((asset, index) => {
         switch (asset.type) {
           case "category":

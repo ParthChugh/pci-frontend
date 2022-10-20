@@ -17,7 +17,7 @@ const StyledMenuGrid = styled(Grid)(({ theme }) => ({
   // alignItems: "center",
   // justifyContent: "center",
   cursor: "pointer",
-  width: '100%',
+  // width: '100%',
   position: 'absolute',
 
 }));

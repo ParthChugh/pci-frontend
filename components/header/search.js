@@ -43,12 +43,13 @@ export default function Search(props) {
   const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
-    '&:hover': {
-      backgroundColor: alpha(theme.palette.common.white, 0.25),
-    },
+    backgroundColor: theme.palette.neutralLight.main_600,
+    // '&:hover': {
+    //   backgroundColor: alpha(theme.palette.common.white, 0.25),
+    // },
     marginLeft: 0,
     borderRadius: 12,
+    marginBottom: 30,
     [theme.breakpoints.up('sm')]: {
       marginLeft: theme.spacing(1),
       width: '60%',

@@ -6,10 +6,12 @@ import styles from 'styles/header.module.scss'
 import { useTranslation } from 'next-i18next';
 import { useRouter } from "next/router";
 import Search from 'components/header/search'
+import Filter from 'components/common/filter'
 import Categories from 'views/categories'
 import Products from 'views/products'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { getUserDetails } from 'helpers/user'
+
 
 const SlideCarousel = dynamic(() => import("components/common/slide-carousel"), { ssr: false });
 
@@ -37,6 +39,7 @@ function Homepage(props) {
       {/* {isLoggedIn ? */}
         <>
           <Search classToggle={classToggle} />
+          <Filter />
           {contentAssets?.content_assets.map((asset, index) => {
             switch (asset.type) {
               // case "carousel":
