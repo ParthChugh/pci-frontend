@@ -80,11 +80,9 @@ function Profile() {
 
         {data.map((item, index) => {
           return (
-            <Box className='pt-2'>
+            <Box className='pt-2' key={`show-content-profile-${index}`}>
               <ShowContent
                 {...item}
-                key={`show-content-profile-${index}`}
-
                 onClickHandler={() => {
                   if (item.logout) {
                     Object.keys(Cookies.get()).forEach(key => Cookies.remove(key));
