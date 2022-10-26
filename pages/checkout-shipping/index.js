@@ -19,7 +19,7 @@ const ShowContent = dynamic(() => import("views/showContent"), { ssr: false });
 function Cart(props) {
   const { cart } = props;
   let cartProducts = (cart?.data?.Products?.rows || [])
-  const myAddress = JSON.parse(Cookies.get('defaultAddress') || '{}')
+  const myAddress = Object.values(JSON.parse(Cookies.get('defaultAddress') || '{}'))?.length > 0 ? JSON.parse(Cookies.get('defaultAddress') || '{}') : null
   const { t } = useTranslation('common', { keyPrefix: 'registerParent' });
   const router = useRouter();
 
@@ -64,7 +64,6 @@ function Cart(props) {
         <ShowContent
           heading={'Alamat Pengiriman'}
           onClickHandler={() => {
-            console.log("myAddress13213", myAddress)
             if (Object.values(myAddress).length > 0) {
               router.push('/my-addresses')
             } else {

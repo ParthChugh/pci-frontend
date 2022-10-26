@@ -114,7 +114,7 @@ function ProductDetails(props) {
         className={`${styles['buy-now-button']} mb-3 mt-3`}
         style={{ cursor: 'pointer' }}
         onClick={async () => {
-          userDispatch(UserActions.setLoading(true))
+          // userDispatch(UserActions.setLoading(true))
           // const response = await addProductToBasket({ priceId: ProductFixedPriceId, quantity: orderValue, productId: id, enqueueSnackbar: props.enqueueSnackbar, userData })
           // if (response?.error && response.name !== "AlreadyExists") {
           //   router.push('/login')
@@ -240,6 +240,7 @@ function ProductDetails(props) {
 
                 router.push('/login')
               } else {
+                router.push('/cart')
                 props.enqueueSnackbar(response.message)
               }
               userDispatch(UserActions.setLoading(false))
