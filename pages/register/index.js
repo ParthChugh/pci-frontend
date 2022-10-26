@@ -33,8 +33,12 @@ function SignUp(props) {
     axios.post(`${process.env.NEXT_PUBLIC_BACKEND}/v1/customer/auth/register?${props?.tabs[selectedTab].extraFields.apiQuery}`, params)
       .then((response) => {
         props.enqueueSnackbar("Registration Successfull")
-        userDispatch(UserActions.updateUserDetails(response.data.data))
-        // Cookies.set('userData', JSON.stringify(response.data.data), { expires: new Date(response.data.data.accessTokenExpiry) })
+        console.log("response.data.data", response.data)
+        if(Object.values(response.data|| {}).length > 0) {
+          userDispatch(UserActions.updateUserDetails(response.data.data))
+          Cookies.set('userData', JSON.stringify(response.data.data), { expires: new Date(response.data.data.accessTokenExpiry) })
+        } 
+        
 
         router.push(props?.tabs?.[selectedTab]?.extraFields?.redirect || '/')
         userDispatch(UserActions.setLoading(false))

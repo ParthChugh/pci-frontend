@@ -130,7 +130,7 @@ const Filters = (props) => {
       <Typography className={`${styles["label-filter"]} mt-4`}>{`${fieldMinimum.name}${fieldMinimum.required ? "*" : ''}`}</Typography>
       <Box className='d-flex justify-content-between mt-4'>
         {fieldMinimum.options.map((option, index) => (
-          <IconButton className={`ml-2  ${styles["filter-button-type"]}`}
+          <IconButton className={` ${styles["filter-button-type"]}`}
             onClick={() => {
               setMinimumValue(option.value)
             }}

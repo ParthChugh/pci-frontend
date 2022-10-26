@@ -1,6 +1,6 @@
 import { useEffect, useContext } from 'react';
 import { useTranslation } from 'next-i18next';
-import Categories from 'views/categories'
+import Categories from 'views/categories/horizontal'
 import Products from 'views/products'
 import Container from '@mui/material/Container';
 import { UserContext } from 'context/users/reducer';
@@ -61,7 +61,7 @@ function RenderProducts(props) {
             )
           case "product":
             return (
-              <Box component={"div"} margin={`30px 20px 0px 20px`}>
+              <Box component={"div"}>
                 <Box>
                   {typeof cachedProducts?.[1] === 'undefined' &&
                     <Typography>

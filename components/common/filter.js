@@ -8,7 +8,7 @@ export default function FilterLocation(props) {
   const router = useRouter()
   return (
     <Box className='d-flex justify-content-between'>
-      <IconButton aria-label="delete" className={`ml-2 ${styles["filter-button-type"]}`}
+      <IconButton aria-label="delete" className={`${styles["filter-button-type"]}`}
         onClick={() => {
           router.push({
             pathname: '/filters',

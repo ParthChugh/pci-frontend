@@ -6,7 +6,7 @@ import styles from 'styles/header.module.scss'
 import TitleSeeMore from 'components/common/titleSeeMore'
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
-  // margin: "0px 4px"
+  margin: "0px 4px"
 }));
 
 const StyledMenuGrid = styled(Grid)(({ theme }) => ({
@@ -18,7 +18,7 @@ const StyledMenuGrid = styled(Grid)(({ theme }) => ({
   // justifyContent: "center",
   cursor: "pointer",
   // width: '100%',
-  position: 'absolute',
+  // position: 'absolute',
 
 }));
 const Container = styled(Grid)(({ theme }) => ({
@@ -32,10 +32,11 @@ const TypographyStyled = styled(Typography)(({ theme }) => ({
   lineHeight: "15px",
   textAlign: 'center',
   wordWrap: "break-word",
-  width: '185px',
+  width: '180px',
   fontFamily: 'Montserrat',
   position: 'absolute',
-  zIndex: 999,
+  zIndex: 999
+
 }));
 
 
@@ -56,18 +57,21 @@ export const RenderCategory = ({ productCategories, heading, readMoreText, readM
               return (
                 <Link key={index} href={`/products/${id}`} passHref>
                   <StyledGrid>
-                    <Box style={{ width: 185, height: 79, marginBottom: 20 }} >
+                    <Box style={{ width: 180, height: 79, marginBottom: 20, }} >
                       <StyledMenuGrid >
+                        <Box style={{ position: 'absolute', top: 0,  width: 180, height: 79, zIndex: 0 }}>
+                          <img
+                            src={Files?.[0]?.url || "/icons/logo.svg"}
+                            alt="Vercel Logo"
+                            width={180}
+                            height={79}
+                            style={{ cursor: 'pointer', borderRadius: '8px', }}
+                          />
+                        </Box>
                         <TypographyStyled variant={"body2"} className={`${styles['product-name']} text-white`}>
                           {name}
                         </TypographyStyled>
-                        <Image
-                          src={Files?.[0]?.url || "/icons/logo.svg"}
-                          alt="Vercel Logo"
-                          width={185}
-                          height={79}
-                          style={{ cursor: 'pointer', borderRadius: '8px', }}
-                        />
+
                       </StyledMenuGrid>
                     </Box>
 

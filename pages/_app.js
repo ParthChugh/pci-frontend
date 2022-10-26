@@ -1,6 +1,7 @@
 import 'styles/globals.scss'
 import 'styles/bootstrap.css'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
+import { NoSsr } from '@mui/material'
 import { CacheProvider } from '@emotion/react';
 import createCache from '@emotion/cache';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -93,15 +94,21 @@ function MyApp(props) {
           <ThemeProvider theme={theme}>
             <CssBaseline enableColorScheme />
             <Loader />
-            <Header header={props?.props?.header || {}} />
-            <div className={styles.container} id="root">
-              <main className={styles.main}>
-                <Component {...pageProps} />
-                <WhatsappFloat />
-              </main>
-            </div>
-            <Footer footer={props?.props?.footer || []} />
-            <BottomBar />
+            <NoSsr>
+              <Header header={props?.props?.header || {}} />
+              <div className={styles.container} id="root">
+                <main className={styles.main}>
+
+                  <Component {...pageProps} />
+
+
+                  <WhatsappFloat />
+                </main>
+              </div>
+              <Footer footer={props?.props?.footer || []} />
+              <BottomBar />
+            </NoSsr>
+
           </ThemeProvider>
 
         </SnackbarProvider>

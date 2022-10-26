@@ -8,7 +8,7 @@ import Skeleton from '@mui/material/Skeleton';
 const StyledGrid = styled(Grid)(({ theme }) => ({
   // margin: "0px 8px",
   backgroundColor: theme.palette.neutralLight.main_700,
-  padding: 8,
+  // padding: 8,
   borderRadius: 8
 }));
 
