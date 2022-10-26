@@ -141,6 +141,16 @@ export async function getServerSideProps(appContext) {
     },
   })
   const addressResponse = (await addresses.json())
+  if(addressResponse?.data?.rows?.length === 0) {
+    
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/my-addresses/new"
+      }
+    }
+  
+  }
   return {
     props: {
       ...(await serverSideTranslations(locale, ["common"])),

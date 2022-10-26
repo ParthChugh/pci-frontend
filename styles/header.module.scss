@@ -534,3 +534,38 @@
   color: $NEUTRAL_DARK_COLOR_600
 
 }
+
+.label-profile {
+  font-family: $DEFAULT_FONT_FAMILTY;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 30px;
+  color: $NEUTRAL_DARK_COLOR_600;
+}
+
+.profile-name-container {
+  background-color: $NEUTRAL_LIGHT_COLOR_600;
+}
+
+.label-sub-heading {
+  font-family: $DEFAULT_FONT_FAMILTY;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  /* identical to box height, or 143% */
+
+
+  /* Red/600 */
+
+  color: $PIMARY_COLOR_600;
+
+}
+
+.profile-button {
+  background: $PIMARY_COLOR_600;
+  border-radius: 20px;
+  width: 70px;
+  text-transform: capitalize;
+}
