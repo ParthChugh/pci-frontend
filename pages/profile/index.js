@@ -1,6 +1,8 @@
-import React from 'react';
+import {useContext} from 'react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Container from '@mui/material/Container';
+import { UserContext } from 'context/users/reducer';
+import * as UserActions from 'context/users/actions'
 import styles from 'styles/header.module.scss'
 import Image from 'next/image'
 import { useRouter } from "next/router";
@@ -12,6 +14,9 @@ import dynamic from "next/dynamic";
 const ShowContent = dynamic(() => import("views/showContent"), { ssr: false });
 function Profile() {
   const userData = getUserDetails()
+  const {
+    userDispatch
+  } = useContext(UserContext);
   const router = useRouter();
   const data = [
     {
@@ -53,13 +58,10 @@ function Profile() {
           <Image src={"/icons/edit.svg"} alt="image" height={20} width={20} />
         </Box>
         <Typography className={`${styles["label-profile"]} text-center`}>
-          {userData.user.fullName}
+          {userData?.user?.fullName}
         </Typography>
         <Typography className={`${styles["label-sub-heading"]} text-center`}>
-          {userData.user.email}
-        </Typography>
-        <Typography className={`${styles["label-sub-heading"]} text-center`}>
-          {userData.isBisnis ? "Bisnis" : "Umum"}
+          {userData?.user?.email}
         </Typography>
         <Box className='d-flex justify-content-center'>
           <Button
@@ -72,12 +74,9 @@ function Profile() {
             {userData.isBisnis ? "Bisnis" : "Umum"}
           </Button>
         </Box>
-
       </Box>
       <Container component="main" maxWidth="xs">
-
         <label className={`${styles["label-profile"]}`}>{`Pengaturan Akun`}</label>
-
         {data.map((item, index) => {
           return (
             <Box className='pt-2' key={`show-content-profile-${index}`}>
@@ -86,6 +85,7 @@ function Profile() {
                 onClickHandler={() => {
                   if (item.logout) {
                     Object.keys(Cookies.get()).forEach(key => Cookies.remove(key));
+                    userDispatch(UserActions.updateUserDetails({}))
                     router.push('/')
                   } else {
                     if (item.href) {

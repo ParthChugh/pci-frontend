@@ -91,7 +91,7 @@ function BusinessVerfication(props) {
 
   return (
     <Container component="main" maxWidth="xs">
-      <div className='d-flex flex-row align-items-center justify-content-between'>
+      <div className='d-flex flex-row align-items-center justify-content-center'>
         {selectedTab !== 0 ?
           <Button
             onClick={() => {
@@ -115,6 +115,7 @@ function BusinessVerfication(props) {
           component: (
             <Tabform
               keyPrefix={"registerParent"}
+              heading={tab.heading}
               form={tab.form}
               buttonText={tab.button}
               handleSubmitForm={handleSubmitForm}

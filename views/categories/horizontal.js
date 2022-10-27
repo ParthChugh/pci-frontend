@@ -48,7 +48,7 @@ export const RenderCategory = ({ productCategories, heading, readMoreText, readM
       <Box className="container">
         <TitleSeeMore heading={heading} readMoreText={readMoreText} href={readMoreHref} />
         {productCategories?.length ? (
-          <Container className={isScroll ? "d-flex scroll__container" : "d-flex flex-wrap justify-content-between mt-4"}>
+          <Container className={isScroll ? "d-flex scroll__container mt-4" : "d-flex flex-wrap justify-content-between mt-4"}>
             {productCategories?.map((item, index) => {
               if (!item.name) {
                 return null;
