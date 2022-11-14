@@ -6,24 +6,20 @@ import styles from 'styles/header.module.scss'
 import TitleSeeMore from 'components/common/titleSeeMore'
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
-  // margin: "0px 4px"
+  margin: "0px 8px"
 }));
 
 const StyledMenuGrid = styled(Grid)(({ theme }) => ({
-  // margin: "0 auto",
-  // borderRadius: "50%",
+  margin: "0 auto",
+  borderRadius: "50%",
   // border: "1px solid #C4C4C4",
-  // display: "flex",
-  // alignItems: "center",
-  // justifyContent: "center",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
   cursor: "pointer",
-  // width: '100%',
-  position: 'absolute',
-
 }));
 const Container = styled(Grid)(({ theme }) => ({
-  // display: 'flex',
-
+  display: 'flex',
 }));
 const TypographyStyled = styled(Typography)(({ theme }) => ({
   fontStyle: "normal",
@@ -32,14 +28,11 @@ const TypographyStyled = styled(Typography)(({ theme }) => ({
   lineHeight: "15px",
   textAlign: 'center',
   wordWrap: "break-word",
-  width: '185px',
-  fontFamily: 'Montserrat',
-  position: 'absolute',
-  zIndex: 999,
+  width: '70px',
 }));
 
 
-export const RenderCategory = ({ productCategories, heading, readMoreText, readMoreHref, isScroll = false }) => {
+export const RenderCategory = ({ productCategories, heading, readMoreText, readMoreHref }) => {
   if (!productCategories?.length) return null;
 
   return (
@@ -47,30 +40,22 @@ export const RenderCategory = ({ productCategories, heading, readMoreText, readM
       <Box className="container">
         <TitleSeeMore heading={heading} readMoreText={readMoreText} href={readMoreHref} />
         {productCategories?.length ? (
-          <Container className={isScroll ? "d-flex scroll__container" : "d-flex flex-wrap justify-content-between mt-4"}>
+          <Container className="mt-3">
             {productCategories?.map((item, index) => {
               if (!item.name) {
                 return null;
               }
-              const { name, Files, id } = item;
+              const { name, ProductCategoryXFiles, href, background } = item;
               return (
-                <Link key={index} href={`/products/${id}`} passHref>
+                <Link key={index} href={href || '/'} passHref>
                   <StyledGrid>
-                    <Box style={{ width: 185, height: 79, marginBottom: 20 }} >
-                      <StyledMenuGrid >
-                        <TypographyStyled variant={"body2"} className={`${styles['product-name']} text-white`}>
-                          {name}
-                        </TypographyStyled>
-                        <Image
-                          src={Files?.[0]?.url || "/icons/logo.svg"}
-                          alt="Vercel Logo"
-                          width={185}
-                          height={79}
-                          style={{ cursor: 'pointer', borderRadius: '8px', }}
-                        />
-                      </StyledMenuGrid>
-                    </Box>
-
+                    <StyledMenuGrid>
+                      {/* <img loading={"lazy"} className={styles["menu-avatar"]} alt={name} src={ "https://i.picsum.photos/id/129/200/300.jpg?hmac=orJWwWZR-Y_APTSxTwuQsz8j4ROmKGMTOuZEVPyY-3M"} /> */}
+                      <Image src={ProductCategoryXFiles?.[0]?.File?.url ||  "/icons/logo.png"} alt="Vercel Logo" width={48} height={48} style={{ cursor: 'pointer', borderRadius: '50%' }} />
+                    </StyledMenuGrid>
+                    <TypographyStyled variant={"body2"} className="mt-2 text-center max-w-md">
+                      {name}
+                    </TypographyStyled>
                   </StyledGrid>
                 </Link>
               );
@@ -78,10 +63,9 @@ export const RenderCategory = ({ productCategories, heading, readMoreText, readM
           </Container>
         ) : (
           <Typography>No Data</Typography>
-        )
-        }
-      </Box >
-    </Box >
+        )}
+      </Box>
+    </Box>
   );
 };
 

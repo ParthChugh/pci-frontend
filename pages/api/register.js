@@ -9,7 +9,7 @@ export default function handler(req, res) {
         heading: "Umum",
         extraFields: {
           "apiQuery": "uType=customer",
-          "redirect": "/login"
+          "redirect": "/"
         },
         form: {
           "0": {

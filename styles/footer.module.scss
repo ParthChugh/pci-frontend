@@ -1,29 +1,29 @@
 // Footer
 @import 'variables';
 
-.footer-menu-holder {
-  display: -webkit-box;
-  display: -moz-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  -moz-justify-content: space-between;
-  justify-content: space-between;
-  // padding: 0 20px; Commented this to fix MT-452
-  @media only screen and (min-width: 768px) and (max-width: 1023px) {
-      width: 100%;
-  }
-}
+// .footer-menu-holder {
+//   display: -webkit-box;
+//   display: -moz-flex;
+//   display: -ms-flexbox;
+//   display: flex;
+//   -webkit-box-pack: justify;
+//   -ms-flex-pack: justify;
+//   -moz-justify-content: space-between;
+//   justify-content: space-between;
+//   // padding: 0 20px; Commented this to fix MT-452
+//   @media only screen and (min-width: 768px) and (max-width: 1023px) {
+//       width: 100%;
+//   }
+// }
 
-.footer-menu-column {
-  width: 25%;
-  padding: 0 10px 0 0;
-  @media only screen and (min-width: 1440px) {
-      // width: 0;
-      padding: 0 35px 0 0;
-  }
-}
+// .footer-menu-column {
+//   width: 25%;
+//   padding: 0 10px 0 0;
+//   @media only screen and (min-width: 1440px) {
+//       // width: 0;
+//       padding: 0 35px 0 0;
+//   }
+// }
 
 
 
@@ -45,113 +45,132 @@
   }
 }
 
-@media screen and (min-width: 768px) {
-  .footer-menu-item:hover {
-      text-decoration: none;
-  }
+// @media screen and (min-width: 768px) {
+//   .footer-menu-item:hover {
+//       text-decoration: none;
+//   }
+// }
+
+// .footer-block-title {
+//   line-height: 22px;
+//   font-size: 16px;
+//   list-style-type: none;
+//   font-family: $DEFAULT_FONT_FAMILTY;
+//   font-weight: 500;
+//   color: $NEUTRAL_DARK_COLOR;
+//   a  {
+//     color: $NEUTRAL_DARK_COLOR;
+//   }
+// }
+
+// .footer-menu-item > a,
+// .footer-menu-item > link {
+//   color: $NEUTRAL_DARK_COLOR;
+//   text-decoration: none;
+// }
+
+// .footer-menu-column > a,
+
+
+// .footer-menu-column > a:focus,
+// .footer-menu-column > a:hover,
+// .footer-menu-column > a:active {
+//   text-decoration: underline !important;
+// }
+
+
+// @media only screen and (max-width: 767px) {
+//   .footer-menu-column {
+//       width: 100%;
+//       padding: 0 !important;
+//       border-top: 1px solid #e1e3e5;
+//   }
+//   .footer-menu-list {
+//       padding-right: 0;
+//   }
+
+//   .footer-menu-holder {
+//       width: 100%;
+//       -webkit-box-orient: vertical;
+//       -webkit-box-direction: normal;
+//       -ms-flex-direction: column;
+//       flex-direction: column;
+//       border-bottom: 1px solid #e1e3e5;
+//   }
+// }
+
+
+// .show-on-mobile {
+//   display: none;
+// }
+
+// .show-tablet-or-higher {
+//   display: none;
+// }
+// // Mobile
+// @media only screen and (max-width: calc($BREAKPOINT_MEDIUM - 1px) ) {
+//   .show-on-mobile {
+//     display: block;
+//   } 
+// }
+
+// // Tablet or Higher
+// @media only screen and (min-width: calc($BREAKPOINT_MEDIUM) ) {
+//   .show-tablet-or-higher {
+//     display: block;
+//   }
+// }
+
+// // Tablet or Smaller
+// @media only screen and (max-width: calc($BREAKPOINT_LARGE - 1px) ) {
+  
+// }
+
+// // Larger Desktop
+// @media only screen and (min-width: calc($BREAKPOINT_XXLARGE) ) {
+  
+// }
+
+// // Desktop or Smaller
+// @media only screen and (max-width: calc($BREAKPOINT_XXLARGE - 1px) ) {
+  
+// }
+
+// // Tablet
+// @media only screen and (min-width: calc($BREAKPOINT_MEDIUM))  and (max-width: calc($BREAKPOINT_LARGE))  {
+  
+// }
+// // 
+// // Laptop
+// @media only screen and (min-width: calc($BREAKPOINT_LARGE)) and (max-width: calc($BREAKPOINT_XXLARGE - 1px))  {
+  
+// }
+
+
+// .footer-root {
+//   // background: linear-gradient(90deg, #16222A 0%, #3A6073 100%);
+//   margin-top: 25px;
+//   width: 75%;
+//   align-items: center;
+//   margin: 25px auto;
+// }
+.footer-menu {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 10rem;
 }
-
-.footer-block-title {
-  line-height: 22px;
-  font-size: 16px;
-  list-style-type: none;
-  font-family: $DEFAULT_FONT_FAMILTY;
-  font-weight: 500;
-  color: $NEUTRAL_DARK_COLOR;
-  a  {
-    color: $NEUTRAL_DARK_COLOR;
-  }
+.container-socmed {
+  width: 15rem;
+  margin-top: 1rem;
 }
-
-.footer-menu-item > a,
-.footer-menu-item > link {
-  color: $NEUTRAL_DARK_COLOR;
-  text-decoration: none;
-}
-
-.footer-menu-column > a,
-
-
-.footer-menu-column > a:focus,
-.footer-menu-column > a:hover,
-.footer-menu-column > a:active {
-  text-decoration: underline !important;
-}
-
-
-@media only screen and (max-width: 767px) {
-  .footer-menu-column {
-      width: 100%;
-      padding: 0 !important;
-      border-top: 1px solid #e1e3e5;
-  }
-  .footer-menu-list {
-      padding-right: 0;
-  }
-
-  .footer-menu-holder {
-      width: 100%;
-      -webkit-box-orient: vertical;
-      -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-      flex-direction: column;
-      border-bottom: 1px solid #e1e3e5;
-  }
-}
-
-
-.show-on-mobile {
-  display: none;
-}
-
-.show-tablet-or-higher {
-  display: none;
-}
-.soical-icons {
+.social-section {
   cursor: pointer;
-}
-// Mobile
-@media only screen and (max-width: calc($BREAKPOINT_MEDIUM - 1px) ) {
-  .show-on-mobile {
-    display: block;
-  } 
-}
-
-// Tablet or Higher
-@media only screen and (min-width: calc($BREAKPOINT_MEDIUM) ) {
-  .show-tablet-or-higher {
-    display: block;
-  }
-}
-
-// Tablet or Smaller
-@media only screen and (max-width: calc($BREAKPOINT_LARGE - 1px) ) {
-  
-}
-
-// Larger Desktop
-@media only screen and (min-width: calc($BREAKPOINT_XXLARGE) ) {
-  
-}
-
-// Desktop or Smaller
-@media only screen and (max-width: calc($BREAKPOINT_XXLARGE - 1px) ) {
-  
-}
-
-// Tablet
-@media only screen and (min-width: calc($BREAKPOINT_MEDIUM))  and (max-width: calc($BREAKPOINT_LARGE))  {
-  
-}
-
-// Laptop
-@media only screen and (min-width: calc($BREAKPOINT_LARGE)) and (max-width: calc($BREAKPOINT_XXLARGE - 1px))  {
-  
-}
-
-
-.footer-root {
-  // background: linear-gradient(90deg, #16222A 0%, #3A6073 100%);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 .footer-menu-link {
   color: white;

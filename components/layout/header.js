@@ -1,29 +1,39 @@
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Badge from '@mui/material/Badge';
 import Image from 'next/image'
-import Container from '@mui/material/Container';
 import Link from 'next/link'
-import Slide from '@mui/material/Slide';
-import axios from 'axios';
-import { withSnackbar } from 'notistack';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
-import styles from 'styles/header.module.scss'
 import { useTheme } from '@mui/material/styles';
-import { getUserDetails } from 'helpers/user'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { useRouter } from "next/router";
-import IconButton from '@mui/material/IconButton';
-import Cookies from 'js-cookie'
-import { useEffect } from 'react';
+import {getUserDetails} from 'helpers/user'
+import * as React from 'react';
+
+import {
+  Container,
+  Tooltip,
+  Typography,
+  IconButton,
+  Toolbar,
+  Box,
+  AppBar,
+  Slide,
+  InputBase,
+  Menu,
+  MenuItem,
+  Drawer,
+} from '@mui/material';
+import SearchBar from 'components/header/search-bar';
 
 const ResponsiveAppBar = (props) => {
-  const { header } = props;
+  console.log(props, 'hjeader')
+  const { header = {} } = props;
+  const {
+    location = false,
+    search = false,
+    wishlist = false,
+    cart = false,
+    profile = false,
+  } = header;
   const theme = useTheme();
-  const router = useRouter();
   const isLoggedIn = !(getUserDetails()).error
-  const icons = (header?.icons || []).filter(el => el.isLoggedIn === isLoggedIn)
+
   function HideOnScroll(props) {
     const { children, window } = props;
     const trigger = useScrollTrigger({
@@ -36,126 +46,126 @@ const ResponsiveAppBar = (props) => {
       </Slide>
     );
   }
-  const myAddress = JSON.parse(Cookies.get('defaultAddress') || '{}')
-  const userData = getUserDetails()
-  const getMyAddresses = () => {
-    // const addresses = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/v1/customer/address`, {
-    //   method: 'GET',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     "Authorization": `Bearer ${userData?.accessToken}`
-    //   },
-    // })
-    console.log('dqwdqwdwq')
-    axios.get(`${process.env.NEXT_PUBLIC_BACKEND}/v1/customer/address`, {
-      headers: {
-        'Content-Type': 'application/json',
-        "Authorization": `Bearer ${userData.accessToken}`
-      },
-    })
-      .then((response) => {
-        console.log('response213123', response?.data?.data?.rows)
-        if (typeof response?.data?.data?.rows?.[0] !== 'undefined') {
-          Cookies.set('defaultAddress', JSON.stringify(response?.data?.data?.rows?.[0]), { expires: new Date(userData.accessTokenExpiry) })
-        }
-      })
-      .catch((error) => {
-        props.enqueueSnackbar(error?.response?.data?.message)
-      });;
-  }
-  useEffect(() => {
-    if (isLoggedIn && typeof Cookies.get('defaultAddress') === 'undefined') {
-      getMyAddresses()
-    }
-  }, [JSON.stringify(isLoggedIn), router.pathname])
+
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
 
   return (
-    <HideOnScroll {...props}>
-      <AppBar className={styles['header-root']} id="header-wrapper ">
-        <Container className={'main-content'} id="__next" >
-          <Toolbar disableGutters className={'d-flex justify-content-between'} style={{ flex: 1 }}>
-            <div className='d-flex'>
-              <div className={`mr-2 ml-2 d-flex align-items-center`}>
-                <Link href={'/'}>
-                  <Image src="/icons/logo.svg" alt="Vercel Logo" width={48} height={48} style={{ cursor: 'pointer' }} />
-                </Link>
-                {isLoggedIn &&
-                  <Typography component="div" className={`${styles['delivers-to-component']} d-flex flex-column ml-2`} >
-                    <Typography component="span" className={`${styles['delivers-to-heading']}`}>Antar ke</Typography>
-                    <Typography component="div" className='d-flex flex-row align-items-center'>
-                      <Typography component="span" className={`${styles['delivers-to-sub-heading']}`} style={{ cursor: 'pointer' }} onClick={() => {
-                        if (Object.values(myAddress).length > 0) {
-                          router.push('/my-addresses')
-                        } else {
-                          router.push('/my-addresses/new')
-                        }
-                      }}>
-                        {Object.values(myAddress).length > 0 ? `${myAddress.name} - ${myAddress.line1}` : "Please enter an address"}
+    <AppBar position="static" elevation={0}>
+      <Container maxWidth="lg">
+        <Toolbar disableGutters>
+          <Link href="/" passHref>
+            <a>
+              <Image src="/icons/logo-v4.png" alt="Vercel Logo" width={86} height={42}  style={{ cursor: "pointer" }} />
+            </a>
+          </Link>
+          
+          <BurgerIcon handleOpenNavMenu={handleOpenNavMenu} anchorElNav={anchorElNav} handleCloseNavMenu={handleCloseNavMenu} />
+          
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, marginX: 5 }}>
+            {/* { location && <Location />}
+            { search && 
+              <Box sx={{ paddingY: 1, width: "75%", mx: 5 }}>
+                <SearchBar />
+              </Box>
+            } */}
+          </Box>
 
-                      </Typography>
-                      <IconButton
-                        aria-label="open-address"
-                        onClick={() => {
-                          if (Object.values(myAddress).length > 0) {
-                            router.push('/my-addresses')
-                          } else {
-                            router.push('/my-addresses/new')
-                          }
-                        }}
-                        className="ml-2"
-                        style={{ width: 10, height: 5 }}
-                        sx={{
-                          color: (theme) => theme.palette.grey[500],
-                        }}
-                      >
-                        <ExpandMoreIcon />
-                      </IconButton>
-                    </Typography>
-
-                  </Typography>
-                }
-
-              </div>
-
-              <div className={`${styles['show-on-tablet-or-higher']} `}>
-                <div className='d-flex align-items-center'>
-                  <Typography
-                    variant="h6"
-                    noWrap
-                    component="a"
-                    href="/"
-                    className={styles['logo-heading']}
-
-                  >
-                    {header.name}
-                  </Typography>
-
-                </div>
-              </div>
-            </div>
-            <div className='d-flex flex-row '>
-              {(icons || []).map((page, index) => {
-                return (
-                  <Link href={page.href} key={index}>
-                    <a style={{ color: theme.palette.primary.main, fontWeight: 600, fontSize: 16, marginRight: 10 }} >
-                      {
-                        page.icon ?
-                          <Badge color="primary" variant="dot" badgeContent={page.showBadge || 0} >
-                            <Image src={page.icon} alt={page.name} width={20} height={20} style={{ cursor: 'pointer' }} />
-                          </Badge>
-                          :
-                          page.name
-                      }
-                    </a>
-                  </Link>
-                )
-              })}
-            </div>
-
-          </Toolbar>
-        </Container>
-      </AppBar>
-    </HideOnScroll>
+          {/* <User 
+            handleOpenUserMenu={handleOpenUserMenu}     
+            wishlist={wishlist}
+            cart={cart}
+            profile={profile}
+          /> */}
+        </Toolbar>
+      </Container>
+    </AppBar>
   );
 };
-export default withSnackbar(ResponsiveAppBar)
+
+const Location = () => {
+  return (
+    <Box sx={{ alignSelf: "center" }}>
+      <Typography>Antar ke</Typography>
+      <Typography fontWeight="bold">Jakarta Timuer</Typography>
+    </Box>
+  )
+}
+
+const User = (props) => {
+  const { handleOpenUserMenu, wishlist, profile, cart } = props;
+  return (
+    <Box sx={{ flexGrow: 0, display: "flex", flexDirection: "row" }}>
+      {
+        wishlist &&
+        <Tooltip title="wishlist">
+          <IconButton sx={{ p: 0, display: { xs: 'none', md: 'flex' } }}>
+            <Image src='/icons/heart.png' width={32} height={32}/>
+          </IconButton>
+        </Tooltip>
+      }
+      {
+        cart && 
+        <Tooltip title="cart">
+          <IconButton sx={{ p: 0, marginX: 2, display: { xs: 'none', md: 'flex' } }}>
+            <Image src='/icons/shopping-cart.png' width={32} height={32}/>
+          </IconButton>
+        </Tooltip>
+      }
+      {
+        profile && 
+        <Tooltip title="profile">
+          <IconButton sx={{ p: 0 }}>
+            <Image src="/icons/user.png" width={32} height={32} />
+          </IconButton>
+        </Tooltip>
+      }
+    </Box>
+  )
+}
+
+const BurgerIcon = (props) => {
+  const { handleOpenNavMenu, anchorElNav, handleCloseNavMenu } = props;
+  const pages = ['Products', 'Pricing', 'Blog'];
+
+  return (
+    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+      {/* <IconButton
+        size="large"
+        aria-label="account of current user"
+        aria-controls="menu-appbar"
+        aria-haspopup="true"
+        onClick={handleOpenNavMenu}
+        color="inherit"
+      >
+        <MenuIcon />
+      </IconButton> */}
+
+      <Drawer
+        id="menu-appbar"
+        anchor="left"
+        open={Boolean(anchorElNav)}
+        onClose={handleCloseNavMenu}
+      >
+        {pages.map((page) => (
+          <MenuItem key={page} onClick={handleCloseNavMenu}>
+            <Typography textAlign="center">{page}</Typography>
+          </MenuItem>
+        ))}
+      </Drawer>
+    </Box>
+  )
+}
+
+export default ResponsiveAppBar;

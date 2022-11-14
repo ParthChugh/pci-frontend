@@ -1,5 +1,5 @@
 import React from "react";
-import { Paper, Typography } from '@mui/material'
+import { Paper, Typography, useMediaQuery } from '@mui/material'
 import { makeStyles } from '@mui/styles';
 import Image from "next/image";
 import Slider from "react-slick";
@@ -11,7 +11,7 @@ const useStyles = makeStyles(() => ({
     position: "relative",
     textAlign: "center",
     "& img": {
-      maxHeight: 30,
+      height: 100,
       borderRadius: "24px"
     }
   },
@@ -44,7 +44,7 @@ const useStyles = makeStyles(() => ({
     },
 
     "& .slick-dots .slick-active": {
-      width: 35,
+      // width: 35,
       height: 8,
       transition: "width 0.3s ease-in-out",
       backgroundColor: "#FFCF00",
@@ -52,22 +52,27 @@ const useStyles = makeStyles(() => ({
     },
 
     "& .slick-dots .slick-active .ft-slick__dots--custom": {
-      width: 35,
+      // width: 35,
       top: "0px",
       height: 8,
       overflow: "hidden"
+    },
+    "& .slick-dots": {
+      bottom: "30px"  // play with the number of pixels to position it as you want
     }
-  }
+  },
 }));
 
 export default function SlideCarousel(props) {
   const classes = useStyles();
+  const {height = "30rem", fit = "cover"} = props;
   const onboardingCarosuelConfig = props.CAROUSEL;
+  const matches = useMediaQuery('(min-width:600px)')
 
   const settings = {
     dots: true,
     infinite: true,
-    speed: 500,
+    speed: 1000,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
@@ -75,34 +80,40 @@ export default function SlideCarousel(props) {
     appendDots: dots => <ul className={classes.dots}> {dots} </ul>
   };
 
-  const ImageList = (onboardingCarosuelConfig ||[]).map(item => {
-    return { ...item, height: 20, width: 20 };
+  const ImageList = (onboardingCarosuelConfig||[]).map(item => {
+    return { ...item, height: 30, width: 60 };
   });
-  // console.log("ImageList123213", ImageList)
+  
   return (
-    <Slider {...settings} className={classes.car} style={props.style}>
+    <Slider {...settings} className={classes.car}>
       {ImageList.map((item, i) => (
         <Paper elevation={0} key={i} className={classes?.carouselItem}>
           <div
             style={{
               width: "100%",
-              height: "40vh",
-              position: "relative"
+              height: matches ? height : "15rem",
+              objectFit: "contain",
+              position: "relative",
+              // ...matches ? {
+              //   height: "30rem"
+              // } : {
+              //   height: "15rem"
+              // }
             }}
           >
-            <Image src={item?.url} alt="login" layout="fill" objectFit="contain" />
+            <Image src={item?.url} alt="login" layout="fill" objectFit={matches ? fit : "cover"} priority />
           </div>
           <div className="p-2">
-            {item?.title && (
+            {/* {item?.title && (
               <Typography variant="h5" className="zmt-30">
-                {item.title}
+                fasfassfasf
               </Typography>
             )}
             {item?.sub_title && (
               <Typography variant="body2" className="zmb-10 mt-2">
-                {item.sub_title}
+                dwadwa
               </Typography>
-            )}
+            )} */}
           </div>
         </Paper>
       ))}

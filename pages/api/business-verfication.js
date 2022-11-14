@@ -2,7 +2,7 @@
 
 export default function handler(req, res) {
   res.status(200).json({
-    tabType: 'progress',
+    tabType: 'stepper',
     tabs: [
       {
         clickDisabled: true,

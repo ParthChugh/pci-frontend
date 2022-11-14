@@ -1,143 +1,55 @@
-import { useEffect, useContext } from 'react';
-import { useTranslation } from 'next-i18next';
-import Categories from 'views/categories/horizontal'
-import Products from 'views/products'
-import Container from '@mui/material/Container';
-import { UserContext } from 'context/users/reducer';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import Search from 'components/header/search'
-import Filter from 'components/common/filter'
-import { Box, Typography } from '@mui/material';
-import Link from "next/link";
-import styles from 'styles/header.module.scss'
-import { useRouter } from "next/router";
-import ProductSkeleton from 'components/common/skeleton'
-import * as UserActions from 'context/users/actions'
+import React from 'react'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { Divider, Grid, Typography } from '@mui/material'
+import { Category, Product } from 'views/products'
 
-function RenderProducts(props) {
-  const { t } = useTranslation('common', { keyPrefix: "categories" });
-  const router = useRouter()
-  const { contentAssets, products, categories } = props
+const Products = props => {
+	console.log(props, 'ini apap??')
+	const { categories = [], products = {}, params } = props
+	const { totalItems, totalPages } = products;
 
-  const {
-    userState,
-    userDispatch,
-  } = useContext(UserContext);
-  const cachedProducts = userState.products["main"] || products["main"]
-
-  const classToggle = (isMobile) => {
-    // const element = document.getElementsByClassName('header-search-container')[0]
-    if (isMobile) {
-      // ReactDOM.findDOMNode(element).classList.add('search-suggestion-full')
-      document.getElementById('header-wrapper').classList.add('stop-scroll')
-      document.getElementById('q').focus()
-    } else {
-      // ReactDOM.findDOMNode(element).classList.remove('search-suggestion-full')
-      document.getElementById('header-wrapper').classList.remove('stop-scroll')
-    }
-  }
-  useEffect(() => {
-    if (JSON.stringify(products?.["main"] || {}).length > 0) {
-      userDispatch(UserActions.updateProducts({ products: products["main"], categoryId: "main" }))
-    }
-  }, [JSON.stringify(products?.["main"] || {})])
-
-  return (
-    <Container component="main" maxWidth="xs" className='d-flex flex-column'>
-      <Search classToggle={classToggle} />
-      <Filter />
-      {contentAssets?.content_assets.map((asset, index) => {
-        switch (asset.type) {
-          case "category":
-            return (
-              <Categories
-                key={index}
-                productCategories={categories?.data?.rows}
-                heading={asset.data.heading}
-                readMoreText={t("see-more")}
-                readMoreHref={'/categories'}
-                isScroll
-              />
-            )
-          case "product":
-            return (
-              <Box component={"div"}>
-                <Box>
-                  {typeof cachedProducts?.[1] === 'undefined' &&
-                    <Typography>
-                      {`You've arrived in the middle of a list! You can scroll as normal or `}<Link
-                        href={router.pathname}
-                        style={{ textDecoration: 'underline' }}
-                        onClick={() => {
-                          userDispatch(UserActions.updateProducts({ categoryId: "main", clear: true }))
-                        }}
-                      >
-                        {`browse from the start`}
-                      </Link>
-                    </Typography>
-                  }
-                </Box>
-                <Box component={"div"}>
-                  {Object.values(cachedProducts || {}).map((pageProducts, elindex) => (
-                    <Products
-                      key={elindex}
-                      products={{ item: pageProducts?.data?.rows }}
-                      heading={elindex === 0 ? asset.data.heading : ""}
-                    />
-                  ))}
-                </Box>
-                {typeof cachedProducts?.[router?.query?.page || 1] === 'undefined' &&
-                  <Box component={"div"}>
-                    <ProductSkeleton data={Array.from(new Array(20))} />
-                  </Box>
-                }
-                {typeof cachedProducts?.[router?.query?.page || 1] !== 'undefined' && cachedProducts?.[router?.query?.page || 1]?.data?.total_page > (router?.query?.page || 1) &&
-                  <Typography component="div" className={`${styles['buy-now-button']} mb-3 mt-3`} style={{ cursor: 'pointer' }} onClick={() => {
-                    router.replace({
-                      pathname: router.pathname,
-                      query: { ...router.query, page: (parseInt(router.query.page) || 1) + 1 },
-                    }, undefined, { scroll: false })
-                  }}>
-                    Load More
-                  </Typography>
-                }
-              </Box>
-
-            )
-          case "promotion":
-            return <div key={index} />
-          default:
-            return <div key={index} />
-        }
-      })}
-    </Container>
-  )
+	return (
+		<React.Fragment>
+			{
+				!!categories.length &&
+				<Grid item xs={12}>
+					<Category categories={categories} cols={params ? categories.length : undefined} />
+				</Grid>
+			}
+			<Grid item xs={12} sx={{ width: "100%" }}>
+				<Divider variant="fullWidth" sx={{ marginBottom: 2 }} />
+				<Typography>Menampilkan {totalItems} Produk (1-{totalPages * totalItems} dari {totalItems})</Typography>
+			</Grid>
+			<Grid item xs={12}>
+				<Product products={products.data} />
+			</Grid>
+		</React.Fragment>
+	)
 }
-export async function getServerSideProps(appContext) {
-  const { locale, req, query } = appContext
-  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products`)
-  const categories = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/v1/customer/homeScreen/productCategory`)
-  const products = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/v1/customer/homeScreen/product?page=${query?.page || 1}`)
-  const productsResponse = await products.json()
-  const data = await response.json()
-  if (productsResponse?.data?.rows?.length === 0 || products?.data?.total_page < (query?.page || 1)) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: "/products/"
-      }
-    }
-  }
 
+export async function getServerSideProps(appContext) {
+  const { locale, req, query = {} } = appContext
+
+	console.log(appContext, 'ini apapap??')
+	const params = query?.category ? `?category=${query?.category ?? undefined}` : null;
+	console.log(params, 'ini apaa??')
+  const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/v2/customer/categories${params ? params : ""}`);
+  const json = await response.json();
+
+  const responseProd = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/v2/customer/products${params ? params : ""}`);
+  const jsonProd = await responseProd.json();
+
+	console.log(jsonProd, 'asuu apa ini???')
+  
   return {
     props: {
       ...(await serverSideTranslations(locale, ["common"])),
-      contentAssets: data || [],
+      categories: json.data,
+			products: jsonProd.data,
       userData: JSON.parse(req.cookies.userData || '{}'),
-      categories: await categories.json(),
-      products: { main: { [query?.page || 1]: productsResponse } }
-    }, // will be passed to the page component as props
-
+			params,
+    },
   }
 }
-export default RenderProducts
+
+export default Products;

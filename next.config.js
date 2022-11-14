@@ -10,7 +10,8 @@ const nextConfig = {
       "localhost",
       's3-ap-southeast-1.amazonaws.com',
       "www.zenius.net",
-      "cdn.brik.id"
+      "cdn.brik.id",
+      "images.unsplash.com",
     ],
   }
 }

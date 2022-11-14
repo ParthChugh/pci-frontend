@@ -2,7 +2,6 @@
 #root {
   white-space: pre-line;
 }
-input{ touch-action: none; }
 
 html,
 body {
@@ -16,18 +15,16 @@ body {
     
 }
 
-@media all and (min-width: 500px) {
-  #__next {
-    width: 500px;
-    // z-index: 99;
-  }
-}
+// @media all and (min-width: 500px) {
+//   #__next {
+//     // width: 500px;
+//   }
+// }
 
 #__next {
   margin: auto;
   overflow: hidden;
   background: white;
-  // z-index: 99;
   // box-shadow: 0px 0px 15px 13px #5c5757;
   // padding-top: 40px;
 }
@@ -46,26 +43,26 @@ a {
 }
 
 .main-content {
-  padding: 0 0 32px;
-  margin: 0 auto;
-  font: 400 0.75rem Poppins, Arial, sans-serif;
-  display: -webkit-box;
-  display: -moz-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  -moz-justify-content: space-between;
-  justify-content: space-between;
-  .w-100 {
-      width: 100%;
-  }
-  @media only screen and (min-width: 1024px) {
-      max-width: 1440px;
-  }
-  @media only screen and (min-width: 768px) and (max-width: 1023px) {
-      padding: 0 0 25px;
-  }
+  // padding: 0 0 32px;
+  // margin: 0 auto;
+  // font: 400 0.75rem Poppins, Arial, sans-serif;
+  // display: -webkit-box;
+  // display: -moz-flex;
+  // display: -ms-flexbox;
+  // display: flex;
+  // -webkit-box-pack: justify;
+  // -ms-flex-pack: justify;
+  // -moz-justify-content: space-between;
+  // justify-content: space-between;
+  // .w-100 {
+  //     width: 100%;
+  // }
+  // @media only screen and (min-width: 1024px) {
+  //     max-width: 1440px;
+  // }
+  // @media only screen and (min-width: 768px) and (max-width: 1023px) {
+  //     padding: 0 0 25px;
+  // }
 }
 @media only screen and (max-width: 767px) {
   .main-content {
@@ -75,26 +72,4 @@ a {
       flex-direction: column;
       padding-bottom: 32px !important;
   }
-}
-
-hr {
-  display: block;
-  height: 1px;
-  border: 0;
-  border-top: 1px solid #ccc;
-  margin: 1em 0;
-  padding: 0;
-}
-
-.text-white {
-  color: white;
-}
-
-.scroll__container {
-  position: relative;
-  overflow: auto;
-}
-
-.text-center {
-  text-align: center;
 }

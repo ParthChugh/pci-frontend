@@ -37,20 +37,7 @@
     "Pilih NIB": "Pilih NIB",
     "Pilih SPPKP": "Pilih SPPKP",
     "Submit": "Submit",
-    "register-your-busniess": "Verifikasi Akun Bisnis",
-    "Pilih semua": "Pilih semua",
-    "Pesanan Anda": "Pesanan Anda",
-    "address-heading": "Alamat Pengiriman",
-    "address-subheading": "Silahkan pilih alamat utama Anda dahulu.",
-    "Postal Id": "Postal Id",
-    "Name": "Name",
-    "Address Line 1": "Address Line 1",
-    "Address Line 2": "Address Line 2",
-    "Add Address": "Add Address",
-    "Update Address": "Update Address",
-    "Posisi": "Posisi",
-    "Simpan": "Simpan",
-    "Tipe Pembayaran": "Tipe Pembayaran"
+    "register-your-busniess": "Verifikasi Akun Bisnis"
   },
   "categories": {
     "Kategori Produk": "Kategori Produk",
@@ -59,9 +46,6 @@
     "main-heading": " Bangun properti impian Anda\ndengan pengalaman baru",
     "sub-heading": "Tidak perlu lagi menghubungi berbagai\nmacam pemasok dan kirim berbagai barang",
     "shop-now": "Belanja Sekarang",
-    "already-have-account": "Sudah punya akun?",
-    "add-pic": "Tambah PIC",
-    "pic": "PIC",
-    "update-pic": "Kemas kini"
+    "already-have-account": "Sudah punya akun?"
   }
 }

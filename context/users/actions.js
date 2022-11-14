@@ -13,17 +13,3 @@ export const updateBusinessDetails = (data) => {
     payload: data,
   };
 }
-
-export const updateProducts = (data) => {
-  return {
-    type: actionTypes.GET_PRODUCTS_PAGE,
-    payload: data,
-  };
-}
-
-export const setLoading = (data) => {
-  return {
-    type: actionTypes.SET_LOADING,
-    payload: data,
-  };
-}

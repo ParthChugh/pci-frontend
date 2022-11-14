@@ -6,19 +6,19 @@ export default function handler(req, res) {
       items: [
         {
           title: "Beranda",
-          href: "/customer-service/beranda"
+          href: "/"
         },
         {
           title: "Produk",
-          href: "/customer-service/produk"
+          href: "/products"
         },
         {
           title: "Tentang Kami",
-          href: "/customer-service/tentang-kami"
+          href: "/about"
         },
         {
           title: "Kontak Kami",
-          href: "/customer-service/kontak-kami"
+          href: "/contact"
         }
       ]
     },
@@ -27,15 +27,15 @@ export default function handler(req, res) {
       items: [
         {
           title: "FAQ",
-          href: "/customer-service/faq"
+          href: "/faq"
         },
         {
           title: "Syarat & Ketentuan",
-          href: "/customer-service/syarat-and-ketentuan"
+          href: "/t-n-c"
         },
         {
           title: "Kebijakan Privasi",
-          href: "/customer-service/kebijakan-privasi"
+          href: "/privacy"
         },
       ]
     }

@@ -13,22 +13,22 @@ export default function Search(props) {
   const wrapperRef = useRef(null);
   const onSearchFocus = () => {
     setShowSearch('')
-    // props.classToggle(false)
+    props.classToggle(false)
   }
   const onClick = (event) => {
 
   }
-  // useEffect(() => {
-  //   const handleClickOutsideForHeaderDropdown = (event) => {
-  //     if (event.offsetX <= event.target.clientWidth && !wrapperRef?.current?.contains(event.target)) {
-  //       setShowSearch('none')
-  //     }
-  //   }
-  //   document.addEventListener('click', handleClickOutsideForHeaderDropdown)
-  //   return () => {
-  //     document.removeEventListener('click', handleClickOutsideForHeaderDropdown)
-  //   }
-  // })
+  useEffect(() => {
+    const handleClickOutsideForHeaderDropdown = (event) => {
+      if (event.offsetX <= event.target.clientWidth && !wrapperRef?.current?.contains(event.target)) {
+        setShowSearch('none')
+      }
+    }
+    document.addEventListener('click', handleClickOutsideForHeaderDropdown)
+    return () => {
+      document.removeEventListener('click', handleClickOutsideForHeaderDropdown)
+    }
+  })
 
   const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: 'inherit',
@@ -43,13 +43,12 @@ export default function Search(props) {
   const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: theme.palette.neutralLight.main_600,
-    // '&:hover': {
-    //   backgroundColor: alpha(theme.palette.common.white, 0.25),
-    // },
+    backgroundColor: alpha(theme.palette.common.white, 0.15),
+    '&:hover': {
+      backgroundColor: alpha(theme.palette.common.white, 0.25),
+    },
     marginLeft: 0,
     borderRadius: 12,
-    marginBottom: 30,
     [theme.breakpoints.up('sm')]: {
       marginLeft: theme.spacing(1),
       width: '60%',
@@ -61,7 +60,7 @@ export default function Search(props) {
   }
 
   return (
-    <div className='d-flex'>
+    <div className='d-flex' style={{ width: '90%' }}>
       <Search className={styles['search-wrapper']}>
         <div className={styles["search-bar"]}>
           <StyledInputBase
@@ -83,9 +82,9 @@ export default function Search(props) {
         </div>
 
       </Search>
-      {/* <IconButton aria-label="delete" className={`${styles["filter-button"]} ml-2`} style={{width: '15%'}}>
+      <IconButton aria-label="delete" className={`${styles["filter-button"]} ml-2`} style={{width: '15%'}}>
         <Image src="/icons/filter.svg" alt="filter" width={24} height={24} />
-      </IconButton> */}
+      </IconButton>
     </div>
 
   )

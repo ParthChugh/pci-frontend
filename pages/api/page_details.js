@@ -7,19 +7,19 @@ export default function handler(req, res) {
         items: [
           {
             title: "Beranda",
-            href: "/customer-service/beranda"
+            href: "/search?q=nfts"
           },
           {
             title: "Produk",
-            href: "/customer-service/produk"
+            href: "/search?q=art"
           },
           {
             title: "Tentang Kami",
-            href: "/customer-service/tentang-kami"
+            href: "/search?q=collectibles"
           },
           {
             title: "Kontak Kami",
-            href: "/customer-service/kontak-kami"
+            href: "/search?q=domain+names"
           }
         ]
       },
@@ -28,15 +28,15 @@ export default function handler(req, res) {
         items: [
           {
             title: "FAQ",
-            href: "/customer-service/faq"
+            href: "/profile"
           },
           {
             title: "Syarat & Ketentuan",
-            href: "/customer-service/syarat-and-ketentuan"
+            href: "/my+favorurites"
           },
           {
             title: "Kebijakan Privasi",
-            href: "/customer-service/kebijakan-privasi"
+            href: "/my+collection"
           },
         ]
       }
@@ -50,12 +50,12 @@ export default function handler(req, res) {
           "href": "/login",
           "isLoggedIn": false
         },
-        // {
-        //   "name": "Wishlist",
-        //   "href": "/wishlist",
-        //   "icon": "/icons/love.svg",
-        //   "isLoggedIn": true,
-        // },
+        {
+          "name": "Wishlist",
+          "href": "/wishlist",
+          "icon": "/icons/love.svg",
+          "isLoggedIn": true,
+        },
         {
           "name": "Cart",
           "href": "/cart",

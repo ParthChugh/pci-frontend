@@ -1,7 +1,7 @@
 import React from "react";
+import Image from "next/image";
 import FilePreview from "components/common/filePreview";
 import styles from "styles/dropzone.module.scss";
-import { Box } from "@mui/material";
 
 const DropZone = (props) => {
   const { onChange, value = [], error } = props
@@ -55,7 +55,7 @@ const DropZone = (props) => {
       // dispatch action to add selected file or files to fileList
     }
   };
-  console.log('props12321', props)
+
   return (
     <>
       <div
@@ -66,7 +66,7 @@ const DropZone = (props) => {
         onDragEnter={(e) => handleDragEnter(e)}
         onDragLeave={(e) => handleDragLeave(e)}
       >
-        {/* <Image src="/icons/password-unhide.svg" alt="upload" height={50} width={50} /> */}
+        <Image src="/icons/password-unhide.svg" alt="upload" height={50} width={50} />
 
         <input
           id="fileSelect"
@@ -76,22 +76,12 @@ const DropZone = (props) => {
           className={styles.files}
           onChange={(e) => handleFileSelect(e)}
         />
-        <Box className="d-flex" style={{border: "1px rgba(1, 2, 6, 0.4) solid", borderRadius: '8px'}}>
-          {
-            (value || []).length > 0 ?
-              <FilePreview fileData={value || []} />
-              :
-              <label className={`d-flex align-items-center ${styles.uploadFile} ml-2`} style={{ flex: 1 }}>{props.label}</label>
-          }
-          <label
-            htmlFor="fileSelect"
-            className={styles['button-dropzone']}
-          >
-            {`Upload`}
-          </label>
-        </Box>
+        <label htmlFor="fileSelect">You can select only one file</label>
 
-        {/* <FilePreview fileData={value || []} /> */}
+        <h3 className={styles.uploadMessage}>
+          or drag &amp; drop your file here
+        </h3>
+        <FilePreview fileData={value || []} />
       </div>
 
     </>

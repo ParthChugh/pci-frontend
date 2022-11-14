@@ -7,65 +7,88 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import styles from 'styles/footer.module.scss'
-import { Grid } from '@mui/material';
+import { Grid, Container } from '@mui/material';
 
 export default function Footer({ footer }) {
+  const socmed = [
+    {
+      src: "/icons/mail.png",
+      title: "Email",
+      content: "hello@brik.id"
+    },
+    {
+      src: "/icons/whatsapp.png",
+      title: "Whatsapp",
+      content: "+62 882-00000-1001"
+    },
+    {
+      src: "/icons/instagram.png",
+      title: "Instagram",
+      content: "@brik.id"
+    },
+    {
+      src: "/icons/Linkedin.png",
+      title: "LinkedIn",
+      content: "@BRIK Construction"
+    },
+  ]
+  
   return (
-    <div className={`${styles["footer-root"]}`} style={{ marginBottom: 30 }}>
-      <div className={"main-content"} style={{ justifyContent: 'center', display: 'flex', flexDirection: 'column' }}>
-        <div>
-          <div style={{ marginLeft: 20, marginRight: 20 }} className="d-flex justify-content-between align-items-start">
-            <div className='align-items-start'>
-              <Image src="/icons/logo.svg" alt="Vercel Logo" width={64} height={64} />
-              <div className='d-flex'>
-                <div>
-                  <div className={clsx('mr-3', styles["soical-icons"])}>
-                    <Image src="/social/mail.svg" alt="Mail" width={24} height={24} />
-                  </div>
-                  <div className={clsx('mr-3', styles["soical-icons"])}>
-                    <Image src="/social/instagram.svg" alt="Instatram" width={24} height={24} />
-                  </div>
-                </div>
-                <div>
-                  <div className={clsx('mr-3', styles["soical-icons"])}>
-                    <Image src="/social/whatsapp.svg" alt="Whatsapp" width={24} height={24} />
-                  </div>
-                  <div className={clsx('mr-3', styles["soical-icons"])}>
-                    <Image src="/social/linkedin.svg" alt="Twitter" width={24} height={24} />
-                  </div>
-                </div>
-              </div>
-            </div>
-            {footer?.map((type, index) => {
+    <Grid container>
+      <Grid item sm={4} sx={{ marginBottom: { xs: 5}}}>
+        <Link href="/" passHref>
+          <a>
+            <Image src="/icons/logo-v4.png" alt="BRIK Logo" width={86} height={42} style={{ cursor: "pointer" }} />
+          </a>
+        </Link>
+        <div className={styles['container-socmed']}>
+          {
+            socmed.map(el => (
+              <Socmed {...el} key={el.title} />
+            ))
+          }
+        </div>
+      </Grid>
+
+      {footer?.map((type, index) => {
+        return (
+          <Grid item xs={6} sm={4} key={index}>
+            <Typography fontWeight="bold" >{type.title}</Typography>
+            {type.items.map((element, elindex) => {
               return (
-                <div style={{ marginRight: 5 }} key={`footer-container-${index}`}>
-                  <Typography className={styles["footer-block-title"]}>{type.title}</Typography>
-                  {type.items.map((element, elindex) => {
-                    return (
-                      <ul className={styles["footer-menu-list"]} key={`footer-element-${elindex}`}>
-                        <li className={styles["footer-menu-item"]}>
-                          <Link
-                            href={element.href}
-                            className={[styles["footer-menu-link"], styles["link"]]}
-                          >
-                            {element.title}
-                          </Link>
-                        </li>
-                      </ul>
-                    )
-                  })}
-                </div>
+                <ul className={styles["footer-menu-list"]} key={`footer-element-${elindex}`}>
+                  <li className={styles["footer-menu-item"]}>
+                    <Link
+                      href={element.href}
+                      className={[styles["footer-menu-link"], styles["link"]]}
+                    >
+                      {element.title}
+                    </Link>
+                  </li>
+                </ul>
               )
             })}
+          </Grid>
+        )
+      })}
 
-          </div>
-        </div>
-        <div className={styles['border-line']} />
-        <div className={styles['copyright-footer']}>
-          @2022 BRIK Construction, All Rights Reserved
-        </div>
+      <Grid item xs={12} className={styles['border-line']} />
+      <Grid item xs={12} className={styles['copyright-footer']}>
+        @2022 BRIK Construction, All Rights Reserved
+      </Grid>
+    </Grid >
+  )
+}
+
+const Socmed = (props) => {
+  const { src, title, content } = props;
+  return (
+    <div className={clsx('mr-3', styles["social-section"])}>
+      <img src={src} alt="Mail" width={32} height={32} />
+      <div>
+        <Typography>{title}</Typography>
+        <Typography fontWeight="bold">{content}</Typography>
       </div>
-    </div >
-
+    </div>
   )
 }

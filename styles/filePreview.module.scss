@@ -1,9 +1,8 @@
 .fileList {
   display: flex;
-  flex: 1;
-  // margin-top: 1rem;
-  // gap: 1rem;
-  // width: 400px;
+  margin-top: 1rem;
+  gap: 1rem;
+  width: 400px;
 }
 
 .fileContainer {
@@ -11,6 +10,6 @@
   align-items: center;
 }
 
-// .fileName {
-//   margin-left: 2rem;
-// }
+.fileName {
+  margin-left: 2rem;
+}
